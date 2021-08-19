@@ -11,125 +11,128 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\BDECrossover.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\BinaryBinomialCrossover.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\BinaryExponentialCrossover.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\BLXalpha.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\Chromosome2D.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\ChromosomeViewer.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\CoDE.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\Crossover.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\DataIO.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\DE_Best_1.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\DE_Best_2.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\DE_Current_to_Best_1.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\DE_Current_to_pBest_1.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\DE_Current_to_pBest_1_Archive.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\DE_Current_to_Rand_1.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\DE_Rand_1.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\DE_Rand_2.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\DifferentialEvolution.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\EAStatistics.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\EpsilonDE.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\Evaluator.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\EvenOddCrossover.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\FlipBitMutation.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\HammingDECrossover.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\IChromosome.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\IDEMutationStrategy.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\IEvolutionaryAlgorithm.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\Initializer.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\ISelector.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\JADE.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\jDE.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\MultiIslandEA.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\Mutator.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\NSGA2.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\ParticleSwarmOptimization.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\Population.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\RandomInitializer.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\RouletteWheelSelector.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\SBX.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\SHADE.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\SimpleGA.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\TerminateOnConvergence.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\TerminateOnIteration.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\TerminateOnPopConvergence.cpp" />
-    <ClCompile Include="..\..\..\..\Common\include\labworks\EA\TournamentSelector.cpp" />
+    <ClInclude Include="..\..\..\ealib\BDECrossover.h" />
+    <ClInclude Include="..\..\..\ealib\BenchmarkFuncs.h" />
+    <ClInclude Include="..\..\..\ealib\BinaryBinomialCrossover.h" />
+    <ClInclude Include="..\..\..\ealib\BinaryExponentialCrossover.h" />
+    <ClInclude Include="..\..\..\ealib\BinomialCrossover.h" />
+    <ClInclude Include="..\..\..\ealib\BLXalpha.h" />
+    <ClInclude Include="..\..\..\ealib\Chromosome1D.h" />
+    <ClInclude Include="..\..\..\ealib\Chromosome2D.h" />
+    <ClInclude Include="..\..\..\ealib\ChromosomeFactory.h" />
+    <ClInclude Include="..\..\..\ealib\ChromosomeViewer.h" />
+    <ClInclude Include="..\..\..\ealib\CoDE.h" />
+    <ClInclude Include="..\..\..\ealib\CreepMutation.h" />
+    <ClInclude Include="..\..\..\ealib\Crossover.h" />
+    <ClInclude Include="..\..\..\ealib\DataIO.h" />
+    <ClInclude Include="..\..\..\ealib\DataSizes.h" />
+    <ClInclude Include="..\..\..\ealib\DEAttribute.h" />
+    <ClInclude Include="..\..\..\ealib\DesignParameter.h" />
+    <ClInclude Include="..\..\..\ealib\DE_Best_1.h" />
+    <ClInclude Include="..\..\..\ealib\DE_Best_2.h" />
+    <ClInclude Include="..\..\..\ealib\DE_Current_to_Best_1.h" />
+    <ClInclude Include="..\..\..\ealib\DE_Current_to_pBest_1.h" />
+    <ClInclude Include="..\..\..\ealib\DE_Current_to_pBest_1_Archive.h" />
+    <ClInclude Include="..\..\..\ealib\DE_Current_to_Rand_1.h" />
+    <ClInclude Include="..\..\..\ealib\DE_Rand_1.h" />
+    <ClInclude Include="..\..\..\ealib\DE_Rand_2.h" />
+    <ClInclude Include="..\..\..\ealib\DifferentialEvolution.h" />
+    <ClInclude Include="..\..\..\ealib\DLLExport.h" />
+    <ClInclude Include="..\..\..\ealib\EACommon.h" />
+    <ClInclude Include="..\..\..\ealib\EALib.h" />
+    <ClInclude Include="..\..\..\ealib\EAStatistics.h" />
+    <ClInclude Include="..\..\..\ealib\EpsilonDE.h" />
+    <ClInclude Include="..\..\..\ealib\Evaluator.h" />
+    <ClInclude Include="..\..\..\ealib\EvenOddCrossover.h" />
+    <ClInclude Include="..\..\..\ealib\ExponentialCrossover.h" />
+    <ClInclude Include="..\..\..\ealib\FlipBitMutation.h" />
+    <ClInclude Include="..\..\..\ealib\GaussianMutation.h" />
+    <ClInclude Include="..\..\..\ealib\HammingDECrossover.h" />
+    <ClInclude Include="..\..\..\ealib\IChromosome.h" />
+    <ClInclude Include="..\..\..\ealib\IConstrainer.h" />
+    <ClInclude Include="..\..\..\ealib\ICrossoverOperator.h" />
+    <ClInclude Include="..\..\..\ealib\IDEMutationStrategy.h" />
+    <ClInclude Include="..\..\..\ealib\IEvolutionaryAlgorithm.h" />
+    <ClInclude Include="..\..\..\ealib\IInitOperator.h" />
+    <ClInclude Include="..\..\..\ealib\IMutationOperator.h" />
+    <ClInclude Include="..\..\..\ealib\Initializer.h" />
+    <ClInclude Include="..\..\..\ealib\IObjectiveFunction.h" />
+    <ClInclude Include="..\..\..\ealib\ISelector.h" />
+    <ClInclude Include="..\..\..\ealib\ITerminationCriteria.h" />
+    <ClInclude Include="..\..\..\ealib\JADE.h" />
+    <ClInclude Include="..\..\..\ealib\jDE.h" />
+    <ClInclude Include="..\..\..\ealib\MultiIslandEA.h" />
+    <ClInclude Include="..\..\..\ealib\Mutator.h" />
+    <ClInclude Include="..\..\..\ealib\NPointCrossover.h" />
+    <ClInclude Include="..\..\..\ealib\NSGA2.h" />
+    <ClInclude Include="..\..\..\ealib\OnePointCrossover.h" />
+    <ClInclude Include="..\..\..\ealib\ParticleSwarmOptimization.h" />
+    <ClInclude Include="..\..\..\ealib\Population.h" />
+    <ClInclude Include="..\..\..\ealib\PopulationResult.h" />
+    <ClInclude Include="..\..\..\ealib\PSOAttribute.h" />
+    <ClInclude Include="..\..\..\ealib\RandomInitializer.h" />
+    <ClInclude Include="..\..\..\ealib\RandomInitOperator.h" />
+    <ClInclude Include="..\..\..\ealib\RandomResetMutation.h" />
+    <ClInclude Include="..\..\..\ealib\RouletteWheelSelector.h" />
+    <ClInclude Include="..\..\..\ealib\SBX.h" />
+    <ClInclude Include="..\..\..\ealib\SHADE.h" />
+    <ClInclude Include="..\..\..\ealib\SimpleGA.h" />
+    <ClInclude Include="..\..\..\ealib\SPX.h" />
+    <ClInclude Include="..\..\..\ealib\TerminateOnConvergence.h" />
+    <ClInclude Include="..\..\..\ealib\TerminateOnIteration.h" />
+    <ClInclude Include="..\..\..\ealib\TerminateOnPopConvergence.h" />
+    <ClInclude Include="..\..\..\ealib\TournamentSelector.h" />
+    <ClInclude Include="..\..\..\ealib\TwoPointCrossover.h" />
+    <ClInclude Include="..\..\..\ealib\Typedefs.h" />
+    <ClInclude Include="..\..\..\ealib\UniformCrossover.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\BDECrossover.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\BenchmarkFuncs.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\BinaryBinomialCrossover.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\BinaryExponentialCrossover.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\BinomialCrossover.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\BLXalpha.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\Chromosome1D.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\Chromosome2D.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\ChromosomeFactory.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\ChromosomeViewer.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\CoDE.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\CreepMutation.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\Crossover.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DataIO.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DataSizes.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DEAttribute.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DesignParameter.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DE_Best_1.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DE_Best_2.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DE_Current_to_Best_1.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DE_Current_to_pBest_1.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DE_Current_to_pBest_1_Archive.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DE_Current_to_Rand_1.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DE_Rand_1.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DE_Rand_2.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DifferentialEvolution.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\DLLExport.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\EACommon.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\EAStatistics.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\EpsilonDE.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\Evaluator.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\EvenOddCrossover.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\ExponentialCrossover.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\FlipBitMutation.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\GaussianMutation.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\HammingDECrossover.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\IChromosome.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\IConstrainer.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\ICrossoverOperator.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\IDEMutationStrategy.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\IEvolutionaryAlgorithm.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\IInitOperator.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\IMutationOperator.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\Initializer.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\IObjectiveFunction.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\ISelector.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\JADE.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\jDE.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\MultiIslandEA.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\Mutator.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\NPointCrossover.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\NSGA2.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\OnePointCrossover.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\ParticleSwarmOptimization.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\Population.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\PopulationResult.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\PSOAttribute.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\RandomInitializer.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\RandomInitOperator.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\RandomResetMutation.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\RouletteWheelSelector.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\SBX.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\SHADE.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\SimpleGA.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\ITerminationCriteria.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\TerminateOnConvergence.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\TerminateOnIteration.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\TerminateOnPopConvergence.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\TournamentSelector.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\TwoPointCrossover.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\Typedefs.h" />
-    <ClInclude Include="..\..\..\..\Common\include\labworks\EA\UniformCrossover.h" />
+    <ClCompile Include="..\..\..\ealib\BDECrossover.cpp" />
+    <ClCompile Include="..\..\..\ealib\BinaryBinomialCrossover.cpp" />
+    <ClCompile Include="..\..\..\ealib\BinaryExponentialCrossover.cpp" />
+    <ClCompile Include="..\..\..\ealib\BLXalpha.cpp" />
+    <ClCompile Include="..\..\..\ealib\Chromosome2D.cpp" />
+    <ClCompile Include="..\..\..\ealib\ChromosomeViewer.cpp" />
+    <ClCompile Include="..\..\..\ealib\CoDE.cpp" />
+    <ClCompile Include="..\..\..\ealib\Crossover.cpp" />
+    <ClCompile Include="..\..\..\ealib\DataIO.cpp" />
+    <ClCompile Include="..\..\..\ealib\DE_Best_1.cpp" />
+    <ClCompile Include="..\..\..\ealib\DE_Best_2.cpp" />
+    <ClCompile Include="..\..\..\ealib\DE_Current_to_Best_1.cpp" />
+    <ClCompile Include="..\..\..\ealib\DE_Current_to_pBest_1.cpp" />
+    <ClCompile Include="..\..\..\ealib\DE_Current_to_pBest_1_Archive.cpp" />
+    <ClCompile Include="..\..\..\ealib\DE_Current_to_Rand_1.cpp" />
+    <ClCompile Include="..\..\..\ealib\DE_Rand_1.cpp" />
+    <ClCompile Include="..\..\..\ealib\DE_Rand_2.cpp" />
+    <ClCompile Include="..\..\..\ealib\DifferentialEvolution.cpp" />
+    <ClCompile Include="..\..\..\ealib\EAStatistics.cpp" />
+    <ClCompile Include="..\..\..\ealib\EpsilonDE.cpp" />
+    <ClCompile Include="..\..\..\ealib\Evaluator.cpp" />
+    <ClCompile Include="..\..\..\ealib\EvenOddCrossover.cpp" />
+    <ClCompile Include="..\..\..\ealib\FlipBitMutation.cpp" />
+    <ClCompile Include="..\..\..\ealib\HammingDECrossover.cpp" />
+    <ClCompile Include="..\..\..\ealib\IChromosome.cpp" />
+    <ClCompile Include="..\..\..\ealib\IDEMutationStrategy.cpp" />
+    <ClCompile Include="..\..\..\ealib\IEvolutionaryAlgorithm.cpp" />
+    <ClCompile Include="..\..\..\ealib\Initializer.cpp" />
+    <ClCompile Include="..\..\..\ealib\ISelector.cpp" />
+    <ClCompile Include="..\..\..\ealib\JADE.cpp" />
+    <ClCompile Include="..\..\..\ealib\jDE.cpp" />
+    <ClCompile Include="..\..\..\ealib\MultiIslandEA.cpp" />
+    <ClCompile Include="..\..\..\ealib\Mutator.cpp" />
+    <ClCompile Include="..\..\..\ealib\NSGA2.cpp" />
+    <ClCompile Include="..\..\..\ealib\ParticleSwarmOptimization.cpp" />
+    <ClCompile Include="..\..\..\ealib\Population.cpp" />
+    <ClCompile Include="..\..\..\ealib\RandomInitializer.cpp" />
+    <ClCompile Include="..\..\..\ealib\RouletteWheelSelector.cpp" />
+    <ClCompile Include="..\..\..\ealib\SBX.cpp" />
+    <ClCompile Include="..\..\..\ealib\SHADE.cpp" />
+    <ClCompile Include="..\..\..\ealib\SimpleGA.cpp" />
+    <ClCompile Include="..\..\..\ealib\SPX.cpp" />
+    <ClCompile Include="..\..\..\ealib\TerminateOnConvergence.cpp" />
+    <ClCompile Include="..\..\..\ealib\TerminateOnIteration.cpp" />
+    <ClCompile Include="..\..\..\ealib\TerminateOnPopConvergence.cpp" />
+    <ClCompile Include="..\..\..\ealib\TournamentSelector.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7602C059-4141-45AA-9069-56D847518BE0}</ProjectGuid>
@@ -179,7 +182,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;EALIB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../../../Common/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>Async</ExceptionHandling>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -189,8 +192,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(TargetDir)$(TargetName)$(TargetExt) ..\..\..\..\Common\bin\$(Configuration)\
-copy $(TargetDir)$(TargetName).lib ..\..\..\..\Common\lib\$(Platform)\mylib\</Command>
+      <Command>mkdir ..\..\..\lib\$(Platform)\
+copy $(TargetDir)$(TargetName)$(TargetExt) ..\..\..\lib\$(Platform)\
+copy $(TargetDir)$(TargetName).lib ..\..\..\lib\$(Platform)\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -202,7 +206,7 @@ copy $(TargetDir)$(TargetName).lib ..\..\..\..\Common\lib\$(Platform)\mylib\</Co
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;EALIB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../../../Common/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <ExceptionHandling>Async</ExceptionHandling>
@@ -215,8 +219,9 @@ copy $(TargetDir)$(TargetName).lib ..\..\..\..\Common\lib\$(Platform)\mylib\</Co
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(TargetDir)$(TargetName)$(TargetExt) ..\..\..\..\Common\bin\
-copy $(TargetDir)$(TargetName).lib ..\..\..\..\Common\lib\$(Platform)\mylib\</Command>
+      <Command>mkdir ..\..\..\lib\$(Platform)\
+copy $(TargetDir)$(TargetName)$(TargetExt) ..\..\..\lib\$(Platform)\
+copy $(TargetDir)$(TargetName).lib ..\..\..\lib\$(Platform)\</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

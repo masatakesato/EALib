@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Source\EvolutionaryAlgorithm\testSaveSnapshot_main.cpp">
+    <ClCompile Include="..\..\..\test\testEALib\testSaveSnapshot_main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

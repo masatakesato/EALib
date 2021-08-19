@@ -5,8 +5,8 @@ using namespace std;
 #include	<oreore/common/TString.h>
 #include	<oreore/mathlib/MersenneTwister.h>
 
-#include	<labworks/EA/EALib.h>
-#include	<labworks/EA/BenchmarkFuncs.h>
+#include	<ealib/EALib.h>
+#include	<ealib/BenchmarkFuncs.h>
 using namespace ealib;
 
 

@@ -1,15 +1,17 @@
 ﻿#include	"SPX.h"
 
+#include	<oreore/mathlib/MathLib.h>
 #include	<oreore/mathlib/MersenneTwister.h>
 
-#include	"Allele.h"
-#include	"Chromosome1D.h"
+#include	"IChromosome.h"
+
 
 
 namespace ealib
 {
 
 	SPX::SPX()
+		: ICrossoverOperator( TYPE_ID<float> )
 	{
 
 	}
@@ -23,7 +25,7 @@ namespace ealib
 
 	void SPX::Execute( int numchroms, IChromosome** chromosomes, const void* attribs )
 	{
-		// TODO: Implement. 2017.07.01
+		// TODO: Implement. 2021.08.19
 
 	}
 

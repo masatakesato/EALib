@@ -1,6 +1,6 @@
 ﻿#include	<oreore/common/Utility.h>
 
-#include	"labworks/EA/EAStatistics.h"
+#include	"ealib/EAStatistics.h"
 using namespace ealib;
 
 

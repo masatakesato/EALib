@@ -7,29 +7,29 @@ using namespace std;
 #include	<oreore/MathLib.h>
 
 
-#include	"labworks/EA/NSGA2.h"
-#include	"labworks/EA/MultiIslandEA.h"
-#include	"labworks/EA/Chromosome1D.h"
+#include	"ealib/NSGA2.h"
+#include	"ealib/MultiIslandEA.h"
+#include	"ealib/Chromosome1D.h"
 
 
 // Initializers
-#include	"labworks/EA/Initializer.h"
+#include	"ealib/Initializer.h"
 
 
 // Selectors
-#include	"labworks/EA/TournamentSelector.h"
-#include	"labworks/EA/RouletteWheelSelector.h"
+#include	"ealib/TournamentSelector.h"
+#include	"ealib/RouletteWheelSelector.h"
 
 // Crossovers
-#include	"labworks/EA/SBX.h"
-#include	"labworks/EA/BLXalpha.h"
+#include	"ealib/SBX.h"
+#include	"ealib/BLXalpha.h"
 
 // Mutators
-#include	"labworks/EA/GaussianMutation.h"
-//#include	"labworks/EA/FlipBitMutation.h"
+#include	"ealib/GaussianMutation.h"
+//#include	"ealib/FlipBitMutation.h"
 
 
-#include	"labworks/EA/PopulationResult.h"
+#include	"ealib/PopulationResult.h"
 
 
 using namespace ealib;

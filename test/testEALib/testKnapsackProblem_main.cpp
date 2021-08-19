@@ -7,7 +7,7 @@ using namespace std;
 #include	<oreore/mathlib/MersenneTwister.h>
 
 
-#include	<labworks/EA/EALib.h>
+#include	<ealib/EALib.h>
 
 using namespace ealib;
 

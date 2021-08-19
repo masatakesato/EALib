@@ -4,7 +4,7 @@
 using namespace std;
 
 
-#include	<labworks/EA/EALib.h>
+#include	<ealib/EALib.h>
 using namespace ealib;
 
 

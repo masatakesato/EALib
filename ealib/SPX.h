@@ -2,14 +2,14 @@
 #define	SPX_H
 
 
-#include	"ICrossover.h"
+#include	"ICrossoverOperator.h"
 
 
 namespace ealib
 {
 
 	// Simplex Crossover
-	class CLASS_DECLSPEC SPX : public ICrossover
+	class CLASS_DECLSPEC SPX : public ICrossoverOperator
 	{
 	public:
 

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Source\EvolutionaryAlgorithm\testMultiObjectiveGeneticAlgorithm_main.cpp">
+    <ClCompile Include="..\..\..\test\testEALib\testMultiObjectiveGeneticAlgorithm_main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
