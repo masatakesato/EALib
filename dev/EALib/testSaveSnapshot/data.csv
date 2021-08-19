@@ -1,0 +1,5 @@
+pCylinder1.translateZ,float,22.22,999,0
+Param.Integer,int,0,8,2
+FOCUS_DISTANCE,float,0.03,32,5
+Param.Integer2,int,-122416,29955,1456
+pCylinder1.translateX,float,-10,0,0
