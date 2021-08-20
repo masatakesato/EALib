@@ -3,9 +3,8 @@
 
 #include	"DLLExport.h"
 #include	"IChromosome.h"
-#include	"ISelector.h"
-#include	"Evaluator.h"
 #include	"Initializer.h"
+#include	"Evaluator.h"
 #include	"PopulationResult.h"
 
 
@@ -40,19 +39,13 @@ namespace ealib
 		void CopyChromosomes( const Population* pSrc, int startidx=0 );
 		Population* Clone() const;
 
-		void BindSelector( ISelector* selector );
-		void UnbindSelector();
-
 		void Initialize( Initializer* pInit, Evaluator* pEval );
 		void Clear( Evaluator* pEval );
 		void Evaluate( Evaluator* pEval );// 評価
 
-		void UpdateSelector();
-		int Select();
 		void Sort( SORT_MODE mode=SORT_MODE::SORT_FITNESS_DESCEND );// ソート
 		void Shuffle();	// 要素のランダム順序入れ替え
 		
-
 		int PopulationSize() const				{ return m_ChromosomeArray.Length(); }
 		IChromosome** ChromosomeArray() const	{ return (IChromosome**)m_ChromosomeArray.begin(); }
 		IChromosome* GetIndividual(int i) const	{ return m_ChromosomeArray[i]; }
@@ -75,7 +68,6 @@ namespace ealib
 
 		OreOreLib::Array<IChromosome*>	m_ChromosomeArray;
 		PopulationResult				m_PopResult;
-		ISelector*						m_refSelector;
 
 	};
 

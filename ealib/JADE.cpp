@@ -4,8 +4,6 @@
 #include	<oreore/mathlib/MathLib.h>
 #include	<oreore/mathlib/Random.h>
 
-#include	"ISelector.h"
-
 
 
 namespace ealib

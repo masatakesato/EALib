@@ -4,9 +4,6 @@
 #include	<oreore/mathlib/MathLib.h>
 #include	<oreore/mathlib/MersenneTwister.h>
 
-#include	"ISelector.h"
-
-
 
 // http://www.mnemstudio.org/particle-swarm-introduction.htm
 
@@ -118,22 +115,6 @@ namespace ealib
 	{
 		return new ParticleSwarmOptimization( *this );
 	}
-
-
-
-	//void ParticleSwarmOptimization::BindSelector( ISelector* selector )
-	//{
-	//	m_Population[parentGen].BindSelector( selector );
-	//	m_Population[childGen].BindSelector( selector );
-	//}
-
-
-
-	//void ParticleSwarmOptimization::UnbindSelector()
-	//{
-	//	m_Population[parentGen].UnbindSelector();
-	//	m_Population[childGen].UnbindSelector();
-	//}
 
 
 

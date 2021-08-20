@@ -12,7 +12,7 @@ namespace ealib
 {
 
 	// BLX-alpha
-	static float blx_alpha(float p1, float p2, float alpha = 0.5f)
+	static float blx_alpha( float p1, float p2, float alpha = 0.5f )
 	{
 		float u = (float)OreOreLib::genrand_real1();
 		float gamma = (1.0f + 2.0f * alpha) * u - alpha;

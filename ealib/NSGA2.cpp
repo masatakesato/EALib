@@ -6,7 +6,6 @@
 #include	<oreore/common/TString.h>
 #include	<oreore/mathlib/MersenneTwister.h>
 
-#include	"ISelector.h"
 #include	"Chromosome2D.h"
 
 
@@ -111,24 +110,12 @@ namespace ealib
 	}
 
 
+
 	IEvolutionaryAlgorithm* NSGA2::Clone() const
 	{
 		return new NSGA2( *this );
 	}
 
-
-	void NSGA2::BindSelector( ISelector* selector )
-	{
-		m_Population[parentGen].BindSelector( selector );
-		m_Population[childGen].BindSelector( selector );
-	}
-
-
-	void NSGA2::UnbindSelector()
-	{
-		m_Population[parentGen].UnbindSelector();
-		m_Population[childGen].UnbindSelector();
-	}
 
 
 	void NSGA2::Step( Evaluator* pEval )
@@ -145,6 +132,7 @@ namespace ealib
 
 		m_Stats.Update( m_Population[parentGen] );
 	}
+
 
 
 	void NSGA2::Evolve( Evaluator* pEval, unsigned int seed )
@@ -170,31 +158,38 @@ namespace ealib
 	}
 
 
+
 	void NSGA2::TakeSnapshot( Population& pOut ) const
 	{
 		pOut = Population( m_Population[parentGen] );
 	}
 
 
+
 	// 優れた個体を選別する→いくつか方法がある, 適応度比例戦略、エリート保存戦略、トーナメント戦略
 	void NSGA2::Select( Population* pPopulation )
 	{
 		// 適応値と親個体の初期化
-		pPopulation->UpdateSelector();
+		if( !m_refSelector )
+			return;
+		
+		m_refSelector->BindPopulationData( pPopulation->PopulationSize(), pPopulation->ChromosomeArray() );
+		m_refSelector->Update();
 
 		// 親の選択
 		for( int i=0; i<m_Parents.Length(); ++i )
 		{
-			int parent1	= pPopulation->Select();
-			int parent2	= pPopulation->Select();
+			int parent1	= m_refSelector->Execute();
+			int parent2	= m_refSelector->Execute();
 
 			while( parent1==parent2 )
-				parent2 = pPopulation->Select();
+				parent2 = m_refSelector->Execute();
 				
 			m_Parents[i].first = parent1;
 			m_Parents[i].second = parent2;
 		}// end of i loop
 	}
+
 
 
 	// 交叉処理を行う
@@ -227,6 +222,7 @@ namespace ealib
 	}
 
 
+
 	// 突然変異
 	void NSGA2::Mutate( Population* pPopulation )
 	{
@@ -236,6 +232,7 @@ namespace ealib
 	}
 
 	
+
 	void NSGA2::CarryOver( Population* pParentPopulation, Population* pChildPopulation )
 	{
 		IChromosome *pParent, *pChild;
@@ -249,6 +246,7 @@ namespace ealib
 			pChild->CopyGeneFrom( pParent );
 		}
 	}
+
 
 
 	void NSGA2::ClearAttribute()
@@ -267,12 +265,14 @@ namespace ealib
 	}
 
 
+
 	void NSGA2::NonDominatedSorting( Population* P )
 	{
 		
 
 	}
 	
+
 
 	void NSGA2::CrowdingDistanceAssignment()
 	{
@@ -296,6 +296,7 @@ namespace ealib
 	}
 
 
+
 	MixedNSGA2::MixedNSGA2( const MixedNSGA2& obj )
 		: IEvolutionaryAlgorithm( obj )
 	{
@@ -308,10 +309,12 @@ namespace ealib
 	}
 
 
+
 	MixedNSGA2::~MixedNSGA2()
 	{
 		ReleasePopulation();
 	}
+
 
 
 	void MixedNSGA2::SetAttribute( const SGAAttribute& attrib )
@@ -320,16 +323,19 @@ namespace ealib
 	}
 
 
+
 	void MixedNSGA2::SetCrossoverRate( float c_rate )
 	{
 		m_SGAAttrib.CrossoverRate = c_rate;
 	}
 
 
+
 	void MixedNSGA2::SetMutationRate( float m_rate )
 	{
 		m_SGAAttrib.MutationRate = m_rate;
 	}
+
 
 
 	// 初期集団を生成する
@@ -358,6 +364,7 @@ namespace ealib
 	}
 
 
+
 	void MixedNSGA2::ReleasePopulation()
 	{
 		m_Population[ parentGen ].Release();
@@ -376,19 +383,6 @@ namespace ealib
 	}
 
 
-	void MixedNSGA2::BindSelector( ISelector* selector )
-	{
-		m_Population[parentGen].BindSelector( selector );
-		m_Population[childGen].BindSelector( selector );
-	}
-
-
-	void MixedNSGA2::UnbindSelector()
-	{
-		m_Population[parentGen].UnbindSelector();
-		m_Population[childGen].UnbindSelector();
-	}
-
 
 	void MixedNSGA2::Step( Evaluator* pEval )
 	{
@@ -404,6 +398,7 @@ namespace ealib
 
 		m_Stats.Update( m_Population[parentGen] );
 	}
+
 
 
 	void MixedNSGA2::Evolve( Evaluator* pEval, unsigned int seed )
@@ -429,31 +424,38 @@ namespace ealib
 	}
 
 
+
 	void MixedNSGA2::TakeSnapshot( Population& pOut ) const
 	{
 		pOut = Population( m_Population[parentGen] );
 	}
 
 
+
 	// 優れた個体を選別する→いくつか方法がある, 適応度比例戦略、エリート保存戦略、トーナメント戦略
 	void MixedNSGA2::Select( Population* pPopulation )
 	{
 		// 適応値と親個体の初期化
-		pPopulation->UpdateSelector();
+		if( !m_refSelector )
+			return;
+		
+		m_refSelector->BindPopulationData( pPopulation->PopulationSize(), pPopulation->ChromosomeArray() );
+		m_refSelector->Update();
 
 		// 親の選択
 		for( int i=0; i<m_Parents.Length(); ++i )
 		{
-			int parent1	= pPopulation->Select();
-			int parent2	= pPopulation->Select();
+			int parent1	= m_refSelector->Execute();
+			int parent2	= m_refSelector->Execute();
 
 			while( parent1==parent2 )
-				parent2 = pPopulation->Select();
+				parent2 = m_refSelector->Execute();
 
 			m_Parents[i].first = parent1;
 			m_Parents[i].second = parent2;
 		}// end of i loop
 	}
+
 
 
 	// 交叉処理を行う
@@ -498,6 +500,7 @@ namespace ealib
 	}
 
 
+
 	// 突然変異
 	void MixedNSGA2::Mutate( Population* pPopulation )
 	{
@@ -510,6 +513,7 @@ namespace ealib
 
 		}// end of i loop
 	}
+
 
 
 	void MixedNSGA2::CarryOver( Population* pParentPopulation, Population* pChildPopulation )
@@ -525,6 +529,7 @@ namespace ealib
 			pChild->CopyGeneFrom( pParent );
 		}
 	}
+
 
 
 	void MixedNSGA2::ClearAttribute()

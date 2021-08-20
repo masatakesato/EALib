@@ -4,8 +4,6 @@
 #include	<oreore/mathlib/MathLib.h>
 #include	<oreore/mathlib/MersenneTwister.h>
 
-#include	"ISelector.h"
-
 
 
 namespace ealib
@@ -165,15 +163,6 @@ namespace ealib
 	{
 		return new MultiIslandEA( *this );
 	}
-
-
-	// Disabled.
-	//void MultiIslandEA::BindSelector( ISelector* selector )
-	//{
-	//	if( m_refSolver )
-	//		m_refSolver->BindSelector( selector );
-	//}
-
 
 
 

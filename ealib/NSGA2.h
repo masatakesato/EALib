@@ -39,8 +39,6 @@ namespace ealib
 		virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );//virtual void Init();
 		virtual void ReleasePopulation();
 		virtual IEvolutionaryAlgorithm* Clone() const;
-		virtual void BindSelector( ISelector* selector );
-		virtual void UnbindSelector();
 		virtual void Step( Evaluator* pEval );
 		virtual void Evolve( Evaluator* pEval, unsigned int seed=0 );
 		virtual Population* GetPopulation() const{ return (Population *)&m_Population[parentGen]; }
@@ -91,8 +89,6 @@ namespace ealib
 		virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );//virtual void Init();
 		virtual void ReleasePopulation();
 		virtual IEvolutionaryAlgorithm* Clone() const;
-		virtual void BindSelector( ISelector* selector );
-		virtual void UnbindSelector();
 		virtual void Step( Evaluator* pEval );
 		virtual void Evolve( Evaluator* pEval, unsigned int seed=0 );
 		virtual Population* GetPopulation() const{ return (Population *)&m_Population[parentGen]; }

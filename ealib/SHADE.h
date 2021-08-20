@@ -65,8 +65,8 @@ namespace ealib
 		// Disable Selector binding
 		using IEvolutionaryAlgorithm::BindSelector;
 		using IEvolutionaryAlgorithm::UnbindSelector;
-		virtual void BindSelector( ISelector* selector ){}
-		virtual void UnbindSelector(){}
+		void BindSelector( ISelector* selector ){}
+		void UnbindSelector(){}
 
 		// Disable Mutator binding
 		using IEvolutionaryAlgorithm::BindMutator;
@@ -137,8 +137,8 @@ namespace ealib
 		// Disable Selector binding
 		using IEvolutionaryAlgorithm::BindSelector;
 		using IEvolutionaryAlgorithm::UnbindSelector;
-		virtual void BindSelector( ISelector* selector ){}
-		virtual void UnbindSelector(){}
+		void BindSelector( ISelector* selector ){}
+		void UnbindSelector(){}
 
 		// Disable Mutator binding
 		using IEvolutionaryAlgorithm::BindMutator;

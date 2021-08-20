@@ -103,7 +103,7 @@ int main( int argc, char **argv )
 	EvenOddCrossover				crossover_EvenOdd;
 
 	Crossover crossover_ga;
-	crossover_ga.BindOperator( &crossover_NPoint );////&crossover_OnePoint );//&crossover_TwoPoint );//&crossover_Uniform );//&crossover_EvenOdd );//
+	crossover_ga.BindOperator( &crossover_Uniform );//&crossover_OnePoint );//&crossover_TwoPoint );&crossover_NPoint );//&crossover_EvenOdd );//
 
 	// DE
 	BDECrossover				crossover_BDE;

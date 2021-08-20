@@ -4,7 +4,6 @@
 #include	<oreore/mathlib/MathLib.h>
 #include	<oreore/mathlib/Random.h>
 
-#include	"ISelector.h"
 #include	"Chromosome2D.h"
 
 

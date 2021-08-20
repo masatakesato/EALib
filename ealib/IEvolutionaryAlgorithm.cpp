@@ -3,6 +3,7 @@
 #include	<oreore/mathlib/MathLib.h>
 
 #include	"RandomInitializer.h"
+#include	"RouletteWheelSelector.h"
 #include	"TerminateOnIteration.h"
 
 
@@ -10,14 +11,17 @@
 namespace ealib
 {
 
+	// Initializer
+	const RandomInitializer	c_RandomInitializer;
+
 	// Empty mutator. Dose nothing.
 	const Mutator	c_DummyMutator;
 
 	// Empty crossover. Doses nothing
 	const Crossover	c_DummyCrossover;
 
-	// Initializer
-	const RandomInitializer	c_RandomInitializer;
+	// Default selector
+	const RouletteWheelSelector	c_DefaultSelector;
 
 	// Default termination Criteria
 	const TerminateOnIteration	c_TerminateOnIteration;
@@ -27,11 +31,11 @@ namespace ealib
 
 	IEvolutionaryAlgorithm::IEvolutionaryAlgorithm()
 		: m_Attrib{}
-		//, m_refChromosome( nullptr )
 		, m_Stats()
 		, m_refInitializer( (Initializer *)&c_RandomInitializer )
 		, m_refMutator( (Mutator*)&c_DummyMutator )
 		, m_refCrossover( (Crossover*)&c_DummyCrossover )
+		, m_refSelector( (ISelector*)&c_DefaultSelector )
 		, m_refCriteria( (ITerminationCriteria*)&c_TerminateOnIteration )
 		, m_bReady( false )
 	{
@@ -43,11 +47,11 @@ namespace ealib
 
 	IEvolutionaryAlgorithm::IEvolutionaryAlgorithm( const IEvolutionaryAlgorithm& obj )
 		: m_Attrib( obj.m_Attrib )
-		//, m_refChromosome( obj.m_refChromosome )
 		, m_Stats( obj.m_Stats )
 		, m_refInitializer( obj.m_refInitializer )
 		, m_refMutator( obj.m_refMutator )
 		, m_refCrossover( obj.m_refCrossover )
+		, m_refSelector( obj.m_refSelector )
 		, m_refCriteria( obj.m_refCriteria )
 		, m_bReady( false )
 	{
@@ -58,29 +62,14 @@ namespace ealib
 
 	IEvolutionaryAlgorithm::~IEvolutionaryAlgorithm()
 	{
-		//m_refChromosome = nullptr;
-
 		m_Stats.Release();
 
 		m_refInitializer	= nullptr;
 		m_refMutator		= nullptr;
 		m_refCrossover		= nullptr;
+		m_refSelector		= nullptr;
 		m_refCriteria		= nullptr;
 	}
-
-
-
-	//void IEvolutionaryAlgorithm::BindChromosome( IChromosome *genome )
-	//{
-	//	m_refChromosome = genome;
-	//}
-
-
-
-	//void IEvolutionaryAlgorithm::UnbindChromosome()
-	//{
-	//	m_refChromosome = nullptr;
-	//}
 
 
 
@@ -122,6 +111,20 @@ namespace ealib
 	void IEvolutionaryAlgorithm::UnbindCrossover()
 	{
 		m_refCrossover = (Crossover*)&c_DummyCrossover;
+	}
+
+
+
+	void IEvolutionaryAlgorithm::BindSelector( ISelector* selector )
+	{
+		m_refSelector	= selector;
+	}
+
+
+
+	void IEvolutionaryAlgorithm::UnbindSelector()
+	{
+		m_refSelector	= (ISelector*)&c_DefaultSelector;
 	}
 
 

@@ -4,7 +4,6 @@
 #include	<oreore/mathlib/MathLib.h>
 #include	<oreore/mathlib/MersenneTwister.h>
 
-#include	"ISelector.h"
 #include	"Chromosome2D.h"
 
 
@@ -117,22 +116,6 @@ namespace ealib
 
 
 
-	void SimpleGA::BindSelector( ISelector* selector )
-	{
-		m_Population[parentGen].BindSelector( selector );
-		m_Population[childGen].BindSelector( selector );
-	}
-
-
-
-	void SimpleGA::UnbindSelector()
-	{
-		m_Population[parentGen].UnbindSelector();
-		m_Population[childGen].UnbindSelector();
-	}
-
-
-
 	void SimpleGA::Step( Evaluator* pEval )
 	{
 		Select( &m_Population[parentGen] );
@@ -180,16 +163,20 @@ namespace ealib
 	void SimpleGA::Select( Population* pPopulation )
 	{
 		// 適応値と親個体の初期化
-		pPopulation->UpdateSelector();
+		if( !m_refSelector )
+			return;
+		
+		m_refSelector->BindPopulationData( pPopulation->PopulationSize(), pPopulation->ChromosomeArray() );
+		m_refSelector->Update();
 
 		// 親の選択
 		for( int i=0; i<m_Parents.Length(); ++i )
 		{
-			int parent1	= pPopulation->Select();
-			int parent2	= pPopulation->Select();
+			int parent1	= m_refSelector->Execute();
+			int parent2	= m_refSelector->Execute();
 
 			while( parent1==parent2 )
-				parent2 = pPopulation->Select();
+				parent2 = m_refSelector->Execute();
 				
 			m_Parents[i].first = parent1;
 			m_Parents[i].second = parent2;
@@ -368,22 +355,6 @@ namespace ealib
 
 
 
-	void MixedSimpleGA::BindSelector( ISelector* selector )
-	{
-		m_Population[parentGen].BindSelector( selector );
-		m_Population[childGen].BindSelector( selector );
-	}
-
-
-
-	void MixedSimpleGA::UnbindSelector()
-	{
-		m_Population[parentGen].UnbindSelector();
-		m_Population[childGen].UnbindSelector();
-	}
-
-
-
 	void MixedSimpleGA::Step( Evaluator* pEval )
 	{
 		Select( &m_Population[parentGen] );
@@ -436,16 +407,20 @@ namespace ealib
 	void MixedSimpleGA::Select( Population* pPopulation )
 	{
 		// 適応値と親個体の初期化
-		pPopulation->UpdateSelector();
+		if(	!m_refSelector )
+			return;
+
+		m_refSelector->BindPopulationData( pPopulation->PopulationSize(), pPopulation->ChromosomeArray() );
+		m_refSelector->Update();
 
 		// 親の選択
 		for( int i=0; i<m_Parents.Length(); ++i )
 		{
-			int parent1	= pPopulation->Select();
-			int parent2	= pPopulation->Select();
+			int parent1	= m_refSelector->Execute();
+			int parent2	= m_refSelector->Execute();
 
 			while( parent1==parent2 )
-				parent2 = pPopulation->Select();
+				parent2 = m_refSelector->Execute();
 
 			m_Parents[i].first = parent1;
 			m_Parents[i].second = parent2;

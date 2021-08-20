@@ -1,18 +1,14 @@
 ﻿#include	"Population.h"
 
-
 #include	<oreore/common/Utility.h>
 #include	<oreore/common/TString.h>
 #include	<oreore/mathlib/MathLib.h>
 #include	<oreore/mathlib/MersenneTwister.h>
 
-#include	"RouletteWheelSelector.h"
 
 
 namespace ealib
 {
-
-	static RouletteWheelSelector	s_RoutelleWheelSelector;
 
 	typedef int( *CompareFunc )( const IChromosome*, const IChromosome* );
 	
@@ -95,7 +91,6 @@ namespace ealib
 
 	// Default constructor
 	Population::Population()
-		: m_refSelector( &s_RoutelleWheelSelector )
 	{
 
 	}
@@ -104,7 +99,6 @@ namespace ealib
 
 	// Constructor
 	Population::Population( const IChromosome* pChromosone, int pop_size, int num_objectives )
-		: m_refSelector( &s_RoutelleWheelSelector )
 	{
 		Init( pChromosone, pop_size, num_objectives );
 	}
@@ -122,7 +116,6 @@ namespace ealib
 	// Copy constructor
 	Population::Population( const Population& obj )
 		: m_PopResult( obj.PopulationSize(), obj.NumObjectives() )
-		, m_refSelector( obj.m_refSelector )
 		, m_ChromosomeArray( obj.m_ChromosomeArray )
 	{
 
@@ -139,10 +132,9 @@ namespace ealib
 	// Move constructor
 	Population::Population( Population&& obj )
 		: m_PopResult( (PopulationResult&&)obj.m_PopResult )
-		, m_refSelector( obj.m_refSelector )
 		, m_ChromosomeArray( (OreOreLib::Array<IChromosome*>&&)obj.m_ChromosomeArray )
 	{
-		obj.m_refSelector		= nullptr;
+
 	}
 
 
@@ -157,15 +149,12 @@ namespace ealib
 			m_PopResult.Init( obj.PopulationSize(), obj.NumObjectives() );
 			m_ChromosomeArray.Init( obj.m_ChromosomeArray.Length() );
 
-			m_refSelector		= obj.m_refSelector;
-
 			for( int i=0; i<m_ChromosomeArray.Length(); ++i )
 			{
 				m_ChromosomeArray[i] = obj.m_ChromosomeArray[i]->Clone();
 				m_ChromosomeArray[i]->BindEvalResultView( &m_PopResult[i] );
 				m_PopResult[i].CopyFrom( obj.m_ChromosomeArray[i]->GetEvalResult() );
 			}
-
 		}
 
 		return *this;
@@ -182,9 +171,6 @@ namespace ealib
 
 			m_PopResult			= (PopulationResult&&)obj.m_PopResult;
 			m_ChromosomeArray	= (OreOreLib::Array<IChromosome*>&&)obj.m_ChromosomeArray;
-			m_refSelector		= obj.m_refSelector;
-
-			obj.m_refSelector	= nullptr;
 		}
 
 		return *this;
@@ -208,9 +194,6 @@ namespace ealib
 			m_ChromosomeArray[i]->SetID( i );
 			m_ChromosomeArray[i]->BindEvalResultView( &m_PopResult[i] );
 		}
-
-		m_refSelector	= &s_RoutelleWheelSelector;
-
 	}
 
 
@@ -224,9 +207,6 @@ namespace ealib
 
 		// Release results
 		m_PopResult.Release();
-
-		// Reset selector
-		m_refSelector = &s_RoutelleWheelSelector;
 	}
 
 
@@ -244,20 +224,6 @@ namespace ealib
 	Population* Population::Clone() const
 	{
 		return new Population( *this );
-	}
-
-
-
-	void Population::BindSelector( ISelector* selector )
-	{
-		m_refSelector	= selector;
-	}
-
-
-
-	void Population::UnbindSelector()
-	{
-		m_refSelector	= &s_RoutelleWheelSelector;
 	}
 
 
@@ -291,24 +257,6 @@ namespace ealib
 	}
 
 
-
-	void Population::UpdateSelector()
-	{
-		if( m_refSelector )
-		{
-			m_refSelector->BindPopulationData( m_ChromosomeArray.Length(), m_ChromosomeArray.begin() );
-			m_refSelector->Update();
-		}
-	}
-
-
-	int Population::Select()
-	{
-		if( m_refSelector )	return m_refSelector->Execute();
-		return -1;
-	}
-
-	
 	void Population::Sort( SORT_MODE mode )
 	{
 		QuickSort( m_ChromosomeArray.begin(), 0, m_ChromosomeArray.Length()-1, c_CompareFuncs[mode] );
@@ -332,7 +280,6 @@ namespace ealib
 
 	//// Constructor
 	//Population::Population( const DesignParamArray& designParams, int pop_size, int num_objectives )
-	//	: m_refSelector( &s_RoutelleWheelSelector )
 	//{
 	//	Init( designParams, pop_size, num_objectives );
 	//}

@@ -17,15 +17,35 @@ namespace ealib
 	}
 
 
+
 	SPX::~SPX()
 	{
 
 	}
 	
 
+
 	void SPX::Execute( int numchroms, IChromosome** chromosomes, const void* attribs )
 	{
-		// TODO: Implement. 2021.08.19
+		//int numParents = chromosomes[0]->Size() + 1;
+		//int numChildren = numchroms - numParents;
+
+		//assert( numChildren > 0 );
+
+		//IChromosome** pTrials	= &chromosomes[ 0 ];
+		//IChromosome** pParents	= &chromosomes[ numChildren ];
+
+
+		// C = Center of Mass( pParents )
+
+		// scale polygon by epsilon// Pi = epsilon * ( pParents[i] - G )
+
+
+		// random sample polygon surface
+
+
+// TODO: Refactor ICrossroverOperator to preallocate Pi.
+
 
 	}
 

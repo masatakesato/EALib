@@ -3,8 +3,6 @@
 #include	<oreore/common/TString.h>
 #include	<oreore/mathlib/MersenneTwister.h>
 
-#include	"ISelector.h"
-
 
 
 namespace ealib

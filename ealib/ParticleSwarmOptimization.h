@@ -47,8 +47,12 @@ namespace ealib
 		
 		void ClearAttribute();
 
-		virtual void BindSelector( ISelector* selector ){}
-		virtual void UnbindSelector(){}
+
+		// Disable Selector binding
+		using IEvolutionaryAlgorithm::BindMutator;
+		using IEvolutionaryAlgorithm::UnbindMutator;
+		void BindSelector( ISelector* selector ){}
+		void UnbindSelector(){}
 
 	};
 
