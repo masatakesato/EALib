@@ -1,8 +1,7 @@
 ﻿#ifndef EA_STATISTICS_H
 #define	EA_STATISTICS_H
 
-#include	"DLLExport.h"
-
+#include	<oreore/common/DLLExport.h>
 #include	<oreore/container/Array.h>
 #include	<oreore/container/Pair.h>
 

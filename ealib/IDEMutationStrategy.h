@@ -1,8 +1,7 @@
 ﻿#ifndef I_DE_MUTATION_STRATEGY_H
 #define	I_DE_MUTATION_STRATEGY_H
 
-
-#include	"DLLExport.h"
+#include	<oreore/common/DLLExport.h>
 
 
 

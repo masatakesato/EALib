@@ -1,8 +1,7 @@
 ﻿#ifndef TERMINATION_CRITERIA_H
 #define	TERMINATION_CRITERIA_H
 
-
-#include	"DLLExport.h"
+#include	<oreore/common/DLLExport.h>
 
 
 

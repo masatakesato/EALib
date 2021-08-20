@@ -1,10 +1,10 @@
 ﻿#ifndef MUTATOR_H
 #define	MUTATOR_H
 
-#include	"DLLExport.h"
+#include	<oreore/common/DLLExport.h>
+
 #include	"Typedefs.h"
 #include	"IMutationOperator.h"
-
 
 
 

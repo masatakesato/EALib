@@ -1,7 +1,8 @@
 ﻿#ifndef CROSSOVER_H
 #define	CROSSOVER_H
 
-#include	"DLLExport.h"
+#include	<oreore/common/DLLExport.h>
+
 #include	"Typedefs.h"
 #include	"ICrossoverOperator.h"
 

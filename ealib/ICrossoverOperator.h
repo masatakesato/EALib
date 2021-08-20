@@ -1,10 +1,10 @@
 ﻿#ifndef I_CROSSOVER_OPERATOR_H
 #define	I_CROSSOVER_OPERATOR_H
 
-#include	"DesignParameter.h"
-#include	"DLLExport.h"
-
+#include	<oreore/common/DLLExport.h>
 #include	<oreore/mathlib/MathLib.h>
+
+#include	"DesignParameter.h"
 
 
 

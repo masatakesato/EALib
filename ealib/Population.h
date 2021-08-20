@@ -1,7 +1,8 @@
 ﻿#ifndef POPULATION_H
 #define	POPULATION_H
 
-#include	"DLLExport.h"
+#include	<oreore/common/DLLExport.h>
+
 #include	"IChromosome.h"
 #include	"Initializer.h"
 #include	"Evaluator.h"

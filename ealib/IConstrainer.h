@@ -1,8 +1,7 @@
 ﻿#ifndef I_CONSTRAINER_H
 #define	I_CONSTRAINER_H
 
-
-#include	"DLLExport.h"
+#include	<oreore/common/DLLExport.h>
 
 
 

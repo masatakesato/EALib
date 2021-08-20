@@ -1,8 +1,8 @@
 ﻿#ifndef I_INITIALIZE_OPERATOR_H
 #define	I_INITIALIZE_OPERATOR_H
 
+#include	<oreore/common/DLLExport.h>
 
-#include	"DLLExport.h"
 
 
 namespace ealib

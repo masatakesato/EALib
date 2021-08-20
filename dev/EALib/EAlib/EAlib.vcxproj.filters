@@ -141,9 +141,6 @@
     <ClInclude Include="..\..\..\ealib\DifferentialEvolution.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\ealib\DLLExport.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\ealib\EACommon.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

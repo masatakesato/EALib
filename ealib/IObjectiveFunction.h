@@ -1,8 +1,8 @@
 ﻿#ifndef I_OBJECTIVE_FUNCTION_H
 #define	I_OBJECTIVE_FUNCTION_H
 
+#include	<oreore/common/DLLExport.h>
 
-#include	"DLLExport.h"
 #include	"IChromosome.h"
 
 

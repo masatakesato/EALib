@@ -2,8 +2,8 @@
 #define	I_CHROMOSOME_H
 
 #include	<oreore/common/Utility.h>
+#include	<oreore/common/DLLExport.h>
 
-#include	"DLLExport.h"
 #include	"DesignParameter.h"
 #include	"PopulationResult.h"
 

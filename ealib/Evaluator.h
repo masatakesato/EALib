@@ -1,10 +1,9 @@
 ﻿#ifndef EVALUATOR_H
 #define	EVALUATOR_H
 
-
+#include	<oreore/common/DLLExport.h>
 #include	<oreore/container/Array.h>
 
-#include	"DLLExport.h"
 #include	"IObjectiveFunction.h"
 
 

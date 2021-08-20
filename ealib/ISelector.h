@@ -1,8 +1,8 @@
 #ifndef I_SELECTOR_H
 #define	I_SELECTOR_H
 
+#include	<oreore/common/DLLExport.h>
 
-#include	"DLLExport.h"
 
 
 namespace ealib

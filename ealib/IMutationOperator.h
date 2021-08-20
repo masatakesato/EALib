@@ -1,8 +1,9 @@
 ﻿#ifndef I_MUTATION_OPERATOR_H
 #define	I_MUTATION_OPERATOR_H
 
+#include	<oreore/common/DLLExport.h>
+
 #include	"DesignParameter.h"
-#include	"DLLExport.h"
 
 
 
