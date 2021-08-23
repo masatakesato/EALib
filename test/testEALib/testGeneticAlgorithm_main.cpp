@@ -128,7 +128,8 @@ int main( int argc, char **argv )
 	g_SGASolver.BindMutator( &mutator );
 	g_SGASolver.BindCrossover( &crossover_ga );
 
-	g_SGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+//	g_SGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+g_SGASolver.InitPopulation( designParams, Eval.NumObjectives() );
 	g_SGASolver.Evolve( &Eval );
 	g_SGASolver.TakeSnapshot( g_SnapShot );
 	g_SGASolver.ReleasePopulation();
@@ -151,7 +152,8 @@ int main( int argc, char **argv )
 	g_MIEASolver.GetSolver()->SetNumGenerations( 10 );// g_MIEASolver.SetNumGenerations( 10 );
 	g_MIEASolver.GetSolver()->BindSelector( &tournamentSelector );
 
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );
 
 	//for( int i=0; i<5; ++i )
 	//{

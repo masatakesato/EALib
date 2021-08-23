@@ -145,6 +145,57 @@ namespace ealib
 
 
 
+
+	void MultiIslandEA::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	{
+		try
+		{
+			if( !m_refSolver )
+				return;
+
+			ReleasePopulation();
+
+			//====== m_Attribをソルバー設定で上書き更新する =====//
+			m_Attrib	= m_refSolver->GetAttribute();
+
+			//============== 島毎のGAを初期化する ==============//
+			m_pSolverArray.Init( m_MIGAAttrib.IslandSize );
+
+			for( int i=0; i<m_MIGAAttrib.IslandSize; ++i )
+			{
+				m_pSolverArray[i] = m_refSolver->Clone();
+				m_pSolverArray[i]->InitPopulation( designParams, numObjectives );
+			}// end of i loop
+
+
+			//=========== 移民バッファを初期化する	===========//
+			m_Destinations.Init( m_MIGAAttrib.IslandSize );
+			m_Migrants.Init( m_MIGAAttrib.IslandSize );
+			int numMigrants	= Clamp( (int)ceil( m_MIGAAttrib.MigrationRate * (float)m_Attrib.PopulationSize ), 0, m_Attrib.PopulationSize );
+
+			for( int i=0; i<m_MIGAAttrib.IslandSize; ++i )
+			{
+				m_Destinations[i]	= -1;
+				m_Migrants[i].Init( designParams, numMigrants, numObjectives );
+			}// end of i loop
+
+			m_bReady = true;
+		}
+		catch( ... )
+		{
+			HANDLE_EXCEPTION();
+			ReleasePopulation();
+		}
+
+	}
+
+
+
+
+
+
+
+
 	void MultiIslandEA::ReleasePopulation()
 	{
 		for( int i=0; i<m_pSolverArray.Length(); ++i )

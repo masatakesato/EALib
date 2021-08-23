@@ -61,8 +61,9 @@ namespace ealib
 
 
 // TODO: Create Population using DesignParamArray.
-//Population( const DesignParamArray& designParams, int pop_size, int num_objectives );
-//void Init( const DesignParamArray& designParams, int pop_size, int num_objectives );
+Population( const DesignParamArray& designParams, int pop_size, int num_objectives );
+
+void Init( const DesignParamArray& designParams, int pop_size, int num_objectives );
 
 
 	private:

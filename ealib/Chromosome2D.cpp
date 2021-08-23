@@ -4,14 +4,14 @@
 
 #include	<oreore/memory/MemoryView.h>
 
-#include	"ChromosomeFactory.h"
+#include	"Chromosome1DFactory.h"
 
 
 
 namespace ealib
 {
 
-	const ChromosomeFactory<g_ChoromosomeTypes>	c_Factory;
+	const Chromosome1DFactory<g_ChoromosomeTypes>	c_Chrom1DFactory;
 
 
 	Chromosome2D::Chromosome2D()
@@ -93,7 +93,6 @@ namespace ealib
 		int	numParamsPerType[ NUM_TYPES ];
 
 		// 通し番号配列を作って、designParams各要素にシーケンスIDを一時的に割り当てる
-		//DesignParamArray DParams = designParams;
 		for( int i=0; i<m_DesignParameters.Length(); ++i )
 		{
 			m_DesignParameters[i].SetSequentialID( i );
@@ -122,8 +121,8 @@ namespace ealib
 			int numParams	= numParamsPerType[ type ];
 
 			// Create Chromosome1D
-			OreOreLib::MemoryView<DesignParameter> typedDescs( &m_DesignParameters[ paramStartIdx ], numParams );
-			m_ChromosomeArray[ type ] =	c_Factory.Create( typedDescs );
+			OreOreLib::MemoryView<DesignParameter> partialParams( &m_DesignParameters[ paramStartIdx ], numParams );
+			m_ChromosomeArray[ type ] =	c_Chrom1DFactory.Create( partialParams );
 
 			// Register individual designparameter/gene index for Key/Index search
 			for( int j=0; j<m_ChromosomeArray[ type ]->Size(); ++j )
@@ -136,11 +135,8 @@ namespace ealib
 			}
 			paramStartIdx += numParams;
 
-
 		}// end of type i loop
 		
-
-		//DParams.Release();
 	}
 
 

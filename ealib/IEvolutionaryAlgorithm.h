@@ -70,6 +70,10 @@ namespace ealib
 		virtual void TakeSnapshot( Population& pOut ) const=0;
 		
 
+// TODO: Impelement. 2021.08.23
+		virtual void InitPopulation( const DesignParamArray&, int )=0;
+
+
 void SetConvergenceCheckInterval( int interval ){ m_Stats.InitConvergenceChecker( interval ); }
 void SetLogSize( int numlogs )					{ m_Stats.InitLogBuffer( numlogs ); }
 

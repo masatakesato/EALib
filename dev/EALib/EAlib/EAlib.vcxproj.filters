@@ -87,9 +87,6 @@
     <ClInclude Include="..\..\..\ealib\Chromosome2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\ealib\ChromosomeFactory.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\ealib\ChromosomeViewer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -232,6 +229,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\ealib\PopulationResult.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ealib\Chromosome1DFactory.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ealib\ChromosomeFactory.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

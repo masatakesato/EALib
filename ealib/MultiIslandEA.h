@@ -43,6 +43,9 @@ namespace ealib
 		virtual void TakeSnapshot( Population& pOut ) const;
 
 
+void InitPopulation( const DesignParamArray& designParams, int numObjectives );
+
+
 	private:
 
 		MIEAAttribute			m_MIGAAttrib;// マルチアイランドGAの設定値

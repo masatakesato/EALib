@@ -4,10 +4,6 @@
 
 #include	<oreore/container/ArrayView.h>
 //#include	<oreore/container/HashMap.h>
-//
-//#include	"Typedefs.h"
-//#include	"DesignParameter.h"
-
 
 #include	"ChromosomeFactory.h"
 

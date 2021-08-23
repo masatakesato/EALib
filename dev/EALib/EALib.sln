@@ -97,6 +97,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testMultiObjectiveGeneticAl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testChromosomeFactory", "testChromosomeFactory\testChromosomeFactory.vcxproj", "{00389734-DA66-4F2C-8FFB-3720EE9CCCCC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testPopulation", "testPopulation\testPopulation.vcxproj", "{22EA21B3-339F-42C8-A71B-F9638BA06BBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -183,6 +185,10 @@ Global
 		{00389734-DA66-4F2C-8FFB-3720EE9CCCCC}.Debug|x64.Build.0 = Debug|x64
 		{00389734-DA66-4F2C-8FFB-3720EE9CCCCC}.Release|x64.ActiveCfg = Release|x64
 		{00389734-DA66-4F2C-8FFB-3720EE9CCCCC}.Release|x64.Build.0 = Release|x64
+		{22EA21B3-339F-42C8-A71B-F9638BA06BBD}.Debug|x64.ActiveCfg = Debug|x64
+		{22EA21B3-339F-42C8-A71B-F9638BA06BBD}.Debug|x64.Build.0 = Debug|x64
+		{22EA21B3-339F-42C8-A71B-F9638BA06BBD}.Release|x64.ActiveCfg = Release|x64
+		{22EA21B3-339F-42C8-A71B-F9638BA06BBD}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

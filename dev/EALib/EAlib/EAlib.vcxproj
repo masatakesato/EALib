@@ -18,6 +18,7 @@
     <ClInclude Include="..\..\..\ealib\BinomialCrossover.h" />
     <ClInclude Include="..\..\..\ealib\BLXalpha.h" />
     <ClInclude Include="..\..\..\ealib\Chromosome1D.h" />
+    <ClInclude Include="..\..\..\ealib\Chromosome1DFactory.h" />
     <ClInclude Include="..\..\..\ealib\Chromosome2D.h" />
     <ClInclude Include="..\..\..\ealib\ChromosomeFactory.h" />
     <ClInclude Include="..\..\..\ealib\ChromosomeViewer.h" />

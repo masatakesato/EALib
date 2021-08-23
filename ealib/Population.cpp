@@ -5,6 +5,8 @@
 #include	<oreore/mathlib/MathLib.h>
 #include	<oreore/mathlib/MersenneTwister.h>
 
+#include	"ChromosomeFactory.h"
+
 
 
 namespace ealib
@@ -278,43 +280,24 @@ namespace ealib
 
 
 
-	//// Constructor
-	//Population::Population( const DesignParamArray& designParams, int pop_size, int num_objectives )
-	//{
-	//	Init( designParams, pop_size, num_objectives );
-	//}
+	// Constructor
+	Population::Population( const DesignParamArray& designParams, int pop_size, int num_objectives )
+	{
+		Init( designParams, pop_size, num_objectives );
+	}
 
 
 
-	//void Population::Init( const DesignParamArray& designParams, int pop_size, int num_objectives )
-	//{
+	void Population::Init( const DesignParamArray& designParams, int pop_size, int num_objectives )
+	{
+		ChromosomeFactory<g_ChoromosomeTypes> factory;
+		IChromosome* pChromosome = factory.Create( designParams );
 
-	//	int typecounts[ NUM_TYPES ] = { 0 };
+		Init( pChromosome, pop_size, num_objectives );
 
-	//	for( int i=0; i<designParams.Length(); ++i )
-	//		typecounts[ designParams[i].TypeID() ]++;
+		SafeDelete( pChromosome );
 
-
-	//	//==================== Init Chromsomes ===================//
-	//	int numtypes = 0;
-	//	for( int i=0; i<NUM_TYPES; ++i )
-	//		numtypes += int(typecounts[i]>0);
-
-	//	// Allocate
-	//	if( numtypes == 1 )
-	//	{
-	//		auto pChromosome	= new Chromosome1D( designParams );
-	//	}
-	//	else if( numtypes > 1 )
-	//	{
-	//		auto pChromosome	= new Chromosome2D( designParams );
-	//	}
-	//	else
-	//	{
-	//		//return pChromosome;
-	//	}
-
-	//}
+	}
 
 
 

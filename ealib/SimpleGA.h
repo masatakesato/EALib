@@ -35,6 +35,10 @@ namespace ealib
 		virtual Population* GetPopulation() const{ return (Population *)&m_Population[parentGen]; }
 		virtual void TakeSnapshot( Population& pOut ) const;
 		
+
+
+void InitPopulation( const DesignParamArray& designParams, int numObjectives );//virtual void Init();
+
 		
 	private:
 

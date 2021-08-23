@@ -1,7 +1,8 @@
 #ifndef CHROMOSOME_FACTORY_H
 #define	CHROMOSOME_FACTORY_H
 
-#include	"Chromosome1D.h"
+#include	"Chromosome1DFactory.h"
+#include	"Chromosome2D.h"
 
 
 
@@ -9,57 +10,41 @@ namespace ealib
 {
 
 	template < typename TList >
-	class ChromosomeFactory
+	class ChromosomeFactory : public Chromosome1DFactory<TList>
 	{
 	public:
 
 		ChromosomeFactory()
+			: Chromosome1DFactory<TList>()
 		{
-			Init<TList>::Execute( m_CreateChromosomeFuncs );
+			
+		}
+		
+
+		virtual ~ChromosomeFactory()
+		{
+
 		}
 
-		
-		IChromosome* Create( const DesignParamArray& designParams ) const
+
+		virtual IChromosome* Create( const DesignParamArray& designParams ) const
 		{
-			IChromosome* chromosome = m_CreateChromosomeFuncs[ designParams[0].TypeID() ]( designParams );
-	
-			return chromosome;
-		}
+			bool bIsMultiType = false;
+			int currtype = designParams[0].TypeID();
 
-
-
-	private:
-
-
-		IChromosome *(* m_CreateChromosomeFuncs[ OreOreLib::TypeList::Length<TList>::value ] )( const DesignParamArray& );
-		//{
-		//	[]()->Base* { return new Derived<int>(); },
-		//	...
-		//};
-
-		
-		
-
-
-		template < typename TList >
-		struct Init
-		{
-			static void Execute( IChromosome* ( *funcs[] )( const DesignParamArray& ), int i=0 )
+			for( int i=1; i<designParams.Length(); ++i )
 			{
-				funcs[i] = []( const DesignParamArray& designParams )->IChromosome* { return new Chromosome1D< typename TList::head >( designParams ); };
-				Init< typename TList::tail >::Execute( funcs, i+1 );
+				if( currtype != designParams[i].TypeID() )
+				{
+					bIsMultiType = true;
+					break;
+				}
 			}
-		};
 
-
-		// typelist end
-		template <>
-		struct Init< OreOreLib::TypeList::NullType  >
-		{
-			static void Execute( IChromosome* ( *funcs[] )( const DesignParamArray& ), int i ){}// Do nothing
-		};
-
-
+			return bIsMultiType
+				? new Chromosome2D( designParams )
+				: this->m_CreateChromosomeFuncs[ designParams[0].TypeID() ]( designParams );
+		}
 
 	};
 
@@ -68,4 +53,4 @@ namespace ealib
 }// end of namespace
 
 
-#endif // !ALLELE_FACTORY_H
+#endif // !CHROMOSOME_FACTORY_H
