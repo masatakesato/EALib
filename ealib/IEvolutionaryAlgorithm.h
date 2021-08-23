@@ -61,6 +61,7 @@ namespace ealib
 		EAStatistics* const Statistics() const	{ return (EAStatistics* const)&m_Stats; }
 
 		// Pure Virtual Functions
+		virtual void InitPopulation( const DesignParamArray& designParams, int numObjectives )=0;
 		virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives )=0;
 		virtual void ReleasePopulation()=0;
 		virtual IEvolutionaryAlgorithm* Clone() const=0;
@@ -69,10 +70,6 @@ namespace ealib
 		virtual Population* GetPopulation() const=0;
 		virtual void TakeSnapshot( Population& pOut ) const=0;
 		
-
-// TODO: Impelement. 2021.08.23
-		virtual void InitPopulation( const DesignParamArray&, int )=0;
-
 
 void SetConvergenceCheckInterval( int interval ){ m_Stats.InitConvergenceChecker( interval ); }
 void SetLogSize( int numlogs )					{ m_Stats.InitLogBuffer( numlogs ); }

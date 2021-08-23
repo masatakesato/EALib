@@ -23,7 +23,8 @@ namespace ealib
 		void SetCrossoverProbability( float cr );	// 交叉率の設定
 
 		// Virtual Functions Override
-		virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );//virtual void Init();
+		virtual void InitPopulation( const DesignParamArray& designParams, int numObjectives );
+		virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );
 		virtual void ReleasePopulation();
 		virtual IEvolutionaryAlgorithm* Clone() const;
 		virtual void Step( Evaluator* pEval );

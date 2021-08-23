@@ -34,7 +34,8 @@ namespace ealib
 
 
 		// Virtual Functions Override
-		virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );//virtual void Init();
+		virtual void InitPopulation( const DesignParamArray& designParams, int numObjectives );
+		virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );
 		virtual void ReleasePopulation();
 		virtual IEvolutionaryAlgorithm* Clone() const;
 		virtual void Step( Evaluator* pEval );
@@ -42,8 +43,6 @@ namespace ealib
 		virtual Population* GetPopulation() const	{ return m_pSolverArray[0]->GetPopulation(); }
 		virtual void TakeSnapshot( Population& pOut ) const;
 
-
-void InitPopulation( const DesignParamArray& designParams, int numObjectives );
 
 
 	private:

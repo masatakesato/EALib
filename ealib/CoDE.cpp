@@ -76,6 +76,29 @@ namespace ealib
 
 
 
+	void CoDE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	{
+		try
+		{
+			//===============	バッファを確保する	=================//
+			// 親世代/子世代それぞれの個体情報
+			m_Population[parentGen].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+			m_Population[childGen].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+
+			// トライアルベクターも初期化する
+			m_Population[trialGen].Init( designParams, 3, numObjectives );
+
+			m_bReady = true;
+		}
+		catch( ... )
+		{
+			HANDLE_EXCEPTION();
+			ReleasePopulation();
+		}
+	}
+
+
+
 	// 初期集団を生成する
 	void CoDE::InitPopulation( const IChromosome* pChromosome, int numObjectives )
 	{
@@ -326,6 +349,29 @@ namespace ealib
 	void MixedCoDE::SetCrossoverProbability( float cr, int i )
 	{
 		if( i<ArraySize( m_MutationAttrib ) )	m_MutationAttrib[i].CR = cr;
+	}
+
+
+
+	void MixedCoDE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	{
+		try
+		{
+			//===============	バッファを確保する	=================//
+			// 親世代/子世代それぞれの個体情報
+			m_Population[parentGen].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+			m_Population[childGen].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+
+			// トライアルベクターも初期化する
+			m_Population[trialGen].Init( designParams, 3, numObjectives );
+
+			m_bReady = true;
+		}
+		catch( ... )
+		{
+			HANDLE_EXCEPTION();
+			ReleasePopulation();
+		}
 	}
 
 

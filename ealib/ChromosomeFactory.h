@@ -29,21 +29,11 @@ namespace ealib
 
 		virtual IChromosome* Create( const DesignParamArray& designParams ) const
 		{
-			bool bIsMultiType = false;
-			int currtype = designParams[0].TypeID();
+			for( int i=0; i<designParams.Length()-1; ++i )
+				if( designParams[i].TypeID() != designParams[i+1].TypeID() )
+					return new Chromosome2D( designParams );
 
-			for( int i=1; i<designParams.Length(); ++i )
-			{
-				if( currtype != designParams[i].TypeID() )
-				{
-					bIsMultiType = true;
-					break;
-				}
-			}
-
-			return bIsMultiType
-				? new Chromosome2D( designParams )
-				: this->m_CreateChromosomeFuncs[ designParams[0].TypeID() ]( designParams );
+			return this->m_CreateChromosomeFuncs[ designParams[0].TypeID() ]( designParams );
 		}
 
 	};

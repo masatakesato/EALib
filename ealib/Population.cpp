@@ -100,9 +100,9 @@ namespace ealib
 
 
 	// Constructor
-	Population::Population( const IChromosome* pChromosone, int pop_size, int num_objectives )
+	Population::Population( const IChromosome* pChromosome, int pop_size, int num_objectives )
 	{
-		Init( pChromosone, pop_size, num_objectives );
+		Init( pChromosome, pop_size, num_objectives );
 	}
 
 
@@ -180,7 +180,7 @@ namespace ealib
 
 
 
-	void Population::Init( const IChromosome* pChromosone, int pop_size, int num_objectives )
+	void Population::Init( const IChromosome* pChromosome, int pop_size, int num_objectives )
 	{
 		Release();
 				
@@ -192,7 +192,7 @@ namespace ealib
 
 		for( int i=0; i<m_ChromosomeArray.Length(); ++i )
 		{
-			m_ChromosomeArray[i] = pChromosone->Clone();
+			m_ChromosomeArray[i] = pChromosome->Clone();
 			m_ChromosomeArray[i]->SetID( i );
 			m_ChromosomeArray[i]->BindEvalResultView( &m_PopResult[i] );
 		}
@@ -291,11 +291,21 @@ namespace ealib
 	void Population::Init( const DesignParamArray& designParams, int pop_size, int num_objectives )
 	{
 		ChromosomeFactory<g_ChoromosomeTypes> factory;
-		IChromosome* pChromosome = factory.Create( designParams );
 
-		Init( pChromosome, pop_size, num_objectives );
+		Release();
+				
+		m_PopResult.Init( pop_size, num_objectives );
 
-		SafeDelete( pChromosome );
+		//===============	バッファを確保する	=================//
+		// 1世代分(入力用と出力用の2つ)のChromosome(設計変数)群の配列を確保する.
+		m_ChromosomeArray.Init( pop_size );
+
+		for( int i=0; i<m_ChromosomeArray.Length(); ++i )
+		{
+			m_ChromosomeArray[i] = factory.Create( designParams );
+			m_ChromosomeArray[i]->SetID( i );
+			m_ChromosomeArray[i]->BindEvalResultView( &m_PopResult[i] );
+		}
 
 	}
 

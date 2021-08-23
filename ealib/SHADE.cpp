@@ -107,6 +107,45 @@ namespace ealib
 
 
 
+	void SHADE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	{
+		try
+		{
+			//===============	バッファを確保する	=================//
+
+			// 親世代/子世代それぞれの個体情報
+			m_Population[ parentGen ].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+			m_Population[ childGen ].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+
+			// アーカイブ個体情報
+			m_Population[archive].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+
+			// F/CR
+			m_Fs.Init( m_Attrib.PopulationSize );
+			m_CRs.Init( m_Attrib.PopulationSize );
+			m_Ps.Init( m_Attrib.PopulationSize );
+
+			m_Pmin	= 2.0f / (float)m_Attrib.PopulationSize;
+
+			// ダミーデータも初期化する
+			m_Population[ dummy ].Init( designParams, 1, numObjectives );
+
+			m_ArchiveIndices.Init( m_Attrib.PopulationSize );
+
+
+			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromosomeArray() );
+
+			m_bReady = true;
+		}
+		catch( ... )
+		{
+			HANDLE_EXCEPTION();
+			ReleasePopulation();
+		}
+	}
+
+
+
 	// 初期集団を生成する
 	void SHADE::InitPopulation( const IChromosome* pChromosome, int numObjectives )
 	{
@@ -461,6 +500,44 @@ namespace ealib
 	void MixedSHADE::SetLearningRate( float c )
 	{
 		m_SHADEAttrib.C	= c;
+	}
+
+
+
+	void MixedSHADE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	{
+		try
+		{
+			//===============	バッファを確保する	=================//
+
+			// 親世代/子世代それぞれの個体情報
+			m_Population[ parentGen ].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+			m_Population[ childGen ].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+
+			// アーカイブ個体情報
+			m_Population[archive].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+
+			// F/CR
+			m_Fs.Init( m_Attrib.PopulationSize );
+			m_CRs.Init( m_Attrib.PopulationSize );
+			m_Ps.Init( m_Attrib.PopulationSize );
+
+			m_Pmin	= 2.0f / (float)m_Attrib.PopulationSize;
+
+			// ダミーデータも初期化する
+			m_Population[ dummy ].Init( designParams, 1, numObjectives );
+
+			m_ArchiveIndices	= new int[ m_Attrib.PopulationSize ];
+
+			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromosomeArray() );
+
+			m_bReady = true;
+		}
+		catch( ... )
+		{
+			HANDLE_EXCEPTION();
+			ReleasePopulation();
+		}
 	}
 
 

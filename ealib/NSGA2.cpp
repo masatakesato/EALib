@@ -69,6 +69,36 @@ namespace ealib
 	}
 
 
+
+	void NSGA2::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	{
+		try
+		{
+			//===============	バッファを確保する	=================//
+			m_Population[ parentGen ].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+			m_Population[ childGen ].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+
+			// 次世代個体の親を格納するバッファの確保
+			m_Attrib.EliteSize	= Min( m_Attrib.EliteSize, m_Attrib.PopulationSize );
+			m_Parents.Init( DivUp( Max( m_Attrib.PopulationSize-m_Attrib.EliteSize, 0 ), 2 ) );
+
+			// ダミーデータも初期化する
+			m_Population[ dummy ].Init( designParams, 1, numObjectives );
+
+			m_bReady = true;
+		}
+		catch( ... )
+		{
+			HANDLE_EXCEPTION();
+			ReleasePopulation();
+		}
+		// Check visual studio's settings. https://kagasu.hatenablog.com/entry/2017/05/04/223252
+		// try/catch/finally example https://ufcpp.net/study/csharp/oo_exception.html
+		// https://stackoverflow.com/questions/3641737/c-get-description-of-an-exception-caught-in-catch-block
+	}
+
+
+
 	// 初期集団を生成する
 	void NSGA2::InitPopulation( const IChromosome* pChromosome, int numObjectives )
 	{
@@ -96,6 +126,7 @@ namespace ealib
 		// try/catch/finally example https://ufcpp.net/study/csharp/oo_exception.html
 		// https://stackoverflow.com/questions/3641737/c-get-description-of-an-exception-caught-in-catch-block
 	}
+
 
 
 	void NSGA2::ReleasePopulation()
@@ -334,6 +365,32 @@ namespace ealib
 	void MixedNSGA2::SetMutationRate( float m_rate )
 	{
 		m_SGAAttrib.MutationRate = m_rate;
+	}
+
+
+
+	void MixedNSGA2::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	{
+		try
+		{
+			//===============	バッファを確保する	=================//
+			m_Population[ parentGen ].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+			m_Population[ childGen ].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+
+			// 次世代個体の親を格納するバッファの確保
+			m_Attrib.EliteSize	= Min( m_Attrib.EliteSize, m_Attrib.PopulationSize );
+			m_Parents.Init( DivUp( Max( m_Attrib.PopulationSize-m_Attrib.EliteSize, 0 ), 2 ) );
+
+			// ダミーデータも初期化する
+			m_Population[ dummy ].Init( designParams, 1, numObjectives );
+
+			m_bReady = true;
+		}
+		catch( ... )
+		{
+			HANDLE_EXCEPTION();
+			ReleasePopulation();
+		}
 	}
 
 

@@ -77,6 +77,34 @@ namespace ealib
 
 
 
+	void jDE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	{
+		try
+		{
+			//===============	バッファを確保する	=================//
+
+			// 親世代/子世代それぞれの個体情報
+			m_Population[ parentGen ].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+			m_Population[ childGen ].Init( designParams, m_Attrib.PopulationSize, numObjectives );
+
+			// F/CR
+			m_Fs.Init( m_Attrib.PopulationSize );
+			m_CRs.Init( m_Attrib.PopulationSize );
+
+			// ダミーデータも初期化する
+			m_Population[ dummy ].Init( designParams, 1, numObjectives );
+
+			m_bReady = true;
+		}
+		catch( ... )
+		{
+			HANDLE_EXCEPTION();
+			ReleasePopulation();
+		}
+	}
+
+
+
 	// 初期集団を生成する
 	void jDE::InitPopulation( const IChromosome* pChromosome, int numObjectives )
 	{

@@ -27,17 +27,14 @@ namespace ealib
 		void SetMutationRate( float m_rate );	// 突然変異率を設定
 
 		// Virtual Functions Override
-		virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );//virtual void Init();
+		virtual void InitPopulation( const DesignParamArray& designParams, int numObjectives );
+		virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );
 		virtual void ReleasePopulation();
 		virtual IEvolutionaryAlgorithm* Clone() const;
 		virtual void Step( Evaluator* pEval );
 		virtual void Evolve( Evaluator* pEval, unsigned int seed=0 );
 		virtual Population* GetPopulation() const{ return (Population *)&m_Population[parentGen]; }
 		virtual void TakeSnapshot( Population& pOut ) const;
-		
-
-
-void InitPopulation( const DesignParamArray& designParams, int numObjectives );//virtual void Init();
 
 		
 	private:
@@ -79,7 +76,8 @@ void InitPopulation( const DesignParamArray& designParams, int numObjectives );/
 		void SetMutationRate( float m_rate );	// 突然変異率を設定
 
 		// Virtual Functions Override
-		virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );//virtual void Init();
+		virtual void InitPopulation( const DesignParamArray& designParams, int numObjectives );
+		virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );
 		virtual void ReleasePopulation();
 		virtual IEvolutionaryAlgorithm* Clone() const;
 		virtual void Step( Evaluator* pEval );

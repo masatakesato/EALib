@@ -23,9 +23,9 @@ int main( int argc, char **argv )
 
 
 
-	tcout << "//============== IO.LoadChromosome_( _T( \"data2.csv\" ) ================//\n\n";
+	tcout << "//============== IO.LoadChromosome_( _T( \"data.csv\" ) ================//\n\n";
 
-	IChromosome *pChromosome2	= IO.LoadChromosome( _T( "data2.csv" ) );
+	IChromosome *pChromosome2	= IO.LoadChromosome( _T( "data.csv" ) );
 	pChromosome2->Initialize( &initRandom );
 	DisplayChromosome( pChromosome2, true );
 	SafeDelete( pChromosome2 );
@@ -66,7 +66,6 @@ int main( int argc, char **argv )
 	chromosome2d.Release();
 
 	tcout << tendl;
-
 
 
 	return 0;

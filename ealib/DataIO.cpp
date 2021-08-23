@@ -248,7 +248,6 @@ namespace ealib
 
 		//==================== Create DesignParameters ===================//
 		DesignParamArray designParams( params.Length() );
-		int typecounts[ NUM_TYPES ] = { 0 };
 
 		for( int i=0; i<params.Length(); ++i )
 		{
@@ -269,31 +268,11 @@ namespace ealib
 				data[0].c_str(),// key
 				data[2].c_str(), data[3].c_str(), data[4].c_str()// min, max, default_value
 			);
-
-			typecounts[ type ]++;
 		}
+
 		
-
-		//==================== Init Chromsomes ===================//
-		int numtypes = 0;
-		for( int i=0; i<NUM_TYPES; ++i )
-			numtypes += int(typecounts[i]>0);
-
-		// Allocate
-		if( numtypes == 1 )
-		{
-			pChromosome	= c_ChromosomeFactory.Create( designParams );
-		}
-		else if( numtypes > 1 )
-		{
-			pChromosome	= new Chromosome2D( designParams );
-		}
-		else
-		{
-			return pChromosome;
-		}
-
-		return pChromosome;
+		//==================== Create Chromsomes ===================//
+		return c_ChromosomeFactory.Create( designParams );
 	}
 
 
