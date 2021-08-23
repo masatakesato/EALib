@@ -14,7 +14,7 @@ using namespace ealib;
 
 
 
-Chromosome1D<int>		g_Chromosome;
+//Chromosome1D<int>		g_Chromosome;
 SimpleGA				g_SGASolver;
 DifferentialEvolution	g_DESolver;
 
@@ -106,7 +106,7 @@ int main( int argc, char **argv )
 
 	
 	//==============	Init Chromosome	===============//
-	g_Chromosome.Init( designParams );
+	//g_Chromosome.Init( designParams );
 
 
 	//=============	Init Selector	===============//
@@ -127,7 +127,7 @@ int main( int argc, char **argv )
 	g_SGASolver.BindMutator( &mutator );
 	g_SGASolver.BindCrossover( &crossover_ga );// 整数用のクロスオーバー必要？？？
 
-	g_SGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_SGASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_SGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_SGASolver.Evolve( &Eval );
 	DisplayPopulation( g_SGASolver.GetPopulation(), true );
 	g_SGASolver.ReleasePopulation();
@@ -146,7 +146,7 @@ int main( int argc, char **argv )
 	g_DESolver.BindCrossover( &crossover_de );
 
 	// execute
-	g_DESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_DESolver.InitPopulation( designParams, Eval.NumObjectives() );//g_DESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_DESolver.Evolve( &Eval );
 	DisplayPopulation( g_DESolver.GetPopulation(), true );
 	g_DESolver.ReleasePopulation();

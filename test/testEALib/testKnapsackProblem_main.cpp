@@ -12,7 +12,7 @@ using namespace std;
 using namespace ealib;
 
 
-Chromosome1D<BitArray>	g_Chromosome;
+//Chromosome1D<BitArray>	g_Chromosome;
 SimpleGA				g_SGASolver;
 MultiIslandEA			g_MIEASolver;
 DifferentialEvolution	g_DESolver;
@@ -125,15 +125,13 @@ int main( int argc, char **argv )
 
 
 
-
-
-	//============ Init Chromosome	================//
+	//============ Init DesignParameters ================//
 	DesignParamArray designParams =
 	{
 		{ TYPE_ID<BitArray>, _T(""), 0, 0, 50, 0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
 	};
 
-	g_Chromosome.Init( designParams );
+	//g_Chromosome.Init( designParams );
 
 
 	//=============	Init Selector	===============//
@@ -144,7 +142,7 @@ int main( int argc, char **argv )
 	//============ test SimpleGA solver	===========//
 	tcout << "//####################### SimpleGA #########################//" << tendl;
 
-	g_Chromosome.Initialize( &initRandom );
+	//g_Chromosome.Initialize( &initRandom );
 
 	g_SGASolver.SetPopulationSize( 32 );
 	g_SGASolver.SetNumGenerations( 500 );
@@ -157,7 +155,7 @@ int main( int argc, char **argv )
 
 	//for( int i=0; i<15; ++i )
 	{
-		g_SGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+		g_SGASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_SGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 		g_SGASolver.Evolve( &Eval );
 		g_SGASolver.TakeSnapshot( g_SnapShot );
 		g_SGASolver.ReleasePopulation();
@@ -172,7 +170,7 @@ int main( int argc, char **argv )
 	//========= test Multi-Island GA solver	========//
 	tcout << "//####################### Multi-Island GA #########################//" << tendl;
 
-	g_Chromosome.Initialize( &initRandom );
+	//g_Chromosome.Initialize( &initRandom );
 
 	g_MIEASolver.BindSolver( &g_SGASolver );
 	//g_MIEASolver.GetSolver()->BindSelector( &tournamentSelector );
@@ -190,7 +188,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.SetMigrationRate( 0.15f );
 
 	// execute
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MIEASolver.Evolve( &Eval );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
@@ -203,7 +201,7 @@ int main( int argc, char **argv )
 	//====== test Differential Evolution solver	=======//
 	tcout << "//####################### Differential Evolution #########################//" << tendl;
 
-	g_Chromosome.Initialize( &initRandom );
+	//g_Chromosome.Initialize( &initRandom );
 
 	// set de parameters
 	g_DESolver.SetPopulationSize( 32 );
@@ -216,7 +214,7 @@ int main( int argc, char **argv )
 	for( int i=0; i<5; ++i )
 	{
 		// execute
-		g_DESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+		g_DESolver.InitPopulation( designParams, Eval.NumObjectives() );//g_DESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 		g_DESolver.Evolve( &Eval );
 		g_DESolver.TakeSnapshot( g_SnapShot );
 		g_DESolver.ReleasePopulation();

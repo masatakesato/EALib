@@ -10,7 +10,7 @@ using namespace ealib;
 
 
 
-Chromosome2D	g_Chromosome;
+//Chromosome2D	g_Chromosome;
 MixedSimpleGA	g_MixedSGASolver;
 MixedCoDE		g_MixedCoDESolver;
 MixedSHADE		g_MixedSHADESolver;
@@ -100,7 +100,7 @@ int main( int argc, char **argv )
 		//{ _T( "attrib4" ), 0.0f, -10.0f, -7.5f, 0.0f, BoundaryType::Exclusive, BoundaryType::Exclusive, SamplingType::Enumerated },
 	};
 
-	g_Chromosome.Init( designParams );
+	//g_Chromosome.Init( designParams );
 
 
 	//====== test Mixed SimpleGA	=======//
@@ -122,7 +122,7 @@ int main( int argc, char **argv )
 	g_MixedSGASolver.BindMutator( &mutator );
 	g_MixedSGASolver.BindCrossover( &crossover_ga );
 
-	g_MixedSGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MixedSGASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MixedSGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MixedSGASolver.Evolve( &Eval );
 	g_MixedSGASolver.TakeSnapshot( g_SnapShot );
 	g_MixedSGASolver.ReleasePopulation();
@@ -145,7 +145,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.GetSolver()->SetNumGenerations( 100 );// g_MIEASolver.SetNumGenerations( 10 );
 	g_MIEASolver.GetSolver()->BindSelector( &tournamentSelector );
 
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 
 	//for( int i=0; i<5; ++i )
 	g_MIEASolver.Evolve( &Eval );
@@ -168,7 +168,7 @@ int main( int argc, char **argv )
 	g_MixedCoDESolver.BindCrossover( &crossover_de );
 
 	// execute
-	g_MixedCoDESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MixedCoDESolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MixedCoDESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MixedCoDESolver.Evolve( &Eval );
 	g_MixedCoDESolver.TakeSnapshot( g_SnapShot );
 	g_MixedCoDESolver.ReleasePopulation();
@@ -192,7 +192,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.SetMigrationRate( 0.15f );
 
 	// execute
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MIEASolver.Evolve( &Eval );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
@@ -210,7 +210,7 @@ int main( int argc, char **argv )
 	g_MixedSHADESolver.SetNumGenerations( 100 );
 
 	// execute
-	g_MixedSHADESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MixedSHADESolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MixedSHADESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MixedSHADESolver.Evolve( &Eval );
 	g_MixedSHADESolver.TakeSnapshot( g_SnapShot );
 	g_MixedSHADESolver.ReleasePopulation();
@@ -234,7 +234,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.SetMigrationRate( 0.15f );
 
 	// execute
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MIEASolver.Evolve( &Eval );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();

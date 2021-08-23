@@ -99,27 +99,27 @@ namespace ealib
 
 
 
-	// 初期集団を生成する
-	void CoDE::InitPopulation( const IChromosome* pChromosome, int numObjectives )
-	{
-		try
-		{
-			//===============	バッファを確保する	=================//
-			// 親世代/子世代それぞれの個体情報
-			m_Population[parentGen].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
-			m_Population[childGen].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	// Deprecated. 2021.08.23
+	//void CoDE::InitPopulation( const IChromosome* pChromosome, int numObjectives )
+	//{
+	//	try
+	//	{
+	//		//===============	バッファを確保する	=================//
+	//		// 親世代/子世代それぞれの個体情報
+	//		m_Population[parentGen].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	//		m_Population[childGen].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
 
-			// トライアルベクターも初期化する
-			m_Population[trialGen].Init( pChromosome, 3, numObjectives );
+	//		// トライアルベクターも初期化する
+	//		m_Population[trialGen].Init( pChromosome, 3, numObjectives );
 
-			m_bReady = true;
-		}
-		catch( ... )
-		{
-			HANDLE_EXCEPTION();
-			ReleasePopulation();
-		}
-	}
+	//		m_bReady = true;
+	//	}
+	//	catch( ... )
+	//	{
+	//		HANDLE_EXCEPTION();
+	//		ReleasePopulation();
+	//	}
+	//}
 
 
 
@@ -376,27 +376,27 @@ namespace ealib
 
 
 
-	// 初期集団を生成する
-	void MixedCoDE::InitPopulation( const IChromosome* pChromosome, int numObjectives )
-	{
-		try
-		{
-			//===============	バッファを確保する	=================//
-			// 親世代/子世代それぞれの個体情報
-			m_Population[parentGen].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
-			m_Population[childGen].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	// Deprecated. 2021.08.23
+	//void MixedCoDE::InitPopulation( const IChromosome* pChromosome, int numObjectives )
+	//{
+	//	try
+	//	{
+	//		//===============	バッファを確保する	=================//
+	//		// 親世代/子世代それぞれの個体情報
+	//		m_Population[parentGen].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	//		m_Population[childGen].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
 
-			// トライアルベクターも初期化する
-			m_Population[trialGen].Init( pChromosome, 3, numObjectives );
+	//		// トライアルベクターも初期化する
+	//		m_Population[trialGen].Init( pChromosome, 3, numObjectives );
 
-			m_bReady = true;
-		}
-		catch( ... )
-		{
-			HANDLE_EXCEPTION();
-			ReleasePopulation();
-		}
-	}
+	//		m_bReady = true;
+	//	}
+	//	catch( ... )
+	//	{
+	//		HANDLE_EXCEPTION();
+	//		ReleasePopulation();
+	//	}
+	//}
 
 
 

@@ -68,30 +68,30 @@ namespace ealib
 
 
 
-	// 初期集団を生成する
-	void SimpleGA::InitPopulation( const IChromosome* pChromosome, int numObjectives )
-	{
-		try
-		{
-			//===============	バッファを確保する	=================//
-			m_Population[ parentGen ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
-			m_Population[ childGen ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	// Deprecated. 2021.08.23
+	//void SimpleGA::InitPopulation( const IChromosome* pChromosome, int numObjectives )
+	//{
+	//	try
+	//	{
+	//		//===============	バッファを確保する	=================//
+	//		m_Population[ parentGen ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	//		m_Population[ childGen ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
 
-			// 次世代個体の親を格納するバッファの確保
-			m_Attrib.EliteSize	= Min( m_Attrib.EliteSize, m_Attrib.PopulationSize );
-			m_Parents.Init( DivUp( Max( m_Attrib.PopulationSize-m_Attrib.EliteSize, 0 ), 2 ) );
+	//		// 次世代個体の親を格納するバッファの確保
+	//		m_Attrib.EliteSize	= Min( m_Attrib.EliteSize, m_Attrib.PopulationSize );
+	//		m_Parents.Init( DivUp( Max( m_Attrib.PopulationSize-m_Attrib.EliteSize, 0 ), 2 ) );
 
-			// ダミーデータも初期化する
-			m_Population[ dummy ].Init( pChromosome, 1, numObjectives );
+	//		// ダミーデータも初期化する
+	//		m_Population[ dummy ].Init( pChromosome, 1, numObjectives );
 
-			m_bReady = true;
-		}
-		catch( ... )
-		{
-			HANDLE_EXCEPTION();
-			ReleasePopulation();
-		}
-	}
+	//		m_bReady = true;
+	//	}
+	//	catch( ... )
+	//	{
+	//		HANDLE_EXCEPTION();
+	//		ReleasePopulation();
+	//	}
+	//}
 
 
 
@@ -363,29 +363,30 @@ void SimpleGA::InitPopulation( const DesignParamArray& designParams, int numObje
 
 
 
-	void MixedSimpleGA::InitPopulation( const IChromosome* pChromosome, int numObjectives )
-	{
-		try
-		{
-			//===============	バッファを確保する	=================//
-			m_Population[ parentGen ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
-			m_Population[ childGen ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	// Deprecated. 2021.08.23
+	//void MixedSimpleGA::InitPopulation( const IChromosome* pChromosome, int numObjectives )
+	//{
+	//	try
+	//	{
+	//		//===============	バッファを確保する	=================//
+	//		m_Population[ parentGen ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	//		m_Population[ childGen ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
 
-			// 次世代個体の親を格納するバッファの確保
-			m_Attrib.EliteSize	= Min( m_Attrib.EliteSize, m_Attrib.PopulationSize );
-			m_Parents.Init( DivUp( Max( m_Attrib.PopulationSize-m_Attrib.EliteSize, 0 ), 2 ) );
+	//		// 次世代個体の親を格納するバッファの確保
+	//		m_Attrib.EliteSize	= Min( m_Attrib.EliteSize, m_Attrib.PopulationSize );
+	//		m_Parents.Init( DivUp( Max( m_Attrib.PopulationSize-m_Attrib.EliteSize, 0 ), 2 ) );
 
-			// ダミーデータも初期化する
-			m_Population[ dummy ].Init( pChromosome, 1, numObjectives );
+	//		// ダミーデータも初期化する
+	//		m_Population[ dummy ].Init( pChromosome, 1, numObjectives );
 
-			m_bReady = true;
-		}
-		catch( ... )
-		{
-			HANDLE_EXCEPTION();
-			ReleasePopulation();
-		}
-	}
+	//		m_bReady = true;
+	//	}
+	//	catch( ... )
+	//	{
+	//		HANDLE_EXCEPTION();
+	//		ReleasePopulation();
+	//	}
+	//}
 
 
 

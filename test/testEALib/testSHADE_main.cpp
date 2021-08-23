@@ -10,7 +10,7 @@ using namespace ealib;
 
 
 
-Chromosome1D<float>	g_Chromosome;
+//Chromosome1D<float>	g_Chromosome;
 MultiIslandEA	g_MIEASolver;
 jDE				g_jDESolver;
 JADE			g_JADESolver;
@@ -190,7 +190,7 @@ int main( int argc, char **argv )
 		//{ _T( "" ), 0.0f, -5.12f, 5.12f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
 	};
 
-	g_Chromosome.Init( designParams );
+	//g_Chromosome.Init( designParams );
 
 //InitChromosome1DFromCSV( g_Chromosome, __T( "D:/data/Repository/programs/Simulation/Project/EvolutionaryAlgorithm/testSHADE/params.csv" ), TYPE_ID<float32> );
 
@@ -205,7 +205,7 @@ int main( int argc, char **argv )
 	g_CoDESolver.BindCrossover( &crossover_de );
 
 	// execute
-	g_CoDESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_CoDESolver.InitPopulation( designParams, Eval.NumObjectives() );//g_CoDESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_CoDESolver.Evolve( &Eval );
 	g_CoDESolver.TakeSnapshot( g_SnapShot );
 	g_CoDESolver.ReleasePopulation();
@@ -229,7 +229,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.SetMigrationRate( 0.15f );
 
 	// execute
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MIEASolver.Evolve( &Eval );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
@@ -252,7 +252,7 @@ int main( int argc, char **argv )
 	g_jDESolver.BindCrossover( &crossover_de );
 
 	// execute
-	g_jDESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_jDESolver.InitPopulation( designParams, Eval.NumObjectives() );//g_jDESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_jDESolver.Evolve( &Eval );
 	g_jDESolver.TakeSnapshot( g_SnapShot );
 	g_jDESolver.ReleasePopulation();
@@ -276,7 +276,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.SetMigrationRate( 0.15f );
 
 	// execute
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MIEASolver.Evolve( &Eval );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
@@ -301,7 +301,7 @@ int main( int argc, char **argv )
 	g_JADESolver.BindCrossover( &crossover_de );
 
 	// execute
-	g_JADESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_JADESolver.InitPopulation( designParams, Eval.NumObjectives() );//g_JADESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_JADESolver.Evolve( &Eval );
 	g_JADESolver.TakeSnapshot( g_SnapShot );
 	g_JADESolver.ReleasePopulation();
@@ -325,7 +325,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.SetMigrationRate( 0.15f );
 
 	// execute
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MIEASolver.Evolve( &Eval );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
@@ -350,7 +350,7 @@ int main( int argc, char **argv )
 	g_SHADESolver.BindCrossover( &crossover_de );
 
 	// execute
-	g_SHADESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_SHADESolver.InitPopulation( designParams, Eval.NumObjectives() );//g_SHADESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_SHADESolver.Evolve( &Eval );
 	g_SHADESolver.TakeSnapshot( g_SnapShot );
 	g_SHADESolver.ReleasePopulation();
@@ -374,7 +374,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.SetMigrationRate( 0.15f );
 
 	// execute
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MIEASolver.Evolve( &Eval );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();

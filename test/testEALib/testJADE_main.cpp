@@ -9,7 +9,7 @@ using namespace std;
 using namespace ealib;
 
 
-Chromosome1D<float>	g_Chromosome;
+//Chromosome1D<float>	g_Chromosome;
 SimpleGA		g_SGASolver;
 MultiIslandEA	g_MIEASolver;
 jDE				g_jDESolver;
@@ -149,7 +149,7 @@ int main( int argc, char **argv )
 		{ _T(""), 0.0f, -5.12f, 5.12f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
 	};
 
-	g_Chromosome.Init( designParams );
+	//g_Chromosome.Init( designParams );
 
 
 	//=============	Init Selector	===============//
@@ -174,7 +174,7 @@ int main( int argc, char **argv )
 	//for( int i=0; i<1; ++i )
 	//{
 		// execute
-		g_SGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+		g_SGASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_SGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 		g_SGASolver.Evolve( &Eval );
 		g_SGASolver.TakeSnapshot( g_SnapShot );
 		g_SGASolver.ReleasePopulation();
@@ -201,7 +201,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.GetSolver()->SetEliteSize( 1 );// g_MIEASolver.SetEliteSize( 1 );
 
 	// execute
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MIEASolver.Evolve( &Eval );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
@@ -226,7 +226,7 @@ int main( int argc, char **argv )
 	for( int i=0; i<1; ++i )
 	{
 		// execute
-		g_jDESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+		g_jDESolver.InitPopulation( designParams, Eval.NumObjectives() );//g_jDESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 		g_jDESolver.Evolve( &Eval );
 		g_jDESolver.TakeSnapshot( g_SnapShot );
 		g_jDESolver.ReleasePopulation();
@@ -254,7 +254,7 @@ int main( int argc, char **argv )
 	//for( int i=0; i<10; ++i )
 	{
 		// execute
-		g_JADESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+		g_JADESolver.InitPopulation( designParams, Eval.NumObjectives() );//g_JADESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 		g_JADESolver.Evolve( &Eval );
 		g_JADESolver.TakeSnapshot( g_SnapShot );
 		g_JADESolver.ReleasePopulation();

@@ -141,9 +141,6 @@
     <ClInclude Include="..\..\..\ealib\EACommon.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\ealib\EALib.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\ealib\EAStatistics.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>

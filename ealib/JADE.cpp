@@ -135,41 +135,41 @@ namespace ealib
 
 
 
-	// 初期集団を生成する
-	void JADE::InitPopulation( const IChromosome* pChromosome, int numObjectives )
-	{
-		try
-		{
-			//===============	バッファを確保する	=================//
+	// Deprecated. 2021.08.23
+	//void JADE::InitPopulation( const IChromosome* pChromosome, int numObjectives )
+	//{
+	//	try
+	//	{
+	//		//===============	バッファを確保する	=================//
 
-			// 親世代/子世代それぞれの個体情報
-			m_Population[ parentGen ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
-			m_Population[ childGen ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	//		// 親世代/子世代それぞれの個体情報
+	//		m_Population[ parentGen ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	//		m_Population[ childGen ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
 
-			// アーカイブ個体情報
-			m_Population[ archive ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	//		// アーカイブ個体情報
+	//		m_Population[ archive ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
 
-			// F/CR
-			m_Fs.Init( m_Attrib.PopulationSize );
-			m_CRs.Init( m_Attrib.PopulationSize );
+	//		// F/CR
+	//		m_Fs.Init( m_Attrib.PopulationSize );
+	//		m_CRs.Init( m_Attrib.PopulationSize );
 
-			// ダミーデータも初期化する
-			m_Population[ dummy ].Init( pChromosome, 1, numObjectives );
+	//		// ダミーデータも初期化する
+	//		m_Population[ dummy ].Init( pChromosome, 1, numObjectives );
 
-			// アーカイブ個体インデックスの仮記憶バッファ
-			m_ArchiveIndices.Init( m_Attrib.PopulationSize );
+	//		// アーカイブ個体インデックスの仮記憶バッファ
+	//		m_ArchiveIndices.Init( m_Attrib.PopulationSize );
 
 
-			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromosomeArray() );
+	//		m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromosomeArray() );
 
-			m_bReady = true;
-		}
-		catch( ... )
-		{
-			HANDLE_EXCEPTION();
-			ReleasePopulation();
-		}
-	}
+	//		m_bReady = true;
+	//	}
+	//	catch( ... )
+	//	{
+	//		HANDLE_EXCEPTION();
+	//		ReleasePopulation();
+	//	}
+	//}
 
 
 

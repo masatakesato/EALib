@@ -98,30 +98,30 @@ namespace ealib
 
 
 
-	// 初期集団を生成する
-	void ParticleSwarmOptimization::InitPopulation( const IChromosome* pChromosome, int numObjectives )
-	{
-		try
-		{
-			//===============	バッファを確保する	=================//
-			m_Population[ individual ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
-			m_Population[ personalbest ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
-			m_Population[ velocity ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	// Deprecated. 2021.08.23
+	//void ParticleSwarmOptimization::InitPopulation( const IChromosome* pChromosome, int numObjectives )
+	//{
+	//	try
+	//	{
+	//		//===============	バッファを確保する	=================//
+	//		m_Population[ individual ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	//		m_Population[ personalbest ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	//		m_Population[ velocity ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
 
-			// 次世代個体の親を格納するバッファの確保
-			m_Attrib.EliteSize	= Min( m_Attrib.EliteSize, m_Attrib.PopulationSize );
+	//		// 次世代個体の親を格納するバッファの確保
+	//		m_Attrib.EliteSize	= Min( m_Attrib.EliteSize, m_Attrib.PopulationSize );
 
-			// ダミーデータも初期化する
-			m_Population[ groupbest ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
+	//		// ダミーデータも初期化する
+	//		m_Population[ groupbest ].Init( pChromosome, m_Attrib.PopulationSize, numObjectives );
 
-			m_bReady = true;
-		}
-		catch( ... )
-		{
-			HANDLE_EXCEPTION();
-			ReleasePopulation();
-		}
-	}
+	//		m_bReady = true;
+	//	}
+	//	catch( ... )
+	//	{
+	//		HANDLE_EXCEPTION();
+	//		ReleasePopulation();
+	//	}
+	//}
 
 
 

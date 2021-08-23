@@ -11,7 +11,7 @@ using namespace ealib;
 
 
 
-Chromosome1D<float>	g_Chromosome;
+//Chromosome1D<float>	g_Chromosome;
 SimpleGA				g_SGASolver;
 DifferentialEvolution	g_DESolver;
 MultiIslandEA			g_MIEASolver;
@@ -97,7 +97,7 @@ int main( int argc, char **argv )
 		{ _T( "attrib7" ), 0.0f, -5.12f, 5.12f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
 	};
 
-	g_Chromosome.Init( designParams );
+	//g_Chromosome.Init( designParams );
 
 
 	//=============	Init Selector	===============//
@@ -130,7 +130,7 @@ int main( int argc, char **argv )
 	//for( int i=0; i<1; ++i )
 	//{
 		// execute
-		g_SGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+		g_SGASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_SGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 		g_SGASolver.Evolve( &Eval );
 		g_SGASolver.TakeSnapshot( g_SnapShot );
 		g_SGASolver.ReleasePopulation();
@@ -156,7 +156,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.SetMigrationRate( 0.15f );
 	
 	// execute
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MIEASolver.Evolve( &Eval );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
@@ -170,7 +170,7 @@ int main( int argc, char **argv )
 	tcout << "//####################### Differential Evolution #########################//" << tendl;
 
 	// execute
-	g_DESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_DESolver.InitPopulation( designParams, Eval.NumObjectives() );//g_DESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_DESolver.Evolve( &Eval );
 	g_DESolver.TakeSnapshot( g_SnapShot );
 	g_DESolver.ReleasePopulation();
@@ -194,7 +194,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.SetMigrationRate( 0.15f );
 
 	// execute
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MIEASolver.Evolve( &Eval );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();

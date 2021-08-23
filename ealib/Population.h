@@ -27,6 +27,7 @@ namespace ealib
 
 
 		Population();
+		Population( const DesignParamArray& designParams, int pop_size, int num_objectives );
 		Population( const IChromosome* pChromosome, int pop_size, int num_objectives );
 		virtual ~Population();
 		Population( const Population& obj );
@@ -34,7 +35,7 @@ namespace ealib
 		Population& operator=( const Population& obj );
 		Population& operator=( Population&& obj );
 
-		
+		void Init( const DesignParamArray& designParams, int pop_size, int num_objectives );
 		void Init( const IChromosome* pChromosome, int pop_size, int num_objectives );
 		void Release();
 		void CopyChromosomes( const Population* pSrc, int startidx=0 );
@@ -58,12 +59,6 @@ namespace ealib
 		float GetFitness( int i, int obj ) const{ return m_ChromosomeArray[i]->GetFitness( obj ); }
 
 		int NumObjectives() const				{ return m_PopResult.NumObjectives(); }
-
-
-// TODO: Create Population using DesignParamArray.
-Population( const DesignParamArray& designParams, int pop_size, int num_objectives );
-
-void Init( const DesignParamArray& designParams, int pop_size, int num_objectives );
 
 
 	private:

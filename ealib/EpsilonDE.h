@@ -24,7 +24,7 @@ namespace ealib
 
 		// Virtual Functions Override
 		virtual void InitPopulation( const DesignParamArray& designParams, int numObjectives );
-		virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );
+		//virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );// Deprecated. 2021.08.23
 		virtual void ReleasePopulation();
 		virtual IEvolutionaryAlgorithm* Clone() const;
 		virtual void Step( Evaluator* pEval );

@@ -11,7 +11,7 @@ using namespace std;
 using namespace ealib;
 
 
-Chromosome1D<float>	g_Chromosome;
+//Chromosome1D<float>	g_Chromosome;
 SimpleGA		g_SGASolver;
 MultiIslandEA	g_MIEASolver;
 Population		g_SnapShot;
@@ -83,7 +83,7 @@ int main( int argc, char **argv )
 
 
 	//============ Init Chromosome	================//
-	g_Chromosome.Init( designParams );
+	//g_Chromosome.Init( designParams );
 
 
 	//=============	Init Selector	===============//
@@ -102,7 +102,7 @@ int main( int argc, char **argv )
 	g_SGASolver.BindCrossover( &crossover );
 
 
-	g_SGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_SGASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_SGASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_SGASolver.Evolve( &Eval );	
 	g_SGASolver.TakeSnapshot( g_SnapShot );
 	g_SGASolver.ReleasePopulation();
@@ -129,7 +129,7 @@ int main( int argc, char **argv )
 
 
 	// execute
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_MIEASolver.Evolve( &Eval );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();

@@ -39,7 +39,6 @@
     <ClInclude Include="..\..\..\ealib\DE_Rand_2.h" />
     <ClInclude Include="..\..\..\ealib\DifferentialEvolution.h" />
     <ClInclude Include="..\..\..\ealib\EACommon.h" />
-    <ClInclude Include="..\..\..\ealib\EALib.h" />
     <ClInclude Include="..\..\..\ealib\EAStatistics.h" />
     <ClInclude Include="..\..\..\ealib\EpsilonDE.h" />
     <ClInclude Include="..\..\..\ealib\Evaluator.h" />

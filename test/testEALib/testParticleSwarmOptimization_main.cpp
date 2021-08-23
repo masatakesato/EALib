@@ -10,7 +10,7 @@ using namespace ealib;
 
 
 
-Chromosome1D<float>		g_Chromosome;
+//Chromosome1D<float>		g_Chromosome;
 ParticleSwarmOptimization	g_PSOSolver;
 MultiIslandEA				g_MIEASolver;
 Population					g_SnapShot;
@@ -99,7 +99,7 @@ int main( int argc, char **argv )
 	
 
 	//============ Init Chromosome	================//
-	g_Chromosome.Init( designParams );
+	//g_Chromosome.Init( designParams );
 
 
 	//============ test PSO solver	===========//
@@ -111,7 +111,7 @@ int main( int argc, char **argv )
 	g_PSOSolver.SetAccelCoeff1( 0.5f );
 	g_PSOSolver.SetAccelCoeff2( 0.25f );
 
-	g_PSOSolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_PSOSolver.InitPopulation( designParams, Eval.NumObjectives() );//g_PSOSolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	g_PSOSolver.Evolve( &Eval );
 	g_PSOSolver.TakeSnapshot( g_SnapShot );
 	g_PSOSolver.ReleasePopulation();
@@ -130,7 +130,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.SetMigrationInterval( 2 );
 	g_MIEASolver.SetMigrationRate( 0.25f );
 
-	g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
+	g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MIEASolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );
 	for( int i=0; i<5; ++i )	g_MIEASolver.Evolve( &Eval );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
