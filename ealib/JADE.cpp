@@ -221,36 +221,26 @@ namespace ealib
 		{
 			IChromosome *x_i	= m_Population[ parentGen ].GetIndividual( i );
 			IChromosome *t_i	= m_Population[ dummy ].GetIndividual( 0 );// 中間個体
-			IChromosome* refCandidates[5] = { nullptr, nullptr, nullptr, nullptr, nullptr, };
+			IChromosome* refCandidates[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
 
-			//=================	Mutation and Crossover	===================//
-			//Current_to_pbest_1( refCandidates, i );// current to pbest
+			//=================	Mutation and Crossover	===================//			
+			m_Mutator.Execute( 5, &refCandidates[1], i );//m_Mutator.Execute( 5, refCandidates, i );
+			refCandidates[0] = t_i;
 			//IChromosome *randoms[] =
 			//{
-			//	t_i,									// t_i. trial vector
-			//	x_i,				// x_i
-			//	refCandidates[0],	// pbest
-			//	x_i,				// x_i
-			//	refCandidates[1],	// x_r2
-			//	refCandidates[2],	// x_r3
+			//	t_i,				// t_i. trial vector
+			//	refCandidates[0],	// x_i
+			//	refCandidates[1],	// pbest
+			//	refCandidates[2],	// x_i
+			//	refCandidates[3],	// x_r1
+			//	refCandidates[4],	// x_r2
 			//};
-
-			m_Mutator.Execute( 5, refCandidates, i );
-			IChromosome *randoms[] =
-			{
-				t_i,									// t_i. trial vector
-				refCandidates[0],	// x_i
-				refCandidates[1],	// pbest
-				refCandidates[2],	// x_i
-				refCandidates[3],	// x_r1
-				refCandidates[4],	// x_r2
-			};
 			
 			// 中間個体を生成する
 			t_i->CopyGeneFrom( x_i );
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる？→世代ごとに、個体別F/CRを新規生成するから多分関係ない
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
-			m_refCrossover->Execute( 6, randoms, &attr );
+			m_refCrossover->Execute( 6, refCandidates, &attr );//m_refCrossover->Execute( 6, randoms, &attr );
 
 			pEval->Evaluate( t_i );
 
@@ -372,29 +362,6 @@ namespace ealib
 
 		}// end of i loop
 	}
-
-
-
-	////Do whileで3つ探した方がはやい
-	//void JADE::Current_to_pbest_1( IChromosome* candidates[], int curr )
-	//{
-	//	int pbest = int( (double)m_Attrib.PopulationSize * OreOreLib::genrand_real2() * (double)m_JADEAttrib.P );
-	//	while( pbest==curr )
-	//		pbest = int( (double)m_Attrib.PopulationSize * OreOreLib::genrand_real2() * (double)m_JADEAttrib.P );
-
-	//	int r2 = int( (double)( m_Attrib.PopulationSize + m_numActiveArchives ) * OreOreLib::genrand_real2() );//int( (double)( m_Attrib.PopulationSize ) * OreOreLib::genrand_real2() );//
-	//	while( r2==pbest || r2==curr )
-	//		r2 = int( (double)( m_Attrib.PopulationSize + m_numActiveArchives ) * OreOreLib::genrand_real2() );//int( (double)( m_Attrib.PopulationSize ) * OreOreLib::genrand_real2() );//
-
-	//	int r1 = int( (double)( m_Attrib.PopulationSize ) * OreOreLib::genrand_real2() );
-	//	while( r1==pbest || r1==r2 || r1==curr )
-	//		r1 = int( (double)( m_Attrib.PopulationSize ) * OreOreLib::genrand_real2() );
-
-	//	candidates[0]	= m_Population[parentGen].GetIndividual( pbest );
-	//	candidates[1]	= m_Population[parentGen].GetIndividual( r1 );
-	//	candidates[2]	= r2>=m_Attrib.PopulationSize ? m_Population[archive].GetIndividual( r2-m_Attrib.PopulationSize ) : m_Population[parentGen].GetIndividual( r2 );
-	//	// m_Population[parentGen].GetIndividual( r2 );
-	//}
 
 
 

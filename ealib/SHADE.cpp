@@ -236,37 +236,27 @@ namespace ealib
 		{
 			IChromosome *x_i	= m_Population[ parentGen ].GetIndividual( i );
 			IChromosome *t_i	= m_Population[ dummy ].GetIndividual( 0 );// 中間個体
-			IChromosome* refCandidates[5] = { nullptr, nullptr, nullptr, nullptr, nullptr, };
+			IChromosome* refCandidates[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
 
 			//=================	Mutation and Crossover	===================//
-			//Current_to_pbest_1( refCandidates, i );// current to pbest
-			//IChromosome *randoms[] =
-			//{
-			//	t_i,									// t_i. trial vector
-			//	x_i,				// x_i
-			//	refCandidates[0],	// pbest
-			//	x_i,				// x_i
-			//	refCandidates[1],	// x_r2
-			//	refCandidates[2],	// x_r3
-			//};
-
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる？→世代ごとに、個体別F/CRを新規生成するから多分関係ない
 			m_Mutator.SetP( m_Ps[id] );
-			m_Mutator.Execute( 5, refCandidates, i );
-			IChromosome *randoms[] =
-			{
-				t_i,				// t_i. trial vector
-				refCandidates[0],	// x_i
-				refCandidates[1],	// pbest
-				refCandidates[2],	// x_i
-				refCandidates[3],	// x_r1
-				refCandidates[4],	// x_r2
-			};
+			m_Mutator.Execute( 5, &refCandidates[1], i );
+			refCandidates[0] = t_i;
+			//IChromosome *randoms[] =
+			//{
+			//	t_i,				// t_i. trial vector
+			//	refCandidates[0],	// x_i
+			//	refCandidates[1],	// pbest
+			//	refCandidates[2],	// x_i
+			//	refCandidates[3],	// x_r1
+			//	refCandidates[4],	// x_r2
+			//};
 			
 			// 中間個体を生成する
 			t_i->CopyGeneFrom( x_i );
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
-			m_refCrossover->Execute( 6, randoms, &attr );
+			m_refCrossover->Execute( 6, refCandidates, &attr );//m_refCrossover->Execute( 6, randoms, &attr );
 
 			pEval->Evaluate( t_i );
 

@@ -143,19 +143,20 @@ namespace ealib
 			IChromosome* refCandidates[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
 
 			//=================	Mutation and Crossover	===================//
-			s_DE_Rand_1_Mutator.Execute( 3, refCandidates, i );
+			s_DE_Rand_1_Mutator.Execute( 3, &refCandidates[1], i );//s_DE_Rand_1_Mutator.Execute( 3, refCandidates, i );
 
-			IChromosome *randoms[] =
-			{
-				t_i,									// t_i. trial vector
-				refCandidates[0],
-				refCandidates[1],
-				refCandidates[2],
-			};
+			refCandidates[0] = t_i;
+			//IChromosome *randoms[] =
+			//{
+			//	t_i,	// t_i. trial vector
+			//	refCandidates[0],
+			//	refCandidates[1],
+			//	refCandidates[2],
+			//};
 			
 			// 中間個体を生成する
 			t_i->CopyGeneFrom( x_i );
-			m_refCrossover->Execute( 4, randoms, &m_MutateAttrib );
+			m_refCrossover->Execute( 4, refCandidates, &m_MutateAttrib );//m_refCrossover->Execute( 4, randoms, &m_MutateAttrib );
 
 			pEval->Evaluate( t_i );
 

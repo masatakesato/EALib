@@ -49,5 +49,4 @@ namespace ealib
 	}
 
 
-
 }// end of namespace

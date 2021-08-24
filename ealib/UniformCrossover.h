@@ -31,12 +31,10 @@ namespace ealib
 		}
 
 
-
 		~UniformCrossover()
 		{
 
 		}
-
 
 
 		virtual void Execute( int numchroms, IChromosome** chromosomes, const void* attribs )
@@ -47,8 +45,6 @@ namespace ealib
 
 
 	private:
-
-
 
 		// int/short crossover
 		template < typename Type=T >

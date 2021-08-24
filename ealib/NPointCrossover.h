@@ -37,7 +37,6 @@ namespace ealib
 		}
 
 
-
 	private:
 
 		int	m_SplicePoints[ N ];

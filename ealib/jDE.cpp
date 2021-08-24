@@ -165,24 +165,24 @@ namespace ealib
 		{
 			IChromosome *x_i	= m_Population[ parentGen ].GetIndividual( i );
 			IChromosome *t_i	= m_Population[ dummy ].GetIndividual( 0 );// 中間個体
-			IChromosome* refCandidates[3] = { nullptr, nullptr, nullptr };
+			IChromosome* refCandidates[4] = { nullptr, nullptr, nullptr, nullptr };
 
 			//=================	Mutation and Crossover	===================//
-			m_DE_Rand_1_Mutator.Execute( 3, refCandidates, i );
-
-			IChromosome *randoms[] =
-			{
-				t_i,									// t_i. trial vector
-				refCandidates[0],
-				refCandidates[1],
-				refCandidates[2],
-			};
+			m_DE_Rand_1_Mutator.Execute( 3, &refCandidates[1], i );
+			refCandidates[0] = t_i;
+			//IChromosome *randoms[] =
+			//{
+			//	t_i,// t_i. trial vector
+			//	refCandidates[0],
+			//	refCandidates[1],
+			//	refCandidates[2],
+			//};
 			
 			// 中間個体を生成する
 			t_i->CopyGeneFrom( x_i );
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる→前世代からの値持ち越しがあるので関係ある
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
-			m_refCrossover->Execute( 4, randoms, &attr );
+			m_refCrossover->Execute( 4, refCandidates/*randoms*/, &attr );
 
 			pEval->Evaluate( t_i );
 

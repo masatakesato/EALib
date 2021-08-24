@@ -17,11 +17,6 @@ namespace ealib
 		~BDECrossover();
 
 		virtual void Execute( int numchroms, IChromosome** chromosomes, const void* attribs );
-
-
-	private:
-
-
 	};
 
 

@@ -154,61 +154,64 @@ namespace ealib
 
 			//====================== current-to-rand/1/bin =========================//
 			// 中間個体を生成する
-			m_DE_Current_to_Rand_1.Execute( 5, m_refCandidates, i );
+			m_DE_Current_to_Rand_1.Execute( 5, &m_refCandidates[1], i );//m_DE_Current_to_Rand_1.Execute( 5, &m_refCandidates[1], i );
 			IChromosome* t_i_best1bin	= m_Population[trialGen].GetIndividual( 0 );// Trial vector1
 			t_i_best1bin->CopyGeneFrom( x_i );
 			{
-				IChromosome *randoms[] =
-				{
-					t_i_best1bin,
-					m_refCandidates[0],// current
-					m_refCandidates[1],// rand2
-					m_refCandidates[2],// rand3
-					m_refCandidates[3],// rand4
-					m_refCandidates[4],// rand5
-				};
+				m_refCandidates[0] = t_i_best1bin;
+				//IChromosome *randoms[] =
+				//{
+				//	t_i_best1bin,
+				//	m_refCandidates[0],// current
+				//	m_refCandidates[1],// rand2
+				//	m_refCandidates[2],// rand3
+				//	m_refCandidates[3],// rand4
+				//	m_refCandidates[4],// rand5
+				//};
 
-				m_refCrossover->Execute( 6, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+				m_refCrossover->Execute( 6, m_refCandidates, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );	//m_refCrossover->Execute( 6, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			}
 			pEval->Evaluate( t_i_best1bin );
 
 
 			//========================== rand/1/bin ====================//
 			// 中間個体を生成する
-			m_DE_Rand_1.Execute( 3, m_refCandidates, i );
+			m_DE_Rand_1.Execute( 3, &m_refCandidates[1], i );//m_DE_Rand_1.Execute( 3, m_refCandidates, i );
 			IChromosome* t_i_rand1bin	= m_Population[trialGen].GetIndividual( 1 );// Trial vector2
 			t_i_rand1bin->CopyGeneFrom( x_i );
 			{
-				IChromosome *randoms[] =
-				{
-					t_i_rand1bin,
-					m_refCandidates[0],// rand1
-					m_refCandidates[1],// rand2
-					m_refCandidates[2],// rand3
-				};
+				m_refCandidates[0] = t_i_rand1bin;
+				//IChromosome *randoms[] =
+				//{
+				//	t_i_rand1bin,
+				//	m_refCandidates[0],// rand1
+				//	m_refCandidates[1],// rand2
+				//	m_refCandidates[2],// rand3
+				//};
 
-				m_refCrossover->Execute( 4, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+				m_refCrossover->Execute( 4, m_refCandidates, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );//m_refCrossover->Execute( 4, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			}
 			pEval->Evaluate( t_i_rand1bin );
 
 
 			//====================== rand/2/bin =========================//
 			// 中間個体を生成する
-			m_DE_Rand_2.Execute( 5, m_refCandidates, i );
+			m_DE_Rand_2.Execute( 5, &m_refCandidates[1], i );
 			IChromosome* t_i_rand2bin	= m_Population[trialGen].GetIndividual( 2 );// Trial vector3
 			t_i_rand2bin->CopyGeneFrom( x_i );
 			{
-				IChromosome *randoms[] =
-				{
-					t_i_rand2bin,
-					m_refCandidates[0],// rand1
-					m_refCandidates[1],// rand2
-					m_refCandidates[2],// rand3
-					m_refCandidates[3],// rand4
-					m_refCandidates[4],// rand5
-				};
+				m_refCandidates[0] = t_i_rand2bin;
+				//IChromosome *randoms[] =
+				//{
+				//	t_i_rand2bin,
+				//	m_refCandidates[0],// rand1
+				//	m_refCandidates[1],// rand2
+				//	m_refCandidates[2],// rand3
+				//	m_refCandidates[3],// rand4
+				//	m_refCandidates[4],// rand5
+				//};
 
-				m_refCrossover->Execute( 6, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+				m_refCrossover->Execute( 6, m_refCandidates, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );//m_refCrossover->Execute( 6, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			}
 			pEval->Evaluate( t_i_rand2bin );
 			
@@ -488,7 +491,7 @@ namespace ealib
 					m_refCandidates[4]->GetChromosome( j ),// rand5
 				};
 
-				m_refCrossover->Execute( 4, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+				m_refCrossover->Execute( 6, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			}
 			pEval->Evaluate( t_i_rand2bin );
 			

@@ -20,16 +20,32 @@ namespace ealib
 
 		ICrossoverOperator( int16 type=-1 )
 			: TypeID( type )
+			, m_NumParents( 0 )
 		{
 
 		}
+
 
 		virtual ~ICrossoverOperator()
 		{
 		
 		}
 
+
+		int NumParents() const
+		{
+			return m_NumParents;
+		}
+
+
 		virtual void Execute( int numchroms, IChromosome** chromosomes, const void* attribs )=0;
+
+
+
+	protected:
+
+		int m_NumParents = 0;
+
 
 	};
 

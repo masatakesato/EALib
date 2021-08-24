@@ -7,6 +7,11 @@
 #include	"DE_Rand_1.h"
 
 
+// Differential Evolution + Epsilon constriant method. 
+// Still in development( Just DE at current). 2021.08.24
+// https://www.jstage.jst.go.jp/article/tjsai/24/1/24_1_34/_pdf
+
+
 
 namespace ealib
 {
@@ -142,18 +147,20 @@ namespace ealib
 
 
 			//=================	Mutation and Crossover	===================//
-			s_DE_Rand_1_Mutator.Execute( 3, refCandidates, i );
-			IChromosome *randoms[] =
-			{
-				t_i,
-				refCandidates[0],
-				refCandidates[1],
-				refCandidates[2],
-			};
+			s_DE_Rand_1_Mutator.Execute( 3, &refCandidates[1], i );
+
+			refCandidates[0] = t_i;
+			//IChromosome *randoms[] =
+			//{
+			//	t_i,
+			//	refCandidates[0],
+			//	refCandidates[1],
+			//	refCandidates[2],
+			//};
 			
 			// 中間個体を生成する
 			t_i->CopyGeneFrom( x_i );
-			m_refCrossover->Execute( /*6*/4, randoms, &m_MutateAttrib );
+			m_refCrossover->Execute( /*6*/4, refCandidates, &m_MutateAttrib );
 
 			pEval->Evaluate( t_i );
 

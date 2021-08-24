@@ -3,26 +3,58 @@
 #include	<oreore/mathlib/MathLib.h>
 #include	<oreore/mathlib/MersenneTwister.h>
 
-#include	"IChromosome.h"
+//#include	"IChromosome.h"
+#include	"Chromosome1DFactory.h"
 
 
 
 namespace ealib
 {
+	const Chromosome1DFactory<g_ChoromosomeTypes>	c_Factory;
 
-	SPX::SPX()
+
+
+	SPX::SPX( const DesignParamArray& designParams )
 		: ICrossoverOperator( TYPE_ID<float> )
+		, m_CenterOfMass( c_Factory.Create( designParams ) )
+		, m_Vertices( designParams.Length() + 1 )
 	{
-
+		for( int i=0; i<m_Vertices.Length(); ++i )
+			m_Vertices[i] = m_CenterOfMass->Clone();
 	}
 
 
 
 	SPX::~SPX()
 	{
-
+		Release();
 	}
 	
+
+
+	void SPX::Init( const DesignParamArray& designParams )
+	{
+		Release();
+
+		m_CenterOfMass	= c_Factory.Create( designParams );
+
+		m_Vertices.Init( designParams.Length() + 1 );
+		for( int i=0; i<m_Vertices.Length(); ++i )
+			m_Vertices[i] = m_CenterOfMass->Clone();
+	}
+
+
+
+	void SPX::Release()
+	{
+		for( int i=0; i<m_Vertices.Length(); ++i )
+			SafeDelete( m_Vertices[i] );
+
+		m_Vertices.Release();
+
+		SafeDelete( m_CenterOfMass );
+	}
+
 
 
 	void SPX::Execute( int numchroms, IChromosome** chromosomes, const void* attribs )
