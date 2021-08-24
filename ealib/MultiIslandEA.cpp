@@ -212,8 +212,6 @@ namespace ealib
 	void MultiIslandEA::Step( Evaluator* pEval )
 	{
 
-
-
 	}
 
 
@@ -275,6 +273,8 @@ namespace ealib
 
 		for( int i=0; i<islandsize; ++i )
 			pOut.CopyChromosomes( m_pSolverArray[i]->GetPopulation(), i*popsize );
+
+		pOut.Sort( Population::SORT_FITNESS_DESCEND );
 	}
 
 

@@ -21,9 +21,6 @@
     <ClInclude Include="..\..\..\ealib\RandomInitializer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\ealib\RandomInitOperator.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\ealib\RandomResetMutation.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -232,6 +229,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\ealib\ChromosomeFactory.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\ealib\RandomInitOperator.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

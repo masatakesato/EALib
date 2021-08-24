@@ -8,6 +8,31 @@
 namespace ealib
 {
 
+	//======================== Create Chromosome1D functions ========================//
+
+	template < typename T > //std::enable_if_t< !std::is_same_v<T, BitArray> >* = nullptr >
+	static IChromosome* CreateChromosome1D( const DesignParamArray& designParams )
+	{
+		return new Chromosome1D<T>( designParams );
+	}
+
+
+
+	template <> //typename T, std::enable_if_t< std::is_same_v<T, BitArray> >* = nullptr >
+	static IChromosome* CreateChromosome1D<BitArray>( const DesignParamArray& designParams )
+	{
+		Chromosome1D<BitArray>* pChromosome = new Chromosome1D<BitArray>( designParams );
+
+		// BitArray specific operation. Need to allocate dynamic array
+		for( int i=0; i<pChromosome->Size(); ++i )
+			pChromosome->GeneAs(i)->Init( designParams[i].UpperBoundary<int>() );
+
+		return pChromosome;
+	}
+
+
+
+
 	template < typename TList >
 	class Chromosome1DFactory
 	{
@@ -27,22 +52,15 @@ namespace ealib
 		
 		virtual IChromosome* Create( const DesignParamArray& designParams ) const
 		{
-			//====== Check if designParams' elements are same typeIDs =====//
-			int typecounts[ NUM_TYPES ] = { 0 };
+			assert( designParams );
 
-			for( int i=0; i<designParams.Length(); ++i )
-				typecounts[ designParams[i].TypeID() ]++;
+			uint16 type = designParams[0].TypeID();
 
-			int numtypes = 0;
-			for( int i=0; i<NUM_TYPES; ++i )
-				numtypes += int( typecounts[i] > 0 );
+			for( int i=1; i<designParams.Length(); ++i )
+				if( type != designParams[i].TypeID() )
+					return nullptr;
 
-
-			//=============== return only if numtypes==1 ================//
-			if( numtypes==1 )
-				return m_CreateChromosomeFuncs[ designParams[0].TypeID() ]( designParams );
-	
-			return nullptr;
+			return m_CreateChromosomeFuncs[ type ]( designParams );
 		}
 
 
@@ -62,7 +80,7 @@ namespace ealib
 		{
 			static void Execute( IChromosome* ( *funcs[] )( const DesignParamArray& ), int i=0 )
 			{
-				funcs[i] = []( const DesignParamArray& designParams )->IChromosome* { return new Chromosome1D< typename TList::head >( designParams ); };
+				funcs[i] = &CreateChromosome1D<typename TList::head>;//[]( const DesignParamArray& designParams )->IChromosome* { return new Chromosome1D< typename TList::head >( designParams ); };
 				Init< typename TList::tail >::Execute( funcs, i+1 );
 			}
 		};
@@ -74,7 +92,6 @@ namespace ealib
 		{
 			static void Execute( IChromosome* ( *funcs[] )( const DesignParamArray& ), int i ){}// Do nothing
 		};
-
 
 
 	};
