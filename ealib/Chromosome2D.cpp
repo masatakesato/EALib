@@ -2,7 +2,7 @@
 
 #include	<algorithm>
 
-#include	<oreore/memory/MemoryView.h>
+#include	<oreore/container/ArrayView.h>
 
 #include	"Chromosome1DFactory.h"
 
@@ -121,7 +121,7 @@ namespace ealib
 			int numParams	= numParamsPerType[ type ];
 
 			// Create Chromosome1D
-			OreOreLib::MemoryView<DesignParameter> partialParams( &m_DesignParameters[ paramStartIdx ], numParams );
+			OreOreLib::ArrayView<DesignParameter> partialParams( &m_DesignParameters[ paramStartIdx ], numParams );
 			m_ChromosomeArray[ type ] =	c_Chrom1DFactory.Create( partialParams );
 
 			// Register individual designparameter/gene index for Key/Index search

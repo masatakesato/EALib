@@ -4,8 +4,6 @@
 #include	<oreore/common/DLLExport.h>
 #include	<oreore/mathlib/MathLib.h>
 
-#include	<oreore/memory/MemoryView.h>
-
 #include	"DesignParameter.h"
 
 
@@ -109,8 +107,8 @@ namespace ealib
 		//int m_NumParents = 0;
 		//int m_NumChildren = 0;
 
-		//OreOreLib::MemoryView<const IChromosome*>	m_refParents;
-		//OreOreLib::MemoryView<IChromosome*>	m_refChildren;
+		//OreOreLib::ArrayyView<const IChromosome*>	m_refParents;
+		//OreOreLib::ArraryView<IChromosome*>	m_refChildren;
 
 
 	};
