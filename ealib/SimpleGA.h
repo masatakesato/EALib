@@ -44,11 +44,13 @@ namespace ealib
 		Population		m_Population[3];
 		int				parentGen, childGen, dummy;
 
-		OreOreLib::Array<Parents>	m_Parents;
+		int				m_NumFamilies;
+int m_NumParents, m_NumChildren;
+OreOreLib::Array<IChromosome*>	m_CrossoverBuffer;
 
-		
-		void Select( Population* pPopulation );	// 選択
-		void Crossover( Population* pParentPopulation, Population* pChildPopulation );// 交叉
+void Select_Crossover( Population* pParentPopulation, Population* pChildPopulation );
+//		void Select( Population* pPopulation );	// 選択
+//		void Crossover( Population* pParentPopulation, Population* pChildPopulation );// 交叉
 		void Mutate( Population* pPopulation );	// 突然変異
 		void CarryOver( Population* pParentPopulation, Population* pChildPopulation );// エリート保存
 

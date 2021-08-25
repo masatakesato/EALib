@@ -23,6 +23,13 @@ namespace ealib
 		void UnbindOperator( int type );
 		void Execute( int numchroms, IChromosome** chromosomes, const void* attribs=nullptr );
 
+		
+		void Execute( int numparents, const IChromosome** parents, int numchildren, IChromosome** children, const void* attribs=nullptr );
+
+
+		int NumParents( int type ) const;
+		int NumChildren( int type ) const;
+
 
 	private:
 

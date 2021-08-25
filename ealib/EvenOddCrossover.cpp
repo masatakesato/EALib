@@ -11,7 +11,7 @@ namespace ealib
 {
 
 	EvenOddCrossover::EvenOddCrossover()
-		: ICrossoverOperator( TYPE_ID<BitArray> )
+		: ICrossoverOperator( TYPE_ID<BitArray>, { 0.0f, 2, 2 } )
 	{
 
 	}
@@ -46,6 +46,33 @@ namespace ealib
 			}// end of j loop
 
 		}// end of i loop
+	}
+
+
+
+
+	void EvenOddCrossover::Execute( int numparents, const IChromosome* parents[], int numchildren, IChromosome* children[], const void* attribs )
+	{
+		for( int i=0; i<(*parents)->Size(); ++i )
+		{
+			const BitArray *pParent1	= parents[0]->GeneAs<BitArray>(i);
+			const BitArray *pParent2	= parents[1]->GeneAs<BitArray>(i);
+			BitArray *pChild1			= children[0]->GeneAs<BitArray>(i);
+			BitArray *pChild2			= children[1]->GeneAs<BitArray>(i);
+
+			int bitLength = Min(Min(Min(pParent1->BitLength(), pParent2->BitLength()), pChild1->BitLength()), pChild2->BitLength());
+
+			pChild1->CopyFrom( pParent1 );
+			pChild2->CopyFrom( pParent2 );
+
+			for( int j=0; j<bitLength; j+=2 )
+			{
+				pChild1->SetBit(j, pParent2->GetBit(j));// +-+-+-+-
+				pChild2->SetBit(j, pParent1->GetBit(j));// -+-+-+-+
+			}// end of j loop
+
+		}// end of i loop
+
 	}
 
 

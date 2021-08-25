@@ -15,7 +15,7 @@ namespace ealib
 
 
 	SPX::SPX( const DesignParamArray& designParams )
-		: ICrossoverOperator( TYPE_ID<float> )
+		: ICrossoverOperator( TYPE_ID<float>, { 0.0f, designParams.Length()+1, 1 } )
 		, m_CenterOfMass( c_Factory.Create( designParams ) )
 		, m_Vertices( designParams.Length() + 1 )
 	{
@@ -80,6 +80,16 @@ namespace ealib
 
 
 	}
+
+
+
+
+void SPX::Execute( int numparents, const IChromosome** parents, int numchildren, IChromosome** children, const void* attribs )
+{
+// TODO: Implement
+
+}
+
 
 
 

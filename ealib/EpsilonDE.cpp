@@ -160,7 +160,8 @@ namespace ealib
 			
 			// 中間個体を生成する
 			t_i->CopyGeneFrom( x_i );
-			m_refCrossover->Execute( /*6*/4, refCandidates, &m_MutateAttrib );
+//m_refCrossover->Execute( /*6*/4, refCandidates, &m_MutateAttrib );
+m_refCrossover->Execute( 3, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &m_MutateAttrib );
 
 			pEval->Evaluate( t_i );
 

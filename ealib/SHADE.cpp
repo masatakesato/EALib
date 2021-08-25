@@ -256,7 +256,8 @@ namespace ealib
 			// 中間個体を生成する
 			t_i->CopyGeneFrom( x_i );
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
-			m_refCrossover->Execute( 6, refCandidates, &attr );//m_refCrossover->Execute( 6, randoms, &attr );
+//m_refCrossover->Execute( 6, refCandidates, &attr );//m_refCrossover->Execute( 6, randoms, &attr );
+m_refCrossover->Execute( 5, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &attr );
 
 			pEval->Evaluate( t_i );
 
@@ -644,7 +645,8 @@ namespace ealib
 					refCandidates[4]->GetChromosome( j ),	// x_r2
 				};
 
-				m_refCrossover->Execute( 6, randoms, &attr );
+//m_refCrossover->Execute( 6, randoms, &attr );
+m_refCrossover->Execute( 5, (const IChromosome**)&randoms[1], 1, &randoms[0], &attr );
 			}
 			pEval->Evaluate( t_i );
 

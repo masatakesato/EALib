@@ -44,4 +44,29 @@ namespace ealib
 	}
 
 
+
+void Crossover::Execute( int numparents, const IChromosome** parents, int numchildren, IChromosome** children, const void* attribs )
+{
+	ICrossoverOperator* crossover = m_refOperators[ parents[0]->TypeInfo() ];
+	if( crossover )	crossover->Execute( numparents, parents, numchildren, children, attribs );
+}
+
+
+
+
+int Crossover::NumParents( int type ) const
+{
+	return m_refOperators[ type ]->Attribute().NumParents;
+}
+
+
+int Crossover::NumChildren( int type ) const
+{
+	return m_refOperators[ type ]->Attribute().NumChildren;
+}
+
+
+
+
+
 }// end of namespace

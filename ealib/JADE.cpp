@@ -240,7 +240,8 @@ namespace ealib
 			t_i->CopyGeneFrom( x_i );
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる？→世代ごとに、個体別F/CRを新規生成するから多分関係ない
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
-			m_refCrossover->Execute( 6, refCandidates, &attr );//m_refCrossover->Execute( 6, randoms, &attr );
+//m_refCrossover->Execute( 6, refCandidates, &attr );//m_refCrossover->Execute( 6, randoms, &attr );
+m_refCrossover->Execute( 5, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &attr );
 
 			pEval->Evaluate( t_i );
 

@@ -182,7 +182,8 @@ namespace ealib
 			t_i->CopyGeneFrom( x_i );
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる→前世代からの値持ち越しがあるので関係ある
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
-			m_refCrossover->Execute( 4, refCandidates/*randoms*/, &attr );
+//m_refCrossover->Execute( 4, refCandidates/*randoms*/, &attr );
+m_refCrossover->Execute( 3, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &attr );
 
 			pEval->Evaluate( t_i );
 

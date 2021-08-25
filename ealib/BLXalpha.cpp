@@ -24,7 +24,7 @@ namespace ealib
 
 
 	BLXalpha::BLXalpha()
-			: ICrossoverOperator( TYPE_ID<float> )
+		: ICrossoverOperator( TYPE_ID<float>, { 0.0f, 2, 2 } )
 	{
 
 	}
@@ -62,6 +62,34 @@ namespace ealib
 		}// end of i loop
 
 	}
+
+
+
+	void BLXalpha::Execute( int numparents, const IChromosome* parents[], int numchildren, IChromosome* children[], const void* attribs )
+	{
+		const IChromosome* pParent1	= parents[0];
+		const IChromosome* pParent2	= parents[1];
+
+		IChromosome* pChild1	= children[0];
+		IChromosome* pChild2	= children[1];
+
+		for( int i =0; i<pChild1->Size(); ++i )
+		{
+			DesignParameter* pDParam1 = pChild1->GetDesignParameter( i );// child1's design parameter
+			DesignParameter* pDParam2 = pChild2->GetDesignParameter( i );// child2's design parameter
+
+			float *p1_i	= pParent1->GeneAs<float>( i );
+			float *p2_i	= pParent2->GeneAs<float>( i );
+			float *c1_i	= pChild1->GeneAs<float>( i );
+			float *c2_i	= pChild2->GeneAs<float>( i );
+
+			*c1_i	= Clamp( blx_alpha(*p1_i, *p2_i), pDParam1->LowerBoundary<float>(), pDParam1->UpperBoundary<float>() );
+			*c2_i	= Clamp( blx_alpha(*p1_i, *p2_i), pDParam2->LowerBoundary<float>(), pDParam2->UpperBoundary<float>() );
+
+		}// end of i loop
+
+	}
+
 
 
 

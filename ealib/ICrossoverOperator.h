@@ -4,6 +4,8 @@
 #include	<oreore/common/DLLExport.h>
 #include	<oreore/mathlib/MathLib.h>
 
+#include	<oreore/memory/MemoryView.h>
+
 #include	"DesignParameter.h"
 
 
@@ -12,15 +14,47 @@ namespace ealib
 {
 	class IChromosome;
 
+
+
+	struct CrossoverAttribute
+	{
+		float	CrossoverRate;	// [0.0, 1.0]
+
+		// parent/children size. set -1 if dynamic.
+		int		NumParents;
+		int		NumChildren;
+
+		void Clear()
+		{
+			CrossoverRate	= 0.0f;
+			NumParents		= -1;
+			NumChildren		= -1;
+		}
+
+		static const int Dynamic = -1;
+	};
+
+
+
+
+
 	class CLASS_DECLSPEC ICrossoverOperator
 	{
 	public:
 
 		const int16 TypeID;
 
-		ICrossoverOperator( int16 type=-1 )
+		ICrossoverOperator( )
+			: TypeID( TYPE_UNKNOWN )
+			, m_Attrib(  )
+		{
+
+		}
+
+
+		ICrossoverOperator( int16 type, const CrossoverAttribute& attrib )
 			: TypeID( type )
-			, m_NumParents( 0 )
+			, m_Attrib( attrib )
 		{
 
 		}
@@ -32,9 +66,9 @@ namespace ealib
 		}
 
 
-		int NumParents() const
+		const CrossoverAttribute& Attribute() const
 		{
-			return m_NumParents;
+			return m_Attrib;
 		}
 
 
@@ -42,9 +76,41 @@ namespace ealib
 
 
 
+		virtual void Execute( int numparents, const IChromosome* parents[], int numchildren, IChromosome* children[], const void* attribs )=0;
+
+
+
+		//void BindParents( int numparents, const IChromosome* parents[] )
+		//{
+		//	m_refParents.Init( parents, numparents );
+		//}
+
+		//
+		//void BindChildren( int numchildren, IChromosome* children[] )
+		//{
+		//	m_refChildren.Init( children, numchildren );
+		//}
+
+
+		//void Clear()
+		//{
+		//	m_refParents.Release();
+		//	m_refChildren.Release();
+		//}
+
+
+
+
 	protected:
 
-		int m_NumParents = 0;
+		CrossoverAttribute	m_Attrib;
+
+
+		//int m_NumParents = 0;
+		//int m_NumChildren = 0;
+
+		//OreOreLib::MemoryView<const IChromosome*>	m_refParents;
+		//OreOreLib::MemoryView<IChromosome*>	m_refChildren;
 
 
 	};

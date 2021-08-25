@@ -169,7 +169,8 @@ namespace ealib
 				//	m_refCandidates[4],// rand5
 				//};
 
-				m_refCrossover->Execute( 6, m_refCandidates, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );	//m_refCrossover->Execute( 6, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+//m_refCrossover->Execute( 6, m_refCandidates, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );	//m_refCrossover->Execute( 6, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+m_refCrossover->Execute( 5, (const IChromosome**)&m_refCandidates[1], 1, &m_refCandidates[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			}
 			pEval->Evaluate( t_i_best1bin );
 
@@ -189,7 +190,8 @@ namespace ealib
 				//	m_refCandidates[2],// rand3
 				//};
 
-				m_refCrossover->Execute( 4, m_refCandidates, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );//m_refCrossover->Execute( 4, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+//m_refCrossover->Execute( 4, m_refCandidates, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );//m_refCrossover->Execute( 4, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+m_refCrossover->Execute( 3, (const IChromosome**)&m_refCandidates[1], 1, &m_refCandidates[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			}
 			pEval->Evaluate( t_i_rand1bin );
 
@@ -211,7 +213,8 @@ namespace ealib
 				//	m_refCandidates[4],// rand5
 				//};
 
-				m_refCrossover->Execute( 6, m_refCandidates, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );//m_refCrossover->Execute( 6, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+//m_refCrossover->Execute( 6, m_refCandidates, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );//m_refCrossover->Execute( 6, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+m_refCrossover->Execute( 5, (const IChromosome**)&m_refCandidates[1], 1, &m_refCandidates[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );	
 			}
 			pEval->Evaluate( t_i_rand2bin );
 			
@@ -451,7 +454,8 @@ namespace ealib
 					m_refCandidates[2]->GetChromosome( j ),// rand2
 				};
 
-				m_refCrossover->Execute( 4, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+//m_refCrossover->Execute( 4, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+m_refCrossover->Execute( 3, (const IChromosome**)&randoms[1], 1, &randoms[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			}
 			pEval->Evaluate( t_i_best1bin );
 
@@ -470,7 +474,8 @@ namespace ealib
 					m_refCandidates[2]->GetChromosome( j ),// rand3
 				};
 
-				m_refCrossover->Execute( 4, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+//m_refCrossover->Execute( 4, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+m_refCrossover->Execute( 3, (const IChromosome**)&randoms[1], 1, &randoms[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			}
 			pEval->Evaluate( t_i_rand1bin );
 
@@ -491,7 +496,8 @@ namespace ealib
 					m_refCandidates[4]->GetChromosome( j ),// rand5
 				};
 
-				m_refCrossover->Execute( 6, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+//m_refCrossover->Execute( 6, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+m_refCrossover->Execute( 5, (const IChromosome**)&randoms[1], 1, &randoms[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			}
 			pEval->Evaluate( t_i_rand2bin );
 			
