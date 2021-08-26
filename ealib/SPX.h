@@ -3,6 +3,8 @@
 
 #include	"ICrossoverOperator.h"
 
+// Simplex Crossover for Real-coded Genetic Algolithms
+// https://www.jstage.jst.go.jp/article/tjsai/16/1/16_1_147/_pdf
 
 
 namespace ealib
@@ -26,9 +28,12 @@ virtual void Execute( int numparents, const IChromosome** parents, int numchildr
 
 	private:
 
-		double							m_Mu;
-		OreOreLib::Array<IChromosome*>	m_Vertices;
-		IChromosome*					m_CenterOfMass;
+		double							m_Epsilon;
+
+		IChromosome*					m_G;
+		OreOreLib::Array<float>			m_rs;
+		OreOreLib::Array<IChromosome*>	m_xs;
+		OreOreLib::Array<IChromosome*>	m_Cs;
 
 
 	};
