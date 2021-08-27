@@ -26,6 +26,7 @@ namespace ealib
 		
 		void Execute( int numparents, const IChromosome** parents, int numchildren, IChromosome** children, const void* attribs=nullptr );
 
+void Execute2( OreOreLib::Memory<const IChromosome*>& parents, OreOreLib::Memory<IChromosome*>& children, const void* attribs=nullptr );
 
 		int NumParents( int type ) const;
 		int NumChildren( int type ) const;

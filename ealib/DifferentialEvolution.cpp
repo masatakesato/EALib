@@ -134,18 +134,23 @@ namespace ealib
 
 	void DifferentialEvolution::Step( Evaluator* pEval )
 	{
+		//IChromosome* refCandidates[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
+		static OreOreLib::StaticArray<const IChromosome*, 3> X = { nullptr, nullptr, nullptr };
+		static OreOreLib::StaticArray<IChromosome*, 1> T = { nullptr };
+
 		s_DE_Rand_1_Mutator.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
 
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
 		{
 			IChromosome *x_i	= m_Population[parentGen].GetIndividual( i );
 			IChromosome *t_i	= m_Population[dummy].GetIndividual( 0 );// 中間個体
-			IChromosome* refCandidates[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
+
 
 			//=================	Mutation and Crossover	===================//
-			s_DE_Rand_1_Mutator.Execute( 3, &refCandidates[1], i );//s_DE_Rand_1_Mutator.Execute( 3, refCandidates, i );
+			//s_DE_Rand_1_Mutator.Execute( 3, &refCandidates[1], i );//s_DE_Rand_1_Mutator.Execute( 3, refCandidates, i );
+			s_DE_Rand_1_Mutator.Execute( 3, (IChromosome**)X.begin(), i );
+			T[0] = t_i;//refCandidates[0] = t_i;
 
-			refCandidates[0] = t_i;
 			//IChromosome *randoms[] =
 			//{
 			//	t_i,	// t_i. trial vector
@@ -157,7 +162,7 @@ namespace ealib
 			// 中間個体を生成する
 			t_i->CopyGeneFrom( x_i );
 //m_refCrossover->Execute( 4, refCandidates, &m_MutateAttrib );//m_refCrossover->Execute( 4, randoms, &m_MutateAttrib );
-m_refCrossover->Execute( 3, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &m_MutateAttrib );
+m_refCrossover->Execute2( X, T, &m_MutateAttrib );//m_refCrossover->Execute( 3, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &m_MutateAttrib );
 
 
 			pEval->Evaluate( t_i );

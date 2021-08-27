@@ -1,6 +1,7 @@
 ﻿#include	"Crossover.h"
 
 #include	"IChromosome.h"
+#include	"Chromosome2D.h"
 
 
 
@@ -51,6 +52,22 @@ void Crossover::Execute( int numparents, const IChromosome** parents, int numchi
 	if( crossover )	crossover->Execute( numparents, parents, numchildren, children, attribs );
 }
 
+
+void Crossover::Execute2( OreOreLib::Memory<const IChromosome*>& parents, OreOreLib::Memory<IChromosome*>& children, const void* attribs )
+{
+	for( int i=0; i<parents[0]->NumChromTypes(); ++i )
+	{
+		auto type = parents[0]->GetChromosome(i)->TypeInfo();
+
+		ICrossoverOperator* crossover = m_refOperators[ type ];
+		if( crossover )	crossover->Execute( parents, children, attribs );
+	}
+
+
+
+//	ICrossoverOperator* crossover = m_refOperators[ parents[0]->TypeInfo() ];
+//	if( crossover )	crossover->Execute( parents.Length(), parents.begin(), children.Length(), children.begin(), attribs );
+}
 
 
 

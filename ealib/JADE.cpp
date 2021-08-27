@@ -204,6 +204,10 @@ namespace ealib
 	void JADE::Step( Evaluator* pEval )
 	{
 
+		static OreOreLib::StaticArray<const IChromosome*, 5> X = { nullptr, nullptr, nullptr, nullptr, nullptr };
+		static OreOreLib::StaticArray<IChromosome*, 1> T = { nullptr };
+		//IChromosome* refCandidates[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
+
 		float sumF			= 0.0f;
 		float sumFSquare	= 0.0f;
 		float sumCR			= 0.0f;
@@ -221,11 +225,12 @@ namespace ealib
 		{
 			IChromosome *x_i	= m_Population[ parentGen ].GetIndividual( i );
 			IChromosome *t_i	= m_Population[ dummy ].GetIndividual( 0 );// 中間個体
-			IChromosome* refCandidates[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
-
+			
 			//=================	Mutation and Crossover	===================//			
-			m_Mutator.Execute( 5, &refCandidates[1], i );//m_Mutator.Execute( 5, refCandidates, i );
-			refCandidates[0] = t_i;
+			//m_Mutator.Execute( 5, &refCandidates[1], i );//m_Mutator.Execute( 5, refCandidates, i );
+			m_Mutator.Execute( 5, (IChromosome**)X.begin(), i );//m_Mutator.Execute( 5, refCandidates, i );
+			T[0] = t_i;
+			//refCandidates[0] = t_i;
 			//IChromosome *randoms[] =
 			//{
 			//	t_i,				// t_i. trial vector
@@ -241,7 +246,7 @@ namespace ealib
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる？→世代ごとに、個体別F/CRを新規生成するから多分関係ない
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
 //m_refCrossover->Execute( 6, refCandidates, &attr );//m_refCrossover->Execute( 6, randoms, &attr );
-m_refCrossover->Execute( 5, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &attr );
+m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 5, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &attr );
 
 			pEval->Evaluate( t_i );
 

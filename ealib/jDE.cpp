@@ -157,6 +157,10 @@ namespace ealib
 
 	void jDE::Step( Evaluator* pEval )
 	{
+		static OreOreLib::StaticArray<const IChromosome*, 3> X = { nullptr, nullptr, nullptr };
+		static OreOreLib::StaticArray<IChromosome*, 1> T = { nullptr };
+		//IChromosome* refCandidates[4] = { nullptr, nullptr, nullptr, nullptr };
+
 		UpdateControlParams();
 
 		m_DE_Rand_1_Mutator.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
@@ -165,11 +169,10 @@ namespace ealib
 		{
 			IChromosome *x_i	= m_Population[ parentGen ].GetIndividual( i );
 			IChromosome *t_i	= m_Population[ dummy ].GetIndividual( 0 );// 中間個体
-			IChromosome* refCandidates[4] = { nullptr, nullptr, nullptr, nullptr };
 
 			//=================	Mutation and Crossover	===================//
-			m_DE_Rand_1_Mutator.Execute( 3, &refCandidates[1], i );
-			refCandidates[0] = t_i;
+			m_DE_Rand_1_Mutator.Execute( 3, (IChromosome**)X.begin(), i );//m_DE_Rand_1_Mutator.Execute( 3, &refCandidates[1], i );
+			T[0] = t_i; //refCandidates[0] = t_i;
 			//IChromosome *randoms[] =
 			//{
 			//	t_i,// t_i. trial vector
@@ -183,7 +186,7 @@ namespace ealib
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる→前世代からの値持ち越しがあるので関係ある
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
 //m_refCrossover->Execute( 4, refCandidates/*randoms*/, &attr );
-m_refCrossover->Execute( 3, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &attr );
+m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 3, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &attr );
 
 			pEval->Evaluate( t_i );
 

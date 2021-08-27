@@ -5,6 +5,8 @@
 
 #include	<oreore/common/Variant.h>
 #include	<oreore/container/Array.h>
+#include	<oreore/container/StaticArray.h>
+#include	<oreore/container/ArrayView.h>
 
 
 
@@ -232,7 +234,7 @@ namespace ealib
 
 
 
-		uint16 TypeID() const
+		int16 TypeID() const
 		{
 			return m_TypeID;
 		}

@@ -16,20 +16,20 @@ namespace ealib
 
 	Chromosome2D::Chromosome2D()
 		: IChromosome()
-		, m_NumChromTypes( 0 )
-		, m_ChromosomeArray{}
+		//, m_NumChromTypes( 0 )
+		//, m_ChromosomeArray{}
 		//, m_pKeyMap( std::make_unique< std::unordered_map<tstring, Index2D> >() )
 		//, m_pIndexMap( std::make_unique< std::unordered_map<int, Index2D> >() )
 	{
-		ClearActiveTypes();
+		ClearTypeToIndex();
 	}
 
 
 
 	Chromosome2D::Chromosome2D( const DesignParamArray& designParams )
 		: IChromosome()
-		, m_NumChromTypes( 0 )
-		, m_ChromosomeArray{}
+		//, m_NumChromTypes( 0 )
+		//, m_ChromosomeArray{}
 		//, m_pKeyMap( std::make_unique< std::unordered_map<tstring, Index2D> >() )
 		//, m_pIndexMap( std::make_unique< std::unordered_map<int, Index2D> >() )
 	{
@@ -46,11 +46,12 @@ namespace ealib
 		m_CurrentEval	= obj.m_CurrentEval;
 		m_pResult		= nullptr;
 
-		m_NumChromTypes	= 0;
-		memset( m_ChromosomeArray, 0, sizeof(IChromosome*) * NUM_TYPES );//	= nullptr;
-		ClearActiveTypes();
+		//m_NumChromTypes	= 0;
+		//memset( m_ChromosomeArray, 0, sizeof(IChromosome*) * NUM_TYPES );//	= nullptr;
+		ClearTypeToIndex();
 
-		if( obj.m_NumChromTypes > 0 )	DeepCopyChromosomeArray( obj );
+		//if( obj.m_NumChromTypes > 0 )
+		DeepCopyChromosomeArray( obj );
 	}
 
 
@@ -72,9 +73,10 @@ namespace ealib
 		m_CurrentEval	= obj.m_CurrentEval;
 		m_pResult		= nullptr;
 
-		m_NumChromTypes		= 0;
-		memset( m_ChromosomeArray, 0, sizeof(IChromosome*) * NUM_TYPES );//	= nullptr;
-		if( obj.m_NumChromTypes > 0 )	DeepCopyChromosomeArray( obj );
+		//m_NumChromTypes		= 0;
+		//memset( m_ChromosomeArray, 0, sizeof(IChromosome*) * NUM_TYPES );//	= nullptr;
+		//if( obj.m_NumChromTypes > 0 )
+		DeepCopyChromosomeArray( obj );
 
 		return *this;
 	}
@@ -86,56 +88,90 @@ namespace ealib
 		// Init IChromosome members
 		IChromosome::Init( designParams );
 
-
 		// Init Chromosome2D members
 		DeepRemoveChromosomeArray();
 
-		int	numParamsPerType[ NUM_TYPES ];
+		int	numParamsPerType[ NUM_TYPES ] = { 0 };
 
-		// 通し番号配列を作って、designParams各要素にシーケンスIDを一時的に割り当てる
+		// Preparation for Chromosome1D array generation 
 		for( int i=0; i<m_DesignParameters.Length(); ++i )
 		{
+			// Assign SequentialID to each design parameter ( for accessing chromosome/degisnparam by index )
 			m_DesignParameters[i].SetSequentialID( i );
+
+			// Accumulate num of parameters for each type
+			int16 type = m_DesignParameters[i].TypeID();
+			if( type >=0 && type <NUM_TYPES )	numParamsPerType[ type ]++;
+		}
+
+		// Sort m_DesignParameters by type
+		std::sort( m_DesignParameters.begin(), m_DesignParameters.end(), []( const DesignParameter& a, const DesignParameter& b ){ return ( a.TypeID() < b.TypeID() ); } );
+
+
+		// Initialize Type-to-ChromosomeArray Index convertion table
+		int chromTypeCount = 0;
+
+		ClearTypeToIndex();
+		int16 type = m_DesignParameters[0].TypeID();
+
+		for( int i=0; i<m_DesignParameters.Length(); ++i )
+		{
+			if( i==m_DesignParameters.Length()-1 )
+			{
+				m_TypeToIndex[ type ] = chromTypeCount++;
+				break;
+			}
+
+			int16 type_next = m_DesignParameters[i+1].TypeID();
+
+			if( type != type_next )
+			{
+				m_TypeToIndex[ type ] = chromTypeCount++;
+				type = type_next;
+			}
 		}
 
 
-		// pDesignParamsをタイプ順にソートする
-		std::sort( m_DesignParameters.begin(), m_DesignParameters.end(), []( const DesignParameter& a, const DesignParameter& b ){ return ( a.TypeID() < b.TypeID() ); } );
-
 		// 最初に、"遺伝子の型"が何種類あるか、また各種類何個ずつ含まれるか調べる
-		m_NumChromTypes	= 0;
-		for( int type=0; type<NUM_TYPES; ++type )
+		//m_NumChromTypes	= 0;
+
+//		for( int type=0; type<NUM_TYPES; ++type )
+//		{
+//			numParamsPerType[type]	= (int)std::count_if( m_DesignParameters.begin(), m_DesignParameters.end(), [&]( const DesignParameter& a ){ return a.TypeID()==type; } );
+
+//			if( numParamsPerType[type] > 0 )
+//				m_ActiveTypes[ m_NumChromTypes++ ] = type;
+
+//		}// end of type loop
+
+
+		// Allocate ChromosomeArray
+		m_ChromosomeArray.Init( chromTypeCount );
+
+
+
+		int paramStartIdx = 0;
+		for( int i=0; i<chromTypeCount; ++i )
 		{
-			numParamsPerType[type]	= (int)std::count_if( m_DesignParameters.begin(), m_DesignParameters.end(), [&]( const DesignParameter& a ){ return a.TypeID()==type; } );
-
-			if( numParamsPerType[type] > 0 )
-				m_ActiveTypes[ m_NumChromTypes++ ] = type;
-
-		}// end of type loop
-
-
-		int paramStartIdx	= 0;
-		for( int i=0; i<m_NumChromTypes; ++i )
-		{
-			int type = m_ActiveTypes[i];
+			int type = m_DesignParameters[ paramStartIdx ].TypeID();
 			int numParams	= numParamsPerType[ type ];
 
 			// Create Chromosome1D
 			OreOreLib::ArrayView<DesignParameter> partialParams( &m_DesignParameters[ paramStartIdx ], numParams );
-			m_ChromosomeArray[ type ] =	c_Chrom1DFactory.Create( partialParams );
+			m_ChromosomeArray[i] =	c_Chrom1DFactory.Create( partialParams );
 
 			// Register individual designparameter/gene index for Key/Index search
-			for( int j=0; j<m_ChromosomeArray[ type ]->Size(); ++j )
+			for( int j=0; j<m_ChromosomeArray[i]->Size(); ++j )
 			{
 				const DesignParameter *pDParam = &m_DesignParameters[ paramStartIdx + j ];
-				Index2D targetIndex( type, j );
+				Index2D targetIndex( i, j );
 				tstring key = pDParam->Key();
 				if( key.length()>0 )	m_KeyMap[key] = targetIndex;//(*m_pKeyMap)[key] = targetIndex;//
 				m_IndexMap[ pDParam->SequentialID() ] = targetIndex;//(*m_pIndexMap)[ pDParam->SequentialID() ] = targetIndex;//
 			}
 			paramStartIdx += numParams;
 
-		}// end of type i loop
+		}// end of i loop
 		
 	}
 
@@ -261,11 +297,18 @@ namespace ealib
 	{
 		auto psrc = (Chromosome2D*)pSrc;
 
-		for( int i=0; i<m_NumChromTypes; ++i )
+		//for( int i=0; i<m_NumChromTypes; ++i )
+		//{
+		//	int type = psrc->m_ActiveTypes[i];
+		//	m_ChromosomeArray[ type ]->CopyGeneFrom( psrc->m_ChromosomeArray[ type ] );
+		//}
+
+		for( auto* chrom : m_ChromosomeArray )//int i=0; i<m_ChromosomeArray.Length(); ++i )
 		{
-			int type = psrc->m_ActiveTypes[i];
-			m_ChromosomeArray[ type ]->CopyGeneFrom( psrc->m_ChromosomeArray[ type ] );
+			int16 type = chrom->TypeInfo();//m_ChromosomeArray[i]->TypeInfo();
+			chrom->CopyGeneFrom( psrc->GetChromosomeByType( type ) );//m_ChromosomeArray[i]->CopyGeneFrom( psrc->GetChromosomeByType( type ) );
 		}
+
 		
 		if( m_pResult )	m_pResult->CopyFrom( psrc->m_pResult );
 	}
@@ -274,8 +317,10 @@ namespace ealib
 
 	void Chromosome2D::ClearGene()
 	{
-		for( int i=0; i<m_NumChromTypes; ++i )
-			m_ChromosomeArray[ m_ActiveTypes[i] ]->ClearGene();
+		//for( int i=0; i<m_NumChromTypes; ++i )
+		//	m_ChromosomeArray[ m_ActiveTypes[i] ]->ClearGene();
+		for( auto* chrom : m_ChromosomeArray )
+			chrom->ClearGene();
 	}
 
 
@@ -283,66 +328,73 @@ namespace ealib
 	// Override IChromosome's Initialize()
 	void Chromosome2D::Initialize( Initializer* pInit )
 	{
-		for( int i=0; i<m_NumChromTypes; ++i )
-			m_ChromosomeArray[ m_ActiveTypes[i] ]->Initialize( pInit );
+		//for( int i=0; i<m_NumChromTypes; ++i )
+		//	m_ChromosomeArray[ m_ActiveTypes[i] ]->Initialize( pInit );
+		for( auto* chrom : m_ChromosomeArray )
+			chrom->Initialize( pInit );
 	}
 
 
 
 	IChromosome* Chromosome2D::GetChromosome( int i ) const
 	{
-		return *( m_ChromosomeArray + m_ActiveTypes[i] );
+		return m_ChromosomeArray[i];//  m_ActiveTypes[i] );//return *( m_ChromosomeArray + m_ActiveTypes[i] );
 	}
 
 
 
-	IChromosome* Chromosome2D::GetChromosomeByType( int type ) const
+	IChromosome* Chromosome2D::GetChromosomeByType( int16 type ) const
 	{
-		return m_ChromosomeArray[ type ];
+		return m_ChromosomeArray[ m_TypeToIndex[type] ];
 	}
 
 
 
-	void Chromosome2D::ClearActiveTypes()
+	void Chromosome2D::ClearTypeToIndex()
 	{
 		for( int i=0; i<NUM_TYPES; ++i )
-			m_ActiveTypes[i] = -1;
+			m_TypeToIndex[i] = -1;
 	}
 
 
 
 	void Chromosome2D::DeepCopyChromosomeArray( const Chromosome2D& src )
 	{
-		// IChromosome配列をコピーする
-		m_NumChromTypes		= src.m_NumChromTypes;
-		memset( m_ChromosomeArray, 0, sizeof(IChromosome*) * NUM_TYPES );
+		if( !src.m_ChromosomeArray )
+			return;
 
-		for( auto& type : src.m_ActiveTypes )
-		{
-			if( type==-1) break;
-			m_ChromosomeArray[ type ] = src.m_ChromosomeArray[ type ]->Clone();
-		}
-		
-		m_KeyMap	= src.m_KeyMap;//m_pKeyMap		= std::make_unique< std::unordered_map<tstring, Index2D > >( *src.m_pKeyMap );//
-		m_IndexMap	= src.m_IndexMap;//m_pIndexMap		= std::make_unique< std::unordered_map<int, Index2D > >( *src.m_pIndexMap );//
-		
-		memcpy( m_ActiveTypes, src.m_ActiveTypes, sizeof(int) * NUM_TYPES );
+		// release current allocated resources.
+		DeepRemoveChromosomeArray();
+
+		m_ChromosomeArray.Init( src.NumChromTypes() );
+
+		for( int i=0; i<m_ChromosomeArray.Length(); ++i )
+			m_ChromosomeArray[i] = src.m_ChromosomeArray[i]->Clone();
+
+		m_KeyMap		= src.m_KeyMap;//m_pKeyMap		= std::make_unique< std::unordered_map<tstring, Index2D > >( *src.m_pKeyMap );//
+		m_IndexMap		= src.m_IndexMap;//m_pIndexMap		= std::make_unique< std::unordered_map<int, Index2D > >( *src.m_pIndexMap );//
+		m_TypeToIndex	= src.m_TypeToIndex;
 	}
 
 
 
 	void Chromosome2D::DeepRemoveChromosomeArray()
 	{
-		if( m_ChromosomeArray )
-		{
-			for( int i=0; i<NUM_TYPES; ++i )
-			{
-				if( m_ChromosomeArray[i] )
-					SafeDelete( m_ChromosomeArray[i] );
-			}
-		}
-		m_NumChromTypes	= 0;
-		ClearActiveTypes();
+		//if( m_ChromosomeArray )
+		//{
+		//	for( int i=0; i<NUM_TYPES; ++i )
+		//	{
+		//		if( m_ChromosomeArray[i] )
+		//			SafeDelete( m_ChromosomeArray[i] );
+		//	}
+		//}
+
+		for( auto* chrom: m_ChromosomeArray )
+			SafeDelete( chrom );
+		m_ChromosomeArray.Release();
+
+		//m_NumChromTypes	= 0;
+		ClearTypeToIndex();
 		
 		m_KeyMap.Clear();//m_pKeyMap->clear();//
 		m_IndexMap.Clear();//m_pIndexMap->clear();//

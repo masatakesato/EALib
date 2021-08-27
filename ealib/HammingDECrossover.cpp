@@ -33,7 +33,6 @@ namespace ealib
 		for( int i=0; i<pTrial->Size(); ++i )
 		{
 			int numParams	= pTrial->GeneAs<BitArray>(i)->BitLength();
-			int numCoeffs	= ( numchroms - 1 ) / 2;
 			int jrand		= int( OreOreLib::genrand_real2() * numParams );
 
 			// Select Crossover point from dimention
@@ -79,7 +78,6 @@ namespace ealib
 			auto pParentBitArray3	= parents[2]->GeneAs<BitArray>(i);
 
 			int numParams	= pTrialBitArray->BitLength();
-			int numCoeffs	= numparents / 2;
 			int jrand		= int( OreOreLib::genrand_real2() * numParams );
 
 			// Select Crossover point from dimention
@@ -111,6 +109,57 @@ namespace ealib
 	}
 
 
+
+
+
+
+
+	void HammingDECrossover::Execute( OreOreLib::Memory<const IChromosome*>& X, OreOreLib::Memory<IChromosome*>& T, const void* attribs )
+	{
+		const DEAttribute *pAttrib	= (DEAttribute*)attribs;
+
+		const IChromosome* pParent1	= X[0]->GetChromosomeByType( TypeID );
+		const IChromosome* pParent2	= X[1]->GetChromosomeByType( TypeID );
+		const IChromosome* pParent3	= X[2]->GetChromosomeByType( TypeID );
+		IChromosome* pTrial			= T[0]->GetChromosomeByType( TypeID );
+
+		for( int i=0; i<pTrial->Size(); ++i )
+		{
+			auto pBTrial	= pTrial->GeneAs<BitArray>(i);
+			auto pBParent1	= pParent1->GeneAs<BitArray>(i);
+			auto pBParent2	= pParent2->GeneAs<BitArray>(i);
+			auto pBParent3	= pParent3->GeneAs<BitArray>(i);
+
+			int numParams	= pBTrial->BitLength();
+			int jrand		= int( OreOreLib::genrand_real2() * numParams );
+
+			// Select Crossover point from dimention
+			for( int j=0; j<numParams; ++j )
+			{
+				int t_j	= pBTrial->GetBit( j );
+
+				// Crossover
+				if( OreOreLib::genrand_real1() < pAttrib->CR || j==jrand )
+				{
+					int x_r1_j = pBParent1->GetBit( j ),
+						x_r2_j = pBParent2->GetBit( j ),
+						x_r3_j = pBParent3->GetBit( j );
+
+					int fa = (int)round( pAttrib->F * float( x_r2_j != x_r3_j ) );
+					t_j	= int( x_r1_j != fa );
+
+					pBTrial->SetBit( j, t_j );
+				}
+				else
+				{
+					// *t_j = x_i_j;// pChildren[0] is assumed to be initialized with x_i
+				}
+
+			}// end of design parameter loop
+
+		}// end of i loop
+
+	}
 
 
 

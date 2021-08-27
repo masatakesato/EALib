@@ -218,6 +218,9 @@ namespace ealib
 
 	void SHADE::Step( Evaluator* pEval )
 	{
+		static OreOreLib::StaticArray<const IChromosome*, 5> X = { nullptr, nullptr, nullptr, nullptr, nullptr };
+		static OreOreLib::StaticArray<IChromosome*, 1> T = { nullptr };
+		//IChromosome* refCandidates[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
 
 		float sumF			= 0.0f;
 		float sumFSquare	= 0.0f;
@@ -236,13 +239,12 @@ namespace ealib
 		{
 			IChromosome *x_i	= m_Population[ parentGen ].GetIndividual( i );
 			IChromosome *t_i	= m_Population[ dummy ].GetIndividual( 0 );// 中間個体
-			IChromosome* refCandidates[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };
 
 			//=================	Mutation and Crossover	===================//
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる？→世代ごとに、個体別F/CRを新規生成するから多分関係ない
 			m_Mutator.SetP( m_Ps[id] );
-			m_Mutator.Execute( 5, &refCandidates[1], i );
-			refCandidates[0] = t_i;
+			m_Mutator.Execute( X.Length(), (IChromosome**)X.begin(), i );//m_Mutator.Execute( 5, &refCandidates[1], i );
+			T[0] = t_i;//refCandidates[0] = t_i;
 			//IChromosome *randoms[] =
 			//{
 			//	t_i,				// t_i. trial vector
@@ -257,7 +259,7 @@ namespace ealib
 			t_i->CopyGeneFrom( x_i );
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
 //m_refCrossover->Execute( 6, refCandidates, &attr );//m_refCrossover->Execute( 6, randoms, &attr );
-m_refCrossover->Execute( 5, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &attr );
+m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 5, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &attr );
 
 			pEval->Evaluate( t_i );
 
@@ -604,6 +606,10 @@ m_refCrossover->Execute( 5, (const IChromosome**)&refCandidates[1], 1, &refCandi
 
 	void MixedSHADE::Step( Evaluator* pEval )
 	{
+		static OreOreLib::StaticArray<const IChromosome*, 5> X = { nullptr, nullptr, nullptr, nullptr, nullptr };
+		static OreOreLib::StaticArray<IChromosome*, 1> T = { nullptr };
+		//Chromosome2D* refCandidates[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, };
+
 		float sumF			= 0.0f;
 		float sumFSquare	= 0.0f;
 		float sumCR			= 0.0f;
@@ -620,35 +626,40 @@ m_refCrossover->Execute( 5, (const IChromosome**)&refCandidates[1], 1, &refCandi
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
 		{
 			Chromosome2D* x_i	= (Chromosome2D *)m_Population[ parentGen ].GetIndividual( i );
-			Chromosome2D *t_i	= (Chromosome2D *)m_Population[ dummy ].GetIndividual( 0 );// Trial vector1// 中間個体
-			Chromosome2D* refCandidates[5] = { nullptr, nullptr, nullptr, nullptr, nullptr, };
+			Chromosome2D* t_i	= (Chromosome2D *)m_Population[ dummy ].GetIndividual( 0 );// Trial vector1// 中間個体
+Chromosome2D* refCandidates[6] = { nullptr, nullptr, nullptr, nullptr, nullptr, };
 
 			//=================	Mutation and Crossover	===================//
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる？→世代ごとに、個体別F/CRを新規生成するから多分関係ない
 			
 			// 中間個体を生成する
 			m_Mutator.SetP( m_Ps[id] );
-			m_Mutator.Execute( 5, (IChromosome **)refCandidates, i );
+m_Mutator.Execute( X.Length(), (IChromosome**)X.begin(), i );
+//m_Mutator.Execute( 5, (IChromosome **)refCandidates, i );
 
-			t_i->CopyGeneFrom( x_i );
+t_i->CopyGeneFrom( x_i );//
+T[0] = x_i;//
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
 
-			for( int j=0; j<numChromTypes; ++j )
-			{
-				IChromosome *randoms[] =
-				{
-					t_i->GetChromosome( j ),				// t_i. trial vector
-					refCandidates[0]->GetChromosome( j ),	// x_i
-					refCandidates[1]->GetChromosome( j ),	// pbest
-					refCandidates[2]->GetChromosome( j ),	// x_i
-					refCandidates[3]->GetChromosome( j ),	// x_r1
-					refCandidates[4]->GetChromosome( j ),	// x_r2
-				};
+m_refCrossover->Execute2( X, T, &attr );
+//			for( int j=0; j<numChromTypes; ++j )
+//			{
+//				IChromosome *randoms[] =
+//				{
+//					t_i->GetChromosome( j ),				// t_i. trial vector
+//					refCandidates[0]->GetChromosome( j ),	// x_i
+//					refCandidates[1]->GetChromosome( j ),	// pbest
+//					refCandidates[2]->GetChromosome( j ),	// x_i
+//					refCandidates[3]->GetChromosome( j ),	// x_r1
+//					refCandidates[4]->GetChromosome( j ),	// x_r2
+//				};
+//
+////m_refCrossover->Execute( 6, randoms, &attr );
+//m_refCrossover->Execute( 5, (const IChromosome**)&randoms[1], 1, &randoms[0], &attr );
+//			}
 
-//m_refCrossover->Execute( 6, randoms, &attr );
-m_refCrossover->Execute( 5, (const IChromosome**)&randoms[1], 1, &randoms[0], &attr );
-			}
-			pEval->Evaluate( t_i );
+pEval->Evaluate( t_i );
+//pEval->Evaluate( t_i );
 
 			//======================	Selection	=======================//
 			// 親個体と中間個体を比較して、適応度が高い個体を選択して次世代に残す

@@ -76,4 +76,37 @@ namespace ealib
 	}
 
 
+
+	void EvenOddCrossover::Execute( OreOreLib::Memory<const IChromosome*>& X, OreOreLib::Memory<IChromosome*>& T, const void* attribs )
+	{
+		const IChromosome* pParent1	= X[0]->GetChromosomeByType( TypeID );
+		const IChromosome* pParent2	= X[1]->GetChromosomeByType( TypeID );
+		IChromosome* pChild1		= T[0]->GetChromosomeByType( TypeID );
+		IChromosome* pChild2		= T[1]->GetChromosomeByType( TypeID );
+
+		for( int i=0; i<pParent1->Size(); ++i )
+		{
+			const BitArray *pBParent1	= pParent1->GeneAs<BitArray>(i);
+			const BitArray *pBParent2	= pParent2->GeneAs<BitArray>(i);
+			BitArray *pBChild1			= pChild1->GeneAs<BitArray>(i);
+			BitArray *pBChild2			= pChild2->GeneAs<BitArray>(i);
+
+			int bitLength = Min(Min(Min(pBParent1->BitLength(), pBParent2->BitLength()), pBChild1->BitLength()), pBChild2->BitLength());
+
+			pBChild1->CopyFrom( pBParent1 );
+			pBChild2->CopyFrom( pBParent2 );
+
+			for( int j=0; j<bitLength; j+=2 )
+			{
+				pBChild1->SetBit(j, pBParent2->GetBit(j));// +-+-+-+-
+				pBChild2->SetBit(j, pBParent1->GetBit(j));// -+-+-+-+
+			}// end of j loop
+
+		}// end of i loop		
+	
+	}
+
+
+
+
 }// end of namespace

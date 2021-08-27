@@ -59,6 +59,8 @@ namespace ealib
 		virtual DesignParameter* GetDesignParameter( const tstring& key )	const { return nullptr; }
 
 		// Pure Virtual Functions.
+		virtual IChromosome* GetChromosome( int i=0 ) const=0;
+		virtual IChromosome* GetChromosomeByType( int16 type ) const=0;
 		virtual int NumChromTypes() const=0;
 		virtual int16 TypeInfo() const=0;
 		virtual int Size() const = 0;

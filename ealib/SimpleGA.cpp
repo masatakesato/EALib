@@ -564,12 +564,15 @@ m_refCrossover->Execute( m_NumParents, (const IChromosome**)pParents, m_NumChild
 	// 交叉処理を行う
 	void MixedSimpleGA::Crossover( Population* pParentPopulation, Population* pChildPopulation )
 	{
+		static OreOreLib::StaticArray<const IChromosome*, 2> X = { nullptr, nullptr };
+		static OreOreLib::StaticArray<IChromosome*, 2> T = { nullptr, nullptr };
+
 		for( int i=0; i<m_Parents.Length(); ++i )
 		{
-			IChromosome* p1	= pParentPopulation->GetIndividual( m_Parents[i].first );
-			IChromosome* p2	= pParentPopulation->GetIndividual( m_Parents[i].second );
-			IChromosome* c1	= pChildPopulation->GetIndividual( i*2 );
-			IChromosome* c2	= ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->GetIndividual( i*2+1 ) : m_Population[ dummy ].GetIndividual( 0 );
+			X[0] = pParentPopulation->GetIndividual( m_Parents[i].first );
+			X[1] = pParentPopulation->GetIndividual( m_Parents[i].second );
+			T[0] = pChildPopulation->GetIndividual( i*2 );
+			T[1] = ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->GetIndividual( i*2+1 ) : m_Population[ dummy ].GetIndividual( 0 );
 
 			float crossProb	= float( OreOreLib::genrand_real1() );
 
@@ -577,26 +580,27 @@ m_refCrossover->Execute( m_NumParents, (const IChromosome**)pParents, m_NumChild
 			{
 				//tcout << i << ": Ignoring Crossover..." << tendl;
 				// とりあえず現行世代の遺伝子をそのまま残す
-				c1->CopyGeneFrom( p1 );
-				c2->CopyGeneFrom( p2 );
+				T[0]->CopyGeneFrom( X[0] );
+				T[1]->CopyGeneFrom( X[1] );
 
 				continue;
 			}
 			
-			for( int j=0; j<p1->NumChromTypes(); ++j )
-			{
-				IChromosome* chromosomes[] =
-				{
-					( (Chromosome2D*)p1 )->GetChromosome( j ),
-					( (Chromosome2D*)p2 )->GetChromosome( j ),
-					( (Chromosome2D*)c1 )->GetChromosome( j ),
-					( (Chromosome2D*)c2 )->GetChromosome( j )
-				};
+			m_refCrossover->Execute2( X, T, nullptr );
 
-//m_refCrossover->Execute( 4, chromosomes, nullptr );
-m_refCrossover->Execute( 2, (const IChromosome**)&chromosomes[0], 2, &chromosomes[2], nullptr );
-
-			}
+//			for( int j=0; j<X[0]->NumChromTypes(); ++j )
+//			{
+//				//IChromosome* chromosomes[] =
+//				//{
+//				//	( (Chromosome2D*)p1 )->GetChromosome( j ),
+//				//	( (Chromosome2D*)p2 )->GetChromosome( j ),
+//				//	( (Chromosome2D*)c1 )->GetChromosome( j ),
+//				//	( (Chromosome2D*)c2 )->GetChromosome( j )
+//				//};
+//
+////m_refCrossover->Execute( 4, chromosomes, nullptr );
+////m_refCrossover->Execute( 2, (const IChromosome**)&chromosomes[0], 2, &chromosomes[2], nullptr );
+//			}
 
 		}// end of i loop
 

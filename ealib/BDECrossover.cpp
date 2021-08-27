@@ -69,8 +69,8 @@ namespace ealib
 	void BDECrossover::Execute( int numparents, const IChromosome* parents[], int numchildren, IChromosome* children[], const void* attribs )
 	{
 		const DEAttribute *pAttrib	= (DEAttribute*)attribs;
-		const IChromosome* pParent	= parents[0];
-		IChromosome* pTrial			= children[0];
+		const IChromosome* pParent	= parents[0]->GetChromosomeByType( TypeID );
+		IChromosome* pTrial			= children[0]->GetChromosomeByType( TypeID );
 
 		for( int i=0; i<pTrial->Size(); ++i )
 		{
@@ -101,6 +101,50 @@ namespace ealib
 		}// end of i loop
 
 	}
+
+
+
+
+	
+	void BDECrossover::Execute( OreOreLib::Memory<const IChromosome*>& X, OreOreLib::Memory<IChromosome*>& T, const void* attribs )
+	{
+		const DEAttribute *pAttrib	= (DEAttribute*)attribs;
+		const IChromosome* pParent	= X[0]->GetChromosomeByType( TypeID );
+		IChromosome* pTrial			= T[0]->GetChromosomeByType( TypeID );
+
+		for( int i=0; i<pTrial->Size(); ++i )
+		{
+			const auto* pBParent = pParent->GeneAs<BitArray>(i);
+			auto pBTrial = pTrial->GeneAs<BitArray>(i);
+
+			int numParams	= pBTrial->BitLength();
+			int jrand		= int( OreOreLib::genrand_real2() * numParams );
+
+			// Select Crossover point from dimension
+			for( int j=0; j<numParams; ++j )
+			{
+				// Crossover
+				if( OreOreLib::genrand_real1() < pAttrib->CR/*PR*/ || j==jrand )
+				{
+					if( OreOreLib::genrand_real1() < pAttrib->F/*MUT*/ )
+					{
+						pBTrial->Flip( j );// Mutation
+					}
+					else
+					{
+						pBTrial->SetBit( j, pBParent->GetBit( j ) );// Crossover
+					}
+				}
+
+			}// end of design parameter loop
+
+		}// end of i loop
+
+	}
+
+
+
+
 
 
 }// end of namespace
