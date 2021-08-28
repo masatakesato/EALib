@@ -102,7 +102,7 @@ int main( int argc, char **argv )
 
 	//g_Chromosome.Init( designParams );
 
-/*
+
 	//====== test Mixed SimpleGA	=======//
 	tcout << "//############# Mixed SimpleGA #############//" << tendl;
 
@@ -200,7 +200,7 @@ int main( int argc, char **argv )
 	DisplayPopulation( &g_SnapShot, true );
 
 	tcout << tendl;
-*/
+
 
 	//====== test MixedSHADE =======//
 	tcout << "//########################### Mixed SHADE ############################//" << tendl;

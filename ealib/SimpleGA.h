@@ -50,13 +50,17 @@ namespace ealib
 		OreOreLib::Array<IChromosome*>	T;
 
 
-void Select_Crossover( Population* pParentPopulation, Population* pChildPopulation );
-//		void Select( Population* pPopulation );	// 選択
-//		void Crossover( Population* pParentPopulation, Population* pChildPopulation );// 交叉
-		void Mutate( Population* pPopulation );	// 突然変異
-		void CarryOver( Population* pParentPopulation, Population* pChildPopulation );// エリート保存
+		void Select_Crossover( Population* pParentPopulation, Population* pChildPopulation );// Select and Crossover
+		void Mutate( Population* pPopulation );	// Mutation
+		void CarryOver( Population* pParentPopulation, Population* pChildPopulation );// Carryover elite individuals
 
 		void ClearAttribute();
+
+
+
+		// Depracated.
+		//void Select( Population* pPopulation );
+		//void Crossover( Population* pParentPopulation, Population* pChildPopulation );
 
 	};
 
@@ -98,18 +102,23 @@ void Select_Crossover( Population* pParentPopulation, Population* pChildPopulati
 		Population		m_Population[3];
 		int				parentGen, childGen, dummy;
 
-		//OreOreLib::Array<Parents>	m_Parents;
-		int				m_NumFamilies, m_NumParents, m_NumChildren;
-		OreOreLib::Array<const IChromosome*>	X;//m_CrossoverBuffer;
-		OreOreLib::Array<IChromosome*>	T;
+		int m_NumFamilies;
+		OreOreLib::Array<const IChromosome*> X;
+		OreOreLib::Array<IChromosome*> T;
 
-		void Select_Crossover( Population* pParentPopulation, Population* pChildPopulation );
-		//void Select( Population* pPopulation );	// 選択
-		//void Crossover( Population* pParentPopulation, Population* pChildPopulation );// 交叉
-		void Mutate( Population* pPopulation );	// 突然変異
-		void CarryOver( Population* pParentPopulation, Population* pChildPopulation );// エリート保存
+
+		void Select_Crossover( Population* pParentPopulation, Population* pChildPopulation );// Selection and Crossover
+		void Mutate( Population* pPopulation );	// Mutation
+		void CarryOver( Population* pParentPopulation, Population* pChildPopulation );// Carryover elite individuals
 
 		void ClearAttribute();
+
+
+
+
+		// Depracated.
+		//void Select( Population* pPopulation );
+		//void Crossover( Population* pParentPopulation, Population* pChildPopulation );
 
 	};
 

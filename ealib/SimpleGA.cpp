@@ -226,32 +226,27 @@ namespace ealib
 		m_refSelector->BindPopulationData( pParentPopulation->PopulationSize(), pParentPopulation->ChromosomeArray() );
 		m_refSelector->Update();
 
-//		static OreOreLib::ArrayView<const IChromosome*> X( &m_CrossoverBuffer[0], m_NumParents );
-//		static OreOreLib::ArrayView<IChromosome*> T( &m_CrossoverBuffer[m_NumParents], m_NumChildren );
-//		auto pParents = &m_CrossoverBuffer[ 0 ];
-//		auto pChildren = &m_CrossoverBuffer[ m_NumParents ];
-
 		int numParents = X.Length();
 		int numChildren = T.Length();
 
 		for( int i=0; i<m_NumFamilies; ++i )
 		{
 			// Select Parents
-			for( int j=0; j</*m_NumParents*/numParents; ++j )
+			for( int j=0; j<numParents; ++j )
 			{
 				const IChromosome* chrom = m_Population[ parentGen ].GetIndividual( m_refSelector->Execute() );
 
-				while( OreOreLib::Exists( /*j, pParents*/X, chrom ) )
+				while( OreOreLib::Exists( X, chrom ) )
 					chrom = m_Population[ parentGen ].GetIndividual( m_refSelector->Execute() );
 				
-				/*pParents*/X[j] = chrom;
+				X[j] = chrom;
 			}// end of j loop
 
 
 			// Construct children group T
-			for( int j=0; j</*m_NumChildren*/numChildren; ++j )
+			for( int j=0; j<numChildren; ++j )
 			{
-				int popidx = /*m_NumChildren*/i*numChildren + j;
+				int popidx = i*numChildren + j;
 
 				if( popidx < m_Attrib.PopulationSize-m_Attrib.EliteSize )// Refer pChindPopulation's individual if possible
 					T[j] = pChildPopulation->GetIndividual( popidx );
@@ -259,25 +254,21 @@ namespace ealib
 					T[j] = m_Population[ dummy ].GetIndividual( j );// Refer dummy data if popidx is out of range.
 			}
 
-//			/*pChildren*/T[ 0 ] = pChildPopulation->GetIndividual( i*2 );
-//			/*pChildren*/T[ 1 ] = ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->GetIndividual( i*2+1 ) : m_Population[ dummy ].GetIndividual( 0 );
-
+			// Crossover
 			float crossProb	= float( OreOreLib::genrand_real1() );
 			
 			if( crossProb > m_SGAAttrib.CrossoverRate || !m_refCrossover )
 			{
 				//tcout << i << ": Ignoring Crossover..." << tendl;
-				// とりあえず現行世代の遺伝子をそのまま残す
-//				/*pChildren*/T[0]->CopyGeneFrom( /*pParents*/X[0] );
-//				/*pChildren*/T[1]->CopyGeneFrom( /*pParents*/X[1] );
-				for( int j=0; j</*m_NumChildren*/numChildren; ++j )
+				// Keep parents as offsprings
+				for( int j=0; j<numChildren; ++j )
 					T[j]->CopyGeneFrom( X[j] );
 
 				continue;
 			}
 			
-			//m_refCrossover->Execute( m_NumParents, (const IChromosome**)/*pParents*/&X[0], m_NumChildren, /*pChildren*/&T[0], nullptr );
-			m_refCrossover->Execute2( X, T, nullptr );
+			m_refCrossover->Execute2( X, T, nullptr );//m_refCrossover->Execute( m_NumParents, &X[0], m_NumChildren, &T[0], nullptr );
+
 		}// end of i loop
 
 	}
@@ -389,8 +380,6 @@ namespace ealib
 		, childGen( 1 )
 		, dummy( 2 )
 		, m_NumFamilies( 0 )
-//		, m_NumParents( 0 )
-//		, m_NumChildren( 0 )
 	{
 		ClearAttribute();
 	}
@@ -403,11 +392,7 @@ namespace ealib
 		, parentGen( 0 )
 		, childGen( 1 )
 		, dummy( 2 )
-		//, m_Parents( m_Parents )
 		, m_NumFamilies( obj.m_NumFamilies )
-//		, m_NumParents( obj.m_NumParents )
-//		, m_NumChildren( obj.m_NumChildren )
-		//, m_CrossoverBuffer( obj.m_CrossoverBuffer )
 		, X( obj.X )
 		, T( obj.T )
 	{
@@ -515,10 +500,6 @@ namespace ealib
 		m_Population[ parentGen ].Release();
 		m_Population[ childGen ].Release();
 
-		//m_Parents.Release();
-//		m_NumParents = 0;
-//		m_NumChildren = 0;
-		//m_CrossoverBuffer.Release();
 		X.Release();
 		T.Release();
 
@@ -539,8 +520,6 @@ namespace ealib
 	void MixedSimpleGA::Step( Evaluator* pEval )
 	{
 		Select_Crossover( &m_Population[parentGen], &m_Population[childGen] );
-		//Select( &m_Population[parentGen] );
-		//Crossover( &m_Population[parentGen], &m_Population[childGen] );
 		Mutate( &m_Population[childGen] );
 		CarryOver( &m_Population[parentGen], &m_Population[childGen] );
 
@@ -583,14 +562,6 @@ namespace ealib
 		if( m_bReady )
 			pOut = Population( m_Population[parentGen] );
 	}
-
-
-
-
-
-
-
-
 
 
 
@@ -639,7 +610,7 @@ namespace ealib
 			if( crossProb > m_SGAAttrib.CrossoverRate || !m_refCrossover )
 			{
 				//tcout << i << ": Ignoring Crossover..." << tendl;
-				// とりあえず現行世代の遺伝子をそのまま残す
+				// Keep parents as offsprings
 				for( int j=0; j<numChildren; ++j )
 					T[j]->CopyGeneFrom( X[j] );
 
@@ -654,82 +625,6 @@ namespace ealib
 
 
 
-
-//	// 優れた個体を選別する→いくつか方法がある, 適応度比例戦略、エリート保存戦略、トーナメント戦略
-//	void MixedSimpleGA::Select( Population* pPopulation )
-//	{
-//		// 適応値と親個体の初期化
-//		if(	!m_refSelector )
-//			return;
-//
-//		m_refSelector->BindPopulationData( pPopulation->PopulationSize(), pPopulation->ChromosomeArray() );
-//		m_refSelector->Update();
-//
-//		// 親の選択
-//		for( int i=0; i<m_Parents.Length(); ++i )
-//		{
-//			int parent1	= m_refSelector->Execute();
-//			int parent2	= m_refSelector->Execute();
-//
-//			while( parent1==parent2 )
-//				parent2 = m_refSelector->Execute();
-//
-//			m_Parents[i].first = parent1;
-//			m_Parents[i].second = parent2;
-//
-//		}// end of i loop
-//	}
-//
-//
-//
-//	// 交叉処理を行う
-//	void MixedSimpleGA::Crossover( Population* pParentPopulation, Population* pChildPopulation )
-//	{
-//		static OreOreLib::StaticArray<const IChromosome*, 2> X = { nullptr, nullptr };
-//		static OreOreLib::StaticArray<IChromosome*, 2> T = { nullptr, nullptr };
-//
-//		for( int i=0; i<m_Parents.Length(); ++i )
-//		{
-//			X[0] = pParentPopulation->GetIndividual( m_Parents[i].first );
-//			X[1] = pParentPopulation->GetIndividual( m_Parents[i].second );
-//			T[0] = pChildPopulation->GetIndividual( i*2 );
-//			T[1] = ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->GetIndividual( i*2+1 ) : m_Population[ dummy ].GetIndividual( 0 );
-//
-//			float crossProb	= float( OreOreLib::genrand_real1() );
-//
-//			if( crossProb > m_SGAAttrib.CrossoverRate /*|| !m_pCrossover*/ )
-//			{
-//				//tcout << i << ": Ignoring Crossover..." << tendl;
-//				// とりあえず現行世代の遺伝子をそのまま残す
-//				T[0]->CopyGeneFrom( X[0] );
-//				T[1]->CopyGeneFrom( X[1] );
-//
-//				continue;
-//			}
-//			
-//			m_refCrossover->Execute2( X, T, nullptr );
-//
-////			for( int j=0; j<X[0]->NumChromTypes(); ++j )
-////			{
-////				//IChromosome* chromosomes[] =
-////				//{
-////				//	( (Chromosome2D*)p1 )->GetChromosome( j ),
-////				//	( (Chromosome2D*)p2 )->GetChromosome( j ),
-////				//	( (Chromosome2D*)c1 )->GetChromosome( j ),
-////				//	( (Chromosome2D*)c2 )->GetChromosome( j )
-////				//};
-////
-//////m_refCrossover->Execute( 4, chromosomes, nullptr );
-//////m_refCrossover->Execute( 2, (const IChromosome**)&chromosomes[0], 2, &chromosomes[2], nullptr );
-////			}
-//
-//		}// end of i loop
-//
-//	}
-
-
-
-	// 突然変異
 	void MixedSimpleGA::Mutate( Population* pPopulation )
 	{
 		for( int i=0; i<m_Attrib.PopulationSize-m_Attrib.EliteSize; ++i )
@@ -765,6 +660,85 @@ namespace ealib
 		m_Attrib.Clear();
 		m_SGAAttrib.Clear();
 	}
+
+
+
+
+
+	// Deprecated. Using Select_Crossover method.
+
+	//// 優れた個体を選別する→いくつか方法がある, 適応度比例戦略、エリート保存戦略、トーナメント戦略
+	//void MixedSimpleGA::Select( Population* pPopulation )
+	//{
+	//	// 適応値と親個体の初期化
+	//	if(	!m_refSelector )
+	//		return;
+	
+	//	m_refSelector->BindPopulationData( pPopulation->PopulationSize(), pPopulation->ChromosomeArray() );
+	//	m_refSelector->Update();
+	
+	//	// 親の選択
+	//	for( int i=0; i<m_Parents.Length(); ++i )
+	//	{
+	//		int parent1	= m_refSelector->Execute();
+	//		int parent2	= m_refSelector->Execute();
+	
+	//		while( parent1==parent2 )
+	//			parent2 = m_refSelector->Execute();
+	
+	//		m_Parents[i].first = parent1;
+	//		m_Parents[i].second = parent2;
+	
+	//	}// end of i loop
+	//}
+	
+	
+	
+	//// 交叉処理を行う
+	//void MixedSimpleGA::Crossover( Population* pParentPopulation, Population* pChildPopulation )
+	//{
+	//	static OreOreLib::StaticArray<const IChromosome*, 2> X = { nullptr, nullptr };
+	//	static OreOreLib::StaticArray<IChromosome*, 2> T = { nullptr, nullptr };
+	
+	//	for( int i=0; i<m_Parents.Length(); ++i )
+	//	{
+	//		X[0] = pParentPopulation->GetIndividual( m_Parents[i].first );
+	//		X[1] = pParentPopulation->GetIndividual( m_Parents[i].second );
+	//		T[0] = pChildPopulation->GetIndividual( i*2 );
+	//		T[1] = ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->GetIndividual( i*2+1 ) : m_Population[ dummy ].GetIndividual( 0 );
+	
+	//		float crossProb	= float( OreOreLib::genrand_real1() );
+	
+	//		if( crossProb > m_SGAAttrib.CrossoverRate /*|| !m_pCrossover*/ )
+	//		{
+	//			//tcout << i << ": Ignoring Crossover..." << tendl;
+	//			// とりあえず現行世代の遺伝子をそのまま残す
+	//			T[0]->CopyGeneFrom( X[0] );
+	//			T[1]->CopyGeneFrom( X[1] );
+	
+	//			continue;
+	//		}
+	//		
+	//		m_refCrossover->Execute2( X, T, nullptr );
+	
+	//		for( int j=0; j<X[0]->NumChromTypes(); ++j )
+	//		{
+	//			//IChromosome* chromosomes[] =
+	//			//{
+	//			//	( (Chromosome2D*)p1 )->GetChromosome( j ),
+	//			//	( (Chromosome2D*)p2 )->GetChromosome( j ),
+	//			//	( (Chromosome2D*)c1 )->GetChromosome( j ),
+	//			//	( (Chromosome2D*)c2 )->GetChromosome( j )
+	//			//};
+	
+	//			//m_refCrossover->Execute( 4, chromosomes, nullptr );
+	//			//m_refCrossover->Execute( 2, (const IChromosome**)&chromosomes[0], 2, &chromosomes[2], nullptr );
+	//		}
+	
+	//	}// end of i loop
+	
+	//}
+
 
 
 

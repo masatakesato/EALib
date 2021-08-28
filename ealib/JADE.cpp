@@ -228,29 +228,18 @@ namespace ealib
 			IChromosome *x_i	= m_Population[ parentGen ].GetIndividual( i );
 			IChromosome *t_i	= m_Population[ dummy ].GetIndividual( 0 );// 中間個体
 			
-			//=================	Mutation and Crossover	===================//			
-			//m_Mutator.Execute( 5, &refCandidates[1], i );//m_Mutator.Execute( 5, refCandidates, i );
+			//=================	DE_Current_to_pBest_1_Archive Mutation and Crossover	===================//			
+			// Select parents X{ x_i, pbest, x_i, x_r1, x_r2 }
 			m_Mutator.Execute( 5, (IChromosome**)X.begin(), i );//m_Mutator.Execute( 5, refCandidates, i );
-			T[0] = t_i;
-			//refCandidates[0] = t_i;
-			//IChromosome *randoms[] =
-			//{
-			//	t_i,				// t_i. trial vector
-			//	refCandidates[0],	// x_i
-			//	refCandidates[1],	// pbest
-			//	refCandidates[2],	// x_i
-			//	refCandidates[3],	// x_r1
-			//	refCandidates[4],	// x_r2
-			//};
 			
-			// 中間個体を生成する
+			// Generate offspring t_i
 			t_i->CopyGeneFrom( x_i );
+			T[0] = t_i;
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる？→世代ごとに、個体別F/CRを新規生成するから多分関係ない
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
-//m_refCrossover->Execute( 6, refCandidates, &attr );//m_refCrossover->Execute( 6, randoms, &attr );
-m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 5, (const IChromosome**)&refCandidates[1], 1, &refCandidates[0], &attr );
-
+			m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 5, &X[0], 1, &T[0], &attr );
 			pEval->Evaluate( t_i );
+
 
 			//======================	Selection	=======================//
 			// 親個体と中間個体を比較して、適応度が高い個体を選択して次世代に残す

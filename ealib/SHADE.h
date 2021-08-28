@@ -44,8 +44,8 @@ namespace ealib
 		Population		m_Population[4];
 		int				parentGen, childGen, archive, dummy;
 		
-		int							m_numActiveArchives;
-		OreOreLib::Array<int>		m_ArchiveIndices;
+		int						m_numActiveArchives;
+		OreOreLib::Array<int>	m_ArchiveIndices;
 
 		// Control Parameters(F, CR and p) for each individual
 		OreOreLib::Array<float>	m_Fs;
@@ -117,8 +117,8 @@ namespace ealib
 		Population		m_Population[4];
 		int				parentGen, childGen, archive, dummy;
 
-		int				m_numActiveArchives;
-		int				*m_ArchiveIndices;
+		int						m_numActiveArchives;
+		OreOreLib::Array<int>	m_ArchiveIndices;
 
 		// Control Parameters(F, CR and p) for each individual
 		OreOreLib::Array<float>	m_Fs;
