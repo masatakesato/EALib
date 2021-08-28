@@ -12,6 +12,10 @@ namespace ealib
 {
 	class IChromosome;
 
+
+	class CrossoverException : public std::exception{};
+
+
 	class CLASS_DECLSPEC Crossover
 	{
 	public:
@@ -28,13 +32,14 @@ namespace ealib
 
 void Execute2( OreOreLib::Memory<const IChromosome*>& parents, OreOreLib::Memory<IChromosome*>& children, const void* attribs=nullptr );
 
-		int NumParents( int type ) const;
-		int NumChildren( int type ) const;
+
+		bool GetFamilySize( int16 type, int& numparents, int& numchildren ) const;
+		bool GetFamilySize( int& numparents, int& numchildren ) const;
 
 
 	private:
 
-		ICrossoverOperator*	m_refOperators[ NUM_TYPES ];
+		OreOreLib::StaticArray<ICrossoverOperator*, NUM_TYPES>	m_refOperators;
 
 	};
 

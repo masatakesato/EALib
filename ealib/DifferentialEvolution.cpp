@@ -65,7 +65,7 @@ namespace ealib
 
 
 
-	void DifferentialEvolution::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	bool DifferentialEvolution::InitPopulation( const DesignParamArray& designParams, int numObjectives )
 	{
 		try
 		{
@@ -85,6 +85,8 @@ namespace ealib
 			HANDLE_EXCEPTION();
 			ReleasePopulation();
 		}
+
+		return m_bReady;
 	}
 
 
@@ -222,7 +224,8 @@ m_refCrossover->Execute2( X, T, &m_MutateAttrib );//m_refCrossover->Execute( 3, 
 
 	void DifferentialEvolution::TakeSnapshot( Population& pOut ) const
 	{
-		pOut = Population( m_Population[ parentGen ] );
+		if( m_bReady )
+			pOut = Population( m_Population[ parentGen ] );
 	}
 
 

@@ -28,6 +28,12 @@ namespace ealib
 	// Population display function
 	void DisplayPopulation( const Population* pop, bool viewgene )
 	{
+		if( pop->PopulationSize()==0 )
+		{
+			tcout << typeid(*pop).name() << _T("...Empty\n");
+			return;
+		}
+
 		//Sort( SORT_MODE::SORT_FITNESS_DESCEND );
 
 		tcout << typeid(*pop).name() << _T(":\n");

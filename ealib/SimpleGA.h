@@ -27,7 +27,7 @@ namespace ealib
 		void SetMutationRate( float m_rate );	// 突然変異率を設定
 
 		// Virtual Functions Override
-		virtual void InitPopulation( const DesignParamArray& designParams, int numObjectives );
+		virtual bool InitPopulation( const DesignParamArray& designParams, int numObjectives );
 		//virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );// Deprecated. 2021.08.23
 		virtual void ReleasePopulation();
 		virtual IEvolutionaryAlgorithm* Clone() const;
@@ -44,9 +44,11 @@ namespace ealib
 		Population		m_Population[3];
 		int				parentGen, childGen, dummy;
 
-		int				m_NumFamilies;
-int m_NumParents, m_NumChildren;
-OreOreLib::Array<IChromosome*>	m_CrossoverBuffer;
+		int				m_NumFamilies;//, m_NumParents, m_NumChildren;
+		//OreOreLib::Array<IChromosome*>	m_CrossoverBuffer;
+		OreOreLib::Array<const IChromosome*>	X;//m_CrossoverBuffer;
+		OreOreLib::Array<IChromosome*>	T;
+
 
 void Select_Crossover( Population* pParentPopulation, Population* pChildPopulation );
 //		void Select( Population* pPopulation );	// 選択
@@ -78,7 +80,7 @@ void Select_Crossover( Population* pParentPopulation, Population* pChildPopulati
 		void SetMutationRate( float m_rate );	// 突然変異率を設定
 
 		// Virtual Functions Override
-		virtual void InitPopulation( const DesignParamArray& designParams, int numObjectives );
+		virtual bool InitPopulation( const DesignParamArray& designParams, int numObjectives );
 		//virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives );// Deprecated. 2021.08.23
 		virtual void ReleasePopulation();
 		virtual IEvolutionaryAlgorithm* Clone() const;
@@ -96,11 +98,14 @@ void Select_Crossover( Population* pParentPopulation, Population* pChildPopulati
 		Population		m_Population[3];
 		int				parentGen, childGen, dummy;
 
-		OreOreLib::Array<Parents>	m_Parents;
+		//OreOreLib::Array<Parents>	m_Parents;
+		int				m_NumFamilies, m_NumParents, m_NumChildren;
+		OreOreLib::Array<const IChromosome*>	X;//m_CrossoverBuffer;
+		OreOreLib::Array<IChromosome*>	T;
 
-
-		void Select( Population* pPopulation );	// 選択
-		void Crossover( Population* pParentPopulation, Population* pChildPopulation );// 交叉
+		void Select_Crossover( Population* pParentPopulation, Population* pChildPopulation );
+		//void Select( Population* pPopulation );	// 選択
+		//void Crossover( Population* pParentPopulation, Population* pChildPopulation );// 交叉
 		void Mutate( Population* pPopulation );	// 突然変異
 		void CarryOver( Population* pParentPopulation, Population* pChildPopulation );// エリート保存
 

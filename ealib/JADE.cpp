@@ -98,7 +98,7 @@ namespace ealib
 
 
 
-	void JADE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	bool JADE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
 	{
 		try
 		{
@@ -131,6 +131,8 @@ namespace ealib
 			HANDLE_EXCEPTION();
 			ReleasePopulation();
 		}
+
+		return m_bReady;
 	}
 
 
@@ -347,7 +349,8 @@ m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 5, (const ICh
 
 	void JADE::TakeSnapshot( Population& pOut ) const
 	{
-		pOut = Population( m_Population[parentGen] );
+		if( m_bReady )
+			pOut = Population( m_Population[parentGen] );
 	}
 
 

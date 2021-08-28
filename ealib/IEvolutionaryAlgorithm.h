@@ -61,7 +61,7 @@ namespace ealib
 		EAStatistics* const Statistics() const	{ return (EAStatistics* const)&m_Stats; }
 
 		// Pure Virtual Functions
-		virtual void InitPopulation( const DesignParamArray& designParams, int numObjectives )=0;
+		virtual bool InitPopulation( const DesignParamArray& designParams, int numObjectives )=0;
 		//virtual void InitPopulation( const IChromosome* pChromosome, int numObjectives )=0;// Deprecated. 2021.08.23
 		virtual void ReleasePopulation()=0;
 		virtual IEvolutionaryAlgorithm* Clone() const=0;

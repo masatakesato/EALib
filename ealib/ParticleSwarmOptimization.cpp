@@ -72,7 +72,7 @@ namespace ealib
 
 
 
-	void ParticleSwarmOptimization::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	bool ParticleSwarmOptimization::InitPopulation( const DesignParamArray& designParams, int numObjectives )
 	{
 		try
 		{
@@ -94,6 +94,8 @@ namespace ealib
 			HANDLE_EXCEPTION();
 			ReleasePopulation();
 		}
+
+		return m_bReady;
 	}
 
 
@@ -252,7 +254,8 @@ namespace ealib
 
 	void ParticleSwarmOptimization::TakeSnapshot( Population& pOut ) const
 	{
-		pOut = Population( m_Population[individual] );
+		if( m_bReady )
+			pOut = Population( m_Population[individual] );
 	}
 
 

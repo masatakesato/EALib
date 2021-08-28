@@ -77,7 +77,7 @@ namespace ealib
 
 
 
-	void jDE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	bool jDE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
 	{
 		try
 		{
@@ -101,6 +101,8 @@ namespace ealib
 			HANDLE_EXCEPTION();
 			ReleasePopulation();
 		}
+
+		return m_bReady;
 	}
 
 
@@ -249,7 +251,8 @@ m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 3, (const ICh
 
 	void jDE::TakeSnapshot( Population& pOut ) const
 	{
-		pOut = Population( m_Population[parentGen] );
+		if( m_bReady )
+			pOut = Population( m_Population[parentGen] );
 	}
 
 

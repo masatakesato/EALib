@@ -107,7 +107,7 @@ namespace ealib
 
 
 
-	void SHADE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	bool SHADE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
 	{
 		try
 		{
@@ -142,6 +142,8 @@ namespace ealib
 			HANDLE_EXCEPTION();
 			ReleasePopulation();
 		}
+
+		return m_bReady;
 	}
 
 
@@ -360,7 +362,8 @@ m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 5, (const ICh
 
 	void SHADE::TakeSnapshot( Population& pOut ) const
 	{
-		pOut = Population( m_Population[parentGen] );
+		if( m_bReady )
+			pOut = Population( m_Population[parentGen] );
 	}
 
 
@@ -497,7 +500,7 @@ m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 5, (const ICh
 
 
 
-	void MixedSHADE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	bool MixedSHADE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
 	{
 		try
 		{
@@ -531,6 +534,8 @@ m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 5, (const ICh
 			HANDLE_EXCEPTION();
 			ReleasePopulation();
 		}
+
+		return m_bReady;
 	}
 
 
@@ -596,7 +601,7 @@ m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 5, (const ICh
 	}
 
 
-
+TODO: some attributes are not copied. Need to check copy constructor. 2021.08.28
 	IEvolutionaryAlgorithm* MixedSHADE::Clone() const
 	{
 		return new MixedSHADE( *this );
@@ -757,7 +762,8 @@ pEval->Evaluate( t_i );
 
 	void MixedSHADE::TakeSnapshot( Population& pOut ) const
 	{
-		pOut = Population( m_Population[parentGen] );
+		if( m_bReady )
+			pOut = Population( m_Population[parentGen] );
 	}
 
 

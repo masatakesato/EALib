@@ -9,7 +9,6 @@ namespace ealib
 {
 
 	Crossover::Crossover()
-		: m_refOperators{ nullptr }
 	{
 	
 	}
@@ -18,8 +17,7 @@ namespace ealib
 
 	Crossover::~Crossover()
 	{
-		for( int i=0; i<NUM_TYPES; ++i )
-			m_refOperators[i] = nullptr;
+		m_refOperators.Clear();
 	}
 
 	
@@ -71,18 +69,51 @@ void Crossover::Execute2( OreOreLib::Memory<const IChromosome*>& parents, OreOre
 
 
 
-int Crossover::NumParents( int type ) const
+//int Crossover::NumParents( int type ) const
+//{
+//	return m_refOperators[ type ]->Attribute().NumParents;
+//}
+//
+//
+//int Crossover::NumChildren( int type ) const
+//{
+//	return m_refOperators[ type ]->Attribute().NumChildren;
+//}
+
+
+
+bool Crossover::GetFamilySize( int16 type, int& numparents, int& numchildren ) const
 {
-	return m_refOperators[ type ]->Attribute().NumParents;
+	auto op = m_refOperators[ type ];
+	if( !op )
+		return false;
+
+	numparents	= op->Attribute().NumParents;
+	numchildren	= op->Attribute().NumChildren;
+
+	return true;
 }
 
 
-int Crossover::NumChildren( int type ) const
+
+bool Crossover::GetFamilySize( int& numparents, int& numchildren ) const
 {
-	return m_refOperators[ type ]->Attribute().NumChildren;
+	numparents	= -1;
+	numchildren	= -1;
+	bool isvalid = false;
+
+	for( const auto* op : m_refOperators )
+	{
+		if( op )
+		{
+			isvalid = true;
+			numparents = Max( numparents, op->Attribute().NumParents );
+			numchildren = Max( numchildren, op->Attribute().NumChildren );
+		}
+	}
+
+	return isvalid;
 }
-
-
 
 
 

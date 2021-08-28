@@ -99,12 +99,12 @@ namespace ealib
 
 
 
-	void MultiIslandEA::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	bool MultiIslandEA::InitPopulation( const DesignParamArray& designParams, int numObjectives )
 	{
 		try
 		{
 			if( !m_refSolver )
-				return;
+				return false;
 
 			ReleasePopulation();
 
@@ -113,11 +113,11 @@ namespace ealib
 
 			//============== 島毎のGAを初期化する ==============//
 			m_pSolverArray.Init( m_MIGAAttrib.IslandSize );
-
+			m_bReady = true;
 			for( int i=0; i<m_MIGAAttrib.IslandSize; ++i )
 			{
 				m_pSolverArray[i] = m_refSolver->Clone();
-				m_pSolverArray[i]->InitPopulation( designParams, numObjectives );
+				m_bReady &= m_pSolverArray[i]->InitPopulation( designParams, numObjectives );
 			}// end of i loop
 
 
@@ -132,13 +132,15 @@ namespace ealib
 				m_Migrants[i].Init( designParams, numMigrants, numObjectives );
 			}// end of i loop
 
-			m_bReady = true;
+			//m_bReady = true;
 		}
 		catch( ... )
 		{
 			HANDLE_EXCEPTION();
 			ReleasePopulation();
 		}
+
+		return m_bReady;
 	}
 
 
@@ -266,15 +268,18 @@ namespace ealib
 
 	void MultiIslandEA::TakeSnapshot( Population& pOut ) const
 	{
-		const int& popsize		= m_Attrib.PopulationSize;
-		const int& islandsize	= m_MIGAAttrib.IslandSize;
+		if( m_bReady )
+		{
+			const int& popsize		= m_Attrib.PopulationSize;
+			const int& islandsize	= m_MIGAAttrib.IslandSize;
 
-		pOut.Init( m_pSolverArray[0]->GetPopulation()->GetIndividual(0), popsize * islandsize, m_Migrants[0].NumObjectives() );
+			pOut.Init( m_pSolverArray[0]->GetPopulation()->GetIndividual(0), popsize * islandsize, m_Migrants[0].NumObjectives() );
 
-		for( int i=0; i<islandsize; ++i )
-			pOut.CopyChromosomes( m_pSolverArray[i]->GetPopulation(), i*popsize );
+			for( int i=0; i<islandsize; ++i )
+				pOut.CopyChromosomes( m_pSolverArray[i]->GetPopulation(), i*popsize );
 
-		pOut.Sort( Population::SORT_FITNESS_DESCEND );
+			pOut.Sort( Population::SORT_FITNESS_DESCEND );
+		}
 	}
 
 

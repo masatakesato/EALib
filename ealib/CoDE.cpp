@@ -76,7 +76,7 @@ namespace ealib
 
 
 
-	void CoDE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	bool CoDE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
 	{
 		try
 		{
@@ -95,6 +95,8 @@ namespace ealib
 			HANDLE_EXCEPTION();
 			ReleasePopulation();
 		}
+
+		return m_bReady;
 	}
 
 
@@ -289,7 +291,8 @@ namespace ealib
 
 	void CoDE::TakeSnapshot( Population& pOut ) const
 	{
-		pOut = Population( m_Population[parentGen] );
+		if( m_bReady )
+			pOut = Population( m_Population[parentGen] );
 	}
 
 
@@ -373,7 +376,7 @@ namespace ealib
 
 
 
-	void MixedCoDE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	bool MixedCoDE::InitPopulation( const DesignParamArray& designParams, int numObjectives )
 	{
 		try
 		{
@@ -392,6 +395,8 @@ namespace ealib
 			HANDLE_EXCEPTION();
 			ReleasePopulation();
 		}
+
+		return m_bReady;
 	}
 
 
@@ -527,7 +532,6 @@ namespace ealib
 ////m_refCrossover->Execute( 6, randoms, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 //m_refCrossover->Execute( 5, (const IChromosome**)&randoms[1], 1, &randoms[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 //			}
-TODO:
 			m_refCrossover->Execute2( X_Rand_2, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			pEval->Evaluate( t_i_rand2bin );
 			
@@ -586,7 +590,8 @@ TODO:
 
 	void MixedCoDE::TakeSnapshot( Population& pOut ) const
 	{
-		pOut = Population( m_Population[parentGen] );
+		if( m_bReady )
+			pOut = Population( m_Population[parentGen] );
 	}
 
 	

@@ -102,7 +102,7 @@ int main( int argc, char **argv )
 
 	//g_Chromosome.Init( designParams );
 
-
+/*
 	//====== test Mixed SimpleGA	=======//
 	tcout << "//############# Mixed SimpleGA #############//" << tendl;
 
@@ -200,7 +200,7 @@ int main( int argc, char **argv )
 	DisplayPopulation( &g_SnapShot, true );
 
 	tcout << tendl;
-
+*/
 
 	//====== test MixedSHADE =======//
 	tcout << "//########################### Mixed SHADE ############################//" << tendl;
@@ -208,6 +208,7 @@ int main( int argc, char **argv )
 	// set de parameters
 	g_MixedSHADESolver.SetPopulationSize( 50 );
 	g_MixedSHADESolver.SetNumGenerations( 100 );
+	g_MixedSHADESolver.BindCrossover( &crossover_de );
 
 	// execute
 	g_MixedSHADESolver.InitPopulation( designParams, Eval.NumObjectives() );//g_MixedSHADESolver.InitPopulation( &g_Chromosome, Eval.NumObjectives() );

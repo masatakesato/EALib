@@ -70,7 +70,7 @@ namespace ealib
 
 
 
-	void NSGA2::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	bool NSGA2::InitPopulation( const DesignParamArray& designParams, int numObjectives )
 	{
 		try
 		{
@@ -95,6 +95,8 @@ namespace ealib
 		// Check visual studio's settings. https://kagasu.hatenablog.com/entry/2017/05/04/223252
 		// try/catch/finally example https://ufcpp.net/study/csharp/oo_exception.html
 		// https://stackoverflow.com/questions/3641737/c-get-description-of-an-exception-caught-in-catch-block
+
+		return m_bReady;
 	}
 
 
@@ -192,7 +194,8 @@ namespace ealib
 
 	void NSGA2::TakeSnapshot( Population& pOut ) const
 	{
-		pOut = Population( m_Population[parentGen] );
+		if( m_bReady )
+			pOut = Population( m_Population[parentGen] );
 	}
 
 
@@ -369,7 +372,7 @@ namespace ealib
 
 
 
-	void MixedNSGA2::InitPopulation( const DesignParamArray& designParams, int numObjectives )
+	bool MixedNSGA2::InitPopulation( const DesignParamArray& designParams, int numObjectives )
 	{
 		try
 		{
@@ -391,6 +394,8 @@ namespace ealib
 			HANDLE_EXCEPTION();
 			ReleasePopulation();
 		}
+
+		return m_bReady;
 	}
 
 
@@ -484,7 +489,8 @@ namespace ealib
 
 	void MixedNSGA2::TakeSnapshot( Population& pOut ) const
 	{
-		pOut = Population( m_Population[parentGen] );
+		if( m_bReady )
+			pOut = Population( m_Population[parentGen] );
 	}
 
 
