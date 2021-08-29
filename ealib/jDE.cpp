@@ -165,7 +165,7 @@ namespace ealib
 
 		UpdateControlParams();
 
-		m_DE_Rand_1_Mutator.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
+		m_DE_Rand_1_Mutator.BindPopulationData( m_Population[parentGen].ChromArray() );
 
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
 		{
@@ -174,14 +174,14 @@ namespace ealib
 
 			//=================	Mutation and Crossover	===================//
 			// Select parents X{ x_rand1, x_rand2, x_rand3 }
-			m_DE_Rand_1_Mutator.Execute( 3, (IChromosome**)X.begin(), i );
+			m_DE_Rand_1_Mutator.Execute( X, i );
 			
 			// Generate offspring
 			t_i->CopyGeneFrom( x_i );
 			T[0] = t_i;
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる→前世代からの値持ち越しがあるので関係ある
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
-			m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 3, &X[0], 1, &T[0], &attr );
+			m_refCrossover->Execute( X, T, &attr );//m_refCrossover->Execute( 3, &X[0], 1, &T[0], &attr );
 			pEval->Evaluate( t_i );
 
 

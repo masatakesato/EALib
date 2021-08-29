@@ -2,6 +2,7 @@
 
 #include	<oreore/common/Utility.h>
 #include	<oreore/mathlib/MersenneTwister.h>
+
 #include	"IChromosome.h"
 #include	"Population.h"
 
@@ -25,17 +26,15 @@ namespace ealib
 
 
 
-	void RouletteWheelSelector::BindPopulationData( int numchroms, IChromosome **pchroms )
+	void RouletteWheelSelector::BindPopulationData( const OreOreLib::Array<IChromosome*>& chromosomes )
 	{
-		if( m_NumChroms != numchroms )
+		if( m_refChromosomes.Length() != chromosomes.Length() )
 		{
 			SafeDeleteArray( m_PrefixSum );
-
-			m_NumChroms	= numchroms;
-			m_PrefixSum	= new float[m_NumChroms];
+			m_PrefixSum	= new float[ chromosomes.Length() ];
 		}
 
-		m_refChromosomes	= pchroms;
+		m_refChromosomes.Init( chromosomes );
 	}
 	
 
@@ -45,8 +44,8 @@ namespace ealib
 		SafeDeleteArray( m_PrefixSum );
 		m_MinValue	= 0.0f;
 
-		m_NumChroms			= 0;
-		m_refChromosomes	= nullptr;
+		//m_NumChroms			= 0;
+		m_refChromosomes.Release();//	= nullptr;
 	}
 
 
@@ -58,14 +57,14 @@ namespace ealib
 
 		// 適応度の最小値を取得する.
 		m_MinValue = m_refChromosomes[0]->GetFitness();
-		for( int i=0; i<m_NumChroms; ++i )
+		for( int i=0; i<m_refChromosomes.Length(); ++i )
 		{
 			float fitness = m_refChromosomes[i]->GetFitness();
 			if( fitness < m_MinValue )	m_MinValue	= fitness;
 		}
 
 		// 親個体の累積選択率を計算する. 負値を避けるため、適応度の最小値を使って底上げする
-		for( int i=0; i<m_NumChroms; ++i )
+		for( int i=0; i<m_refChromosomes.Length(); ++i )
 		{
 			float prob = m_refChromosomes[i]->GetFitness() - m_MinValue + (float)EPSILON_E5;
 
@@ -82,9 +81,9 @@ namespace ealib
 		if( !m_refChromosomes )
 			return -1;
 		
-		float randVal	= float( OreOreLib::genrand_real1() ) * m_PrefixSum[m_NumChroms-1];//pChromosomes[arraySize-1]->GetFitness();
+		float randVal	= float( OreOreLib::genrand_real1() ) * m_PrefixSum[ m_refChromosomes.Length() - 1 ];//pChromosomes[arraySize-1]->GetFitness();
 
-		for( int i=0; i<m_NumChroms; ++i )
+		for( int i=0; i<m_refChromosomes.Length(); ++i )
 		{
 			if( randVal <= m_PrefixSum[i] )
 				return i;

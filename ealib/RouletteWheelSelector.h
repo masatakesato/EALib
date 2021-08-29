@@ -1,7 +1,6 @@
 ﻿#ifndef ROULETTE_WHEEL_SELECTOR_H
 #define	ROULETTE_WHEEL_SELECTOR_H
 
-
 #include	"ISelector.h"
 
 
@@ -17,7 +16,7 @@ namespace ealib
 		virtual ~RouletteWheelSelector();
 
 		// Virtual Functions Override 
-		virtual void BindPopulationData( int numchroms, IChromosome **pchroms );
+		virtual void BindPopulationData( const OreOreLib::Array<IChromosome*>& chromosomes );
 		virtual void UnbindPopulationData();
 
 		// Virtual Functions Override

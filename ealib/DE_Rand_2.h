@@ -17,11 +17,7 @@ namespace ealib
 		virtual ~DE_Rand_2();
 		
 		// Virtual Functions Override
-		virtual void Execute( int num, IChromosome** selections, int current );
-
-
-	private:
-		
+		virtual void Execute( OreOreLib::Memory<const IChromosome*>& selections, int current );
 
 	};
 

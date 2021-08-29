@@ -16,11 +16,10 @@ namespace ealib
 		DE_Current_to_pBest_1();
 		virtual ~DE_Current_to_pBest_1();
 
-		// Virtual Functions Override
-		virtual void Execute( int num, IChromosome** selections, int current );
-
-
 		void SetP( float p );
+
+		// Virtual Functions Override
+		virtual void Execute( OreOreLib::Memory<IChromosome*> selections, int current );
 
 
 	private:

@@ -3,6 +3,7 @@
 
 #include	"IEvolutionaryAlgorithm.h"
 #include	"DEAttribute.h"
+#include	"DE_Rand_1.h"
 
 
 
@@ -38,6 +39,8 @@ namespace ealib
 		DEAttribute	m_MutateAttrib;
 		Population	m_Population[3];
 		int			parentGen, childGen, dummy;
+		
+		DE_Rand_1	m_DE_Rand_1_Mutator;
 
 
 		void ClearAttribute();

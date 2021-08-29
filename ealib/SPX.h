@@ -21,12 +21,7 @@ namespace ealib
 		void Init( const DesignParamArray& designParams );
 		void Release();
 
-		virtual void Execute( int numchroms, IChromosome** chromosomes, const void* attribs );
-
-
-virtual void Execute( int numparents, const IChromosome* parents[], int numchildren, IChromosome* children[], const void* attribs );
-
-
+		virtual void Execute( int numparents, const IChromosome* parents[], int numchildren, IChromosome* children[], const void* attribs );
 		virtual void Execute( OreOreLib::Memory<const IChromosome*>& X, OreOreLib::Memory<IChromosome*>& T, const void* attribs );
 
 
@@ -38,7 +33,6 @@ virtual void Execute( int numparents, const IChromosome* parents[], int numchild
 		OreOreLib::Array<float>			m_rs;
 		OreOreLib::Array<IChromosome*>	m_xs;
 		OreOreLib::Array<IChromosome*>	m_Cs;
-
 
 	};
 

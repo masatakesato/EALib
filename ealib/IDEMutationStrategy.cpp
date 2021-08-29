@@ -8,28 +8,28 @@ namespace ealib
 
 	IDEMutationStrategy::IDEMutationStrategy()
 	{
-		m_NumChroms	= 0;
-		m_refChromosomes	= nullptr;
+
 	}
+
 
 
 	IDEMutationStrategy::~IDEMutationStrategy()
 	{
-		UnbindPopulationData();
+		m_refChromosomes.Release();
 	}
 
 		
-	void IDEMutationStrategy::BindPopulationData( int numchroms, IChromosome **pchroms )
+
+	void IDEMutationStrategy::BindPopulationData( const OreOreLib::Array<IChromosome*>& chromosomes )
 	{
-		m_NumChroms			= numchroms;
-		m_refChromosomes	= pchroms;
+		m_refChromosomes.Init( chromosomes );
 	}
+
 
 
 	void IDEMutationStrategy::UnbindPopulationData()
 	{
-		m_NumChroms			= 0;
-		m_refChromosomes	= nullptr;
+		m_refChromosomes.Release();
 	}
 
 

@@ -2,38 +2,33 @@
 
 
 
-
 namespace ealib
 {
 
 	ISelector::ISelector()
 	{
-		m_NumChroms			= 0;
-		m_refChromosomes	= nullptr;
+
 	}
 
 
 
 	ISelector::~ISelector()
 	{
-		m_NumChroms			= 0;
-		m_refChromosomes	= nullptr;
+		m_refChromosomes.Release();
 	}
 
 
 
-	void ISelector::BindPopulationData( int numchroms, IChromosome **pchroms )
+	void ISelector::BindPopulationData( const OreOreLib::Array<IChromosome*>& chromosomes )
 	{
-		m_NumChroms			= numchroms;
-		m_refChromosomes	= pchroms;
+		m_refChromosomes.Init( chromosomes );
 	}
 
 
 
 	void ISelector::UnbindPopulationData()
 	{
-		m_NumChroms			= 0;
-		m_refChromosomes	= nullptr;
+		m_refChromosomes.Release();
 	}
 
 

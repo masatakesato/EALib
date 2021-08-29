@@ -52,6 +52,9 @@ namespace ealib
 		IChromosome** ChromosomeArray() const	{ return (IChromosome**)m_ChromosomeArray.begin(); }
 		IChromosome* GetIndividual(int i) const	{ return m_ChromosomeArray[i]; }
 		
+		const OreOreLib::Array<IChromosome*>& ChromArray() const { return m_ChromosomeArray; }
+
+
 		float GetScore( int i ) const			{ return m_ChromosomeArray[i]->GetScore(); }
 		float GetScore( int i, int obj ) const	{ return m_ChromosomeArray[i]->GetScore( obj ); }
 

@@ -22,8 +22,6 @@ namespace ealib
 		, childGen( 1 )
 		, dummy( 2 )
 		, m_NumFamilies( 0 )
-//		, m_NumParents( 0 )
-//		, m_NumChildren( 0 )
 	{
 		ClearAttribute();
 	}
@@ -37,9 +35,6 @@ namespace ealib
 		, childGen( 1 )
 		, dummy( 2 )
 		, m_NumFamilies( obj.m_NumFamilies )
-//		, m_NumParents( obj.m_NumParents )
-//		, m_NumChildren( obj.m_NumChildren )
-		//, m_CrossoverBuffer( obj.m_CrossoverBuffer )
 		, X( obj.X )
 		, T( obj.T )
 	{
@@ -113,7 +108,6 @@ namespace ealib
 
 			// 次世代個体の親を格納するバッファの確保
 			m_Attrib.EliteSize	= Min( m_Attrib.EliteSize, m_Attrib.PopulationSize );
-			//m_Parents.Init( DivUp( Max( m_Attrib.PopulationSize-m_Attrib.EliteSize, 0 ), 2 ) );
 
 			m_NumFamilies	= DivUp( Max( m_Attrib.PopulationSize-m_Attrib.EliteSize, 0 ), 2 );
 		
@@ -148,9 +142,6 @@ namespace ealib
 		m_Population[parentGen].Release();
 		m_Population[childGen].Release();
 
-//		m_NumParents = 0;
-//		m_NumChildren = 0;
-		//m_CrossoverBuffer.Release();
 		X.Release();
 		T.Release();
 
@@ -223,7 +214,7 @@ namespace ealib
 		if( !m_refSelector )
 			return;
 		
-		m_refSelector->BindPopulationData( pParentPopulation->PopulationSize(), pParentPopulation->ChromosomeArray() );
+		m_refSelector->BindPopulationData( pParentPopulation->ChromArray() );
 		m_refSelector->Update();
 
 		int numParents = X.Length();
@@ -267,7 +258,7 @@ namespace ealib
 				continue;
 			}
 			
-			m_refCrossover->Execute2( X, T, nullptr );//m_refCrossover->Execute( m_NumParents, &X[0], m_NumChildren, &T[0], nullptr );
+			m_refCrossover->Execute( X, T, nullptr );//m_refCrossover->Execute( m_NumParents, &X[0], m_NumChildren, &T[0], nullptr );
 
 		}// end of i loop
 
@@ -439,7 +430,6 @@ namespace ealib
 
 			// 次世代個体の親を格納するバッファの確保
 			m_Attrib.EliteSize	= Min( m_Attrib.EliteSize, m_Attrib.PopulationSize );
-			//m_Parents.Init( DivUp( Max( m_Attrib.PopulationSize-m_Attrib.EliteSize, 0 ), 2 ) );
 
 			m_NumFamilies	= DivUp( Max( m_Attrib.PopulationSize-m_Attrib.EliteSize, 0 ), 2 );
 
@@ -572,7 +562,7 @@ namespace ealib
 		if( !m_refSelector )
 			return;
 		
-		m_refSelector->BindPopulationData( pParentPopulation->PopulationSize(), pParentPopulation->ChromosomeArray() );
+		m_refSelector->BindPopulationData( pParentPopulation->ChromArray() );
 		m_refSelector->Update();
 
 		int numParents = X.Length();
@@ -617,7 +607,7 @@ namespace ealib
 				continue;
 			}
 			
-			m_refCrossover->Execute2( X, T, nullptr );
+			m_refCrossover->Execute( X, T, nullptr );
 
 		}// end of i loop
 
@@ -719,7 +709,7 @@ namespace ealib
 	//			continue;
 	//		}
 	//		
-	//		m_refCrossover->Execute2( X, T, nullptr );
+	//		m_refCrossover->Execute( X, T, nullptr );
 	
 	//		for( int j=0; j<X[0]->NumChromTypes(); ++j )
 	//		{

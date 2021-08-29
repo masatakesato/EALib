@@ -251,7 +251,7 @@ namespace ealib
 
 		for( int i=0; i<params.Length(); ++i )
 		{
-			OreOreLib::ArrayView<tstring> data( params[i].begin(), params[i].Length() );
+			OreOreLib::ArrayView<tstring> data( params[i] );
 			
 			int16 type = g_TypeInfoDict.Exists( data[1] ) ? g_TypeInfoDict.At( data[1] ) : TYPE_UNKNOWN;
 			if( type == TYPE_UNKNOWN )	continue;
@@ -285,7 +285,7 @@ namespace ealib
 
 		for( int i=0; i<params.Length(); ++i )
 		{
-			OreOreLib::ArrayView<tstring> data( params[i].begin(), params[i].Length() );
+			OreOreLib::ArrayView<tstring> data( params[i] );
 
 			int16 type = g_TypeInfoDict.Exists( data[1] ) ? g_TypeInfoDict.At( data[1] ) : TYPE_UNKNOWN;
 			if( type == TYPE_UNKNOWN )	continue;

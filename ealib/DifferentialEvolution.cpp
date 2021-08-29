@@ -4,14 +4,11 @@
 #include	<oreore/mathlib/MersenneTwister.h>
 
 
-#include	"DE_Rand_1.h"
-
-
 
 namespace ealib
 {
 
-	static DE_Rand_1	s_DE_Rand_1_Mutator;
+
 
 
 	DifferentialEvolution::DifferentialEvolution()
@@ -140,7 +137,7 @@ namespace ealib
 		static OreOreLib::StaticArray<const IChromosome*, 3> X = { nullptr, nullptr, nullptr };
 		static OreOreLib::StaticArray<IChromosome*, 1> T = { nullptr };
 
-		s_DE_Rand_1_Mutator.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
+		m_DE_Rand_1_Mutator.BindPopulationData( m_Population[parentGen].ChromArray() );
 
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
 		{
@@ -150,12 +147,12 @@ namespace ealib
 
 			//=================	Mutation and Crossover	===================//
 			// Select parents X{ rand1, rand2, rand3 }
-			s_DE_Rand_1_Mutator.Execute( 3, (IChromosome**)X.begin(), i );
+			m_DE_Rand_1_Mutator.Execute( X, i );
 			
 			// Generate offspring t_i
 			t_i->CopyGeneFrom( x_i );
 			T[0] = t_i;
-			m_refCrossover->Execute2( X, T, &m_MutateAttrib );//m_refCrossover->Execute( 3, &X[0], 1, &T[0], &m_MutateAttrib );
+			m_refCrossover->Execute( X, T, &m_MutateAttrib );//m_refCrossover->Execute( 3, &X[0], 1, &T[0], &m_MutateAttrib );
 			pEval->Evaluate( t_i );
 
 
@@ -206,7 +203,7 @@ namespace ealib
 		//	Step( pEval );
 		//}
 
-		s_DE_Rand_1_Mutator.UnbindPopulationData();
+		m_DE_Rand_1_Mutator.UnbindPopulationData();
 	}
 
 

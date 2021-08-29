@@ -122,7 +122,7 @@ namespace ealib
 			m_ArchiveIndices.Init( m_Attrib.PopulationSize );
 
 
-			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromosomeArray() );
+			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromArray() );
 
 			m_bReady = true;
 		}
@@ -219,7 +219,7 @@ namespace ealib
 
 
 		UpdateControlParams();
-		m_Mutator.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
+		m_Mutator.BindPopulationData( m_Population[parentGen].ChromArray() );
 		m_Mutator.SetNumArchives( m_numActiveArchives );
 
 
@@ -230,14 +230,14 @@ namespace ealib
 			
 			//=================	DE_Current_to_pBest_1_Archive Mutation and Crossover	===================//			
 			// Select parents X{ x_i, pbest, x_i, x_r1, x_r2 }
-			m_Mutator.Execute( 5, (IChromosome**)X.begin(), i );//m_Mutator.Execute( 5, refCandidates, i );
+			m_Mutator.Execute( X, i );//m_Mutator.Execute( 5, refCandidates, i );
 			
 			// Generate offspring t_i
 			t_i->CopyGeneFrom( x_i );
 			T[0] = t_i;
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる？→世代ごとに、個体別F/CRを新規生成するから多分関係ない
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
-			m_refCrossover->Execute2( X, T, &attr );//m_refCrossover->Execute( 5, &X[0], 1, &T[0], &attr );
+			m_refCrossover->Execute( X, T, &attr );//m_refCrossover->Execute( 5, &X[0], 1, &T[0], &attr );
 			pEval->Evaluate( t_i );
 
 

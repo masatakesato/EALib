@@ -207,7 +207,8 @@ namespace ealib
 		if( !m_refSelector )
 			return;
 		
-		m_refSelector->BindPopulationData( pPopulation->PopulationSize(), pPopulation->ChromosomeArray() );
+
+		m_refSelector->BindPopulationData( pPopulation->ChromArray() );
 		m_refSelector->Update();
 
 		// 親の選択
@@ -249,7 +250,7 @@ namespace ealib
 			}
 			
 			IChromosome* chromosomes[] ={ p1, p2, c1, c2 };
-			m_refCrossover->Execute( 4, chromosomes, nullptr );
+			m_refCrossover->Execute( 2, (const IChromosome**)&chromosomes[0], 2, &chromosomes[2], nullptr );
 
 		}// end of i loop
 
@@ -502,7 +503,7 @@ namespace ealib
 		if( !m_refSelector )
 			return;
 		
-		m_refSelector->BindPopulationData( pPopulation->PopulationSize(), pPopulation->ChromosomeArray() );
+		m_refSelector->BindPopulationData( pPopulation->ChromArray() );
 		m_refSelector->Update();
 
 		// 親の選択
@@ -555,7 +556,7 @@ namespace ealib
 					( (Chromosome2D*)c2 )->GetChromosome( j )
 				};
 
-				m_refCrossover->Execute( 4, chromosomes, nullptr );
+				m_refCrossover->Execute( 2, (const IChromosome**)&chromosomes[0], 2, &chromosomes[2], nullptr );
 			}
 
 		}// end of i loop

@@ -2,12 +2,15 @@
 #define	I_DE_MUTATION_STRATEGY_H
 
 #include	<oreore/common/DLLExport.h>
+#include	<oreore/container/Array.h>
+#include	<oreore/container/ArrayView.h>
 
 
 
 namespace ealib
 {
 	class IChromosome;
+
 
 	class CLASS_DECLSPEC IDEMutationStrategy
 	{
@@ -16,16 +19,16 @@ namespace ealib
 		IDEMutationStrategy();
 		virtual ~IDEMutationStrategy();
 
-		void BindPopulationData( int numchroms, IChromosome **pchroms );
+		void BindPopulationData( const OreOreLib::Array<IChromosome*>& chromosomes );//void BindPopulationData( int numchroms, IChromosome **pchroms );
 		void UnbindPopulationData();
 
-		virtual void Execute( int num, IChromosome** selections, int current )=0;
+		virtual void Execute( OreOreLib::Memory<const IChromosome*>& selections, int current )=0;
 
 
 	protected:
 
-		int			m_NumChroms;
-		IChromosome **m_refChromosomes;
+		OreOreLib::ArrayView<IChromosome*>	m_refChromosomes;
+
 	};
 
 

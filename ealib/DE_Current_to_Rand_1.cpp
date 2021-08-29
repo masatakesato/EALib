@@ -7,7 +7,8 @@
 namespace ealib
 {
 
-	DE_Current_to_Rand_1::DE_Current_to_Rand_1() : IDEMutationStrategy()
+	DE_Current_to_Rand_1::DE_Current_to_Rand_1()
+		: IDEMutationStrategy()
 	{
 		
 	}
@@ -20,29 +21,32 @@ namespace ealib
 	}
 
 
-	void DE_Current_to_Rand_1::Execute( int num, IChromosome** selections, int current )
+
+	void DE_Current_to_Rand_1::Execute( OreOreLib::Memory<const IChromosome*>& selections, int current )
 	{
 		if( !m_refChromosomes )
 			return;
 
-		int r2	= int( OreOreLib::genrand_real2() * (double)m_NumChroms );
-		int r3	= int( OreOreLib::genrand_real2() * (double)m_NumChroms );
-		int r4	= int( OreOreLib::genrand_real2() * (double)m_NumChroms );
-		int r5	= int( OreOreLib::genrand_real2() * (double)m_NumChroms );
+		int numChroms = m_refChromosomes.Length();
 
-		if( m_NumChroms >= 5 )
+		int r2	= int( OreOreLib::genrand_real2() * (double)numChroms );
+		int r3	= int( OreOreLib::genrand_real2() * (double)numChroms );
+		int r4	= int( OreOreLib::genrand_real2() * (double)numChroms );
+		int r5	= int( OreOreLib::genrand_real2() * (double)numChroms );
+
+		if( numChroms >= 5 )
 		{
 			while( r2==current )
-				r2	= int( OreOreLib::genrand_real2() * (double)m_NumChroms );
+				r2	= int( OreOreLib::genrand_real2() * (double)numChroms );
 
 			while( r3==r2 || r3==current )
-				r3	= int( OreOreLib::genrand_real2() * (double)m_NumChroms );
+				r3	= int( OreOreLib::genrand_real2() * (double)numChroms );
 
 			while( r4==r2 || r4==r3 || r4==current )
-				r4	= int( OreOreLib::genrand_real2() * (double)m_NumChroms );
+				r4	= int( OreOreLib::genrand_real2() * (double)numChroms );
 
 			while( r5==r2 || r5==r3 || r5==r4 || r5==current )
-				r5	= int( OreOreLib::genrand_real2() * (double)m_NumChroms );
+				r5	= int( OreOreLib::genrand_real2() * (double)numChroms );
 		}
 
 		selections[0] = m_refChromosomes[current];

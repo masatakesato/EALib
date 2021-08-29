@@ -2,6 +2,8 @@
 #define	I_SELECTOR_H
 
 #include	<oreore/common/DLLExport.h>
+#include	<oreore/container/Array.h>
+#include	<oreore/container/ArrayView.h>
 
 
 
@@ -17,7 +19,7 @@ namespace ealib
 		ISelector();
 		virtual ~ISelector();
 
-		virtual void BindPopulationData( int numchroms, IChromosome **pchroms );
+		virtual void BindPopulationData( const OreOreLib::Array<IChromosome*>& chromosomes );
 		virtual void UnbindPopulationData();
 
 		// Virtual Functions
@@ -28,8 +30,7 @@ namespace ealib
 
 	protected:
 
-		int			m_NumChroms;
-		IChromosome **m_refChromosomes;
+		OreOreLib::ArrayView<IChromosome*>	m_refChromosomes;
 
 	};
 

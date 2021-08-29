@@ -25,13 +25,9 @@ namespace ealib
 
 		void BindOperator( ICrossoverOperator* pOperator );
 		void UnbindOperator( int type );
-		void Execute( int numchroms, IChromosome** chromosomes, const void* attribs=nullptr );
 
-		
-		void Execute( int numparents, const IChromosome** parents, int numchildren, IChromosome** children, const void* attribs=nullptr );
-
-void Execute2( OreOreLib::Memory<const IChromosome*>& parents, OreOreLib::Memory<IChromosome*>& children, const void* attribs=nullptr );
-
+		void Execute( int numparents, const IChromosome* parents[], int numchildren, IChromosome* children[], const void* attribs=nullptr );
+		void Execute( OreOreLib::Memory<const IChromosome*>& parents, OreOreLib::Memory<IChromosome*>& children, const void* attribs=nullptr );
 
 		bool GetFamilySize( int16 type, int& numparents, int& numchildren ) const;
 		bool GetFamilySize( int& numparents, int& numchildren ) const;

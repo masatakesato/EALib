@@ -14,11 +14,6 @@
 namespace ealib
 {
 
-	//static DE_Best_1			s_DE_Best_1;
-	//static DE_Rand_1			s_DE_Rand_1;
-	//static DE_Rand_2			s_DE_Rand_2;
-	//static DE_Current_to_Rand_1	s_DE_Current_to_Rand_1;
-
 
 	//##########################################################################################//
 	//										CoDE												//
@@ -151,10 +146,10 @@ namespace ealib
 														X_Rand_1( &X[5], 3 ),
 														X_Rand_2( &X[8], 5 );
 
-		m_DE_Best_1.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
-		m_DE_Rand_1.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
-		m_DE_Rand_2.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
-		m_DE_Current_to_Rand_1.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
+		m_DE_Best_1.BindPopulationData( m_Population[parentGen].ChromArray() );
+		m_DE_Rand_1.BindPopulationData( m_Population[parentGen].ChromArray() );
+		m_DE_Rand_2.BindPopulationData( m_Population[parentGen].ChromArray() );
+		m_DE_Current_to_Rand_1.BindPopulationData( m_Population[parentGen].ChromArray() );
 
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
 		{
@@ -162,39 +157,39 @@ namespace ealib
 
 			//====================== current-to-rand/1/bin =========================//
 			// Select parents X{ current, rand2, rand3, rand4, rand5 }
-			m_DE_Current_to_Rand_1.Execute( X_Current_to_Rand_1.Length(), (IChromosome**)X_Current_to_Rand_1.begin(), i );
+			m_DE_Current_to_Rand_1.Execute( X_Current_to_Rand_1, i );
 			IChromosome* t_i_best1bin = m_Population[trialGen].GetIndividual( 0 );// Trial vector1
 			t_i_best1bin->CopyGeneFrom( x_i );
 			
 			// Generate trial offspring t_i_best1bin
 			T[0] = t_i_best1bin;
-			m_refCrossover->Execute2( X_Current_to_Rand_1, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+			m_refCrossover->Execute( X_Current_to_Rand_1, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			//m_refCrossover->Execute( 5, &X_Current_to_Rand_1[0], 1, &T[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			pEval->Evaluate( t_i_best1bin );
 
 
 			//========================== rand/1/bin ====================//
 			// Select parents X{ rand1, rand2, rand3 }
-			m_DE_Rand_1.Execute( X_Rand_1.Length(), (IChromosome**)X_Rand_1.begin(), i );
+			m_DE_Rand_1.Execute( X_Rand_1, i );
 			IChromosome* t_i_rand1bin	= m_Population[trialGen].GetIndividual( 1 );// Trial vector2
 			t_i_rand1bin->CopyGeneFrom( x_i );
 			
 			// Generate trial offspring t_i_rand1bin
 			T[0] = t_i_rand1bin;
-			m_refCrossover->Execute2( X_Rand_1, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+			m_refCrossover->Execute( X_Rand_1, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			//m_refCrossover->Execute( 3, &X_Rand_1[0], 1, &T[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			pEval->Evaluate( t_i_rand1bin );
 
 
 			//====================== rand/2/bin =========================//
 			// Select parents X{ rand1, rand2, rand3, rand4, rand5 }
-			m_DE_Rand_2.Execute( X_Rand_2.Length(), (IChromosome**)X_Rand_2.begin(), i );
+			m_DE_Rand_2.Execute( X_Rand_2, i );
 			IChromosome* t_i_rand2bin	= m_Population[trialGen].GetIndividual( 2 );// Trial vector3
 			t_i_rand2bin->CopyGeneFrom( x_i );
 			
 			// Generate trial offspring t_i_rand2bin
 			T[0] = t_i_rand2bin;
-			m_refCrossover->Execute2( X_Rand_2, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+			m_refCrossover->Execute( X_Rand_2, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			//m_refCrossover->Execute( 5, &X_Rand_2[0], 1, &T[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			pEval->Evaluate( t_i_rand2bin );
 			
@@ -417,10 +412,10 @@ namespace ealib
 														X_Rand_1( &X[3], 3 ),// = { rand1, rand2, rand3 }
 														X_Rand_2( &X[6], 5 );// = { rand1, rand2, rand3, rand4, rand5 }
 
-		m_DE_Best_1.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
-		m_DE_Rand_1.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
-		m_DE_Rand_2.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
-		m_DE_Current_to_Rand_1.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
+		m_DE_Best_1.BindPopulationData( m_Population[parentGen].ChromArray() );
+		m_DE_Rand_1.BindPopulationData( m_Population[parentGen].ChromArray() );
+		m_DE_Rand_2.BindPopulationData( m_Population[parentGen].ChromArray() );
+		m_DE_Current_to_Rand_1.BindPopulationData( m_Population[parentGen].ChromArray() );
 
 
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
@@ -429,39 +424,39 @@ namespace ealib
 
 			//====================== best/1/bin =========================//
 			// Select parents X{ best, rand1, rand2 }
-			m_DE_Best_1.Execute( X_Best_1.Length(), (IChromosome **)X_Best_1.begin(), i );
+			m_DE_Best_1.Execute( X_Best_1, i );
 			IChromosome *t_i_best1bin	= m_Population[trialGen].GetIndividual( 0 );//Chromosome2D *t_i_best1bin = (Chromosome2D *)m_Population[trialGen].GetIndividual( 0 );// Trial vector1
 			t_i_best1bin->CopyGeneFrom( x_i );
 			
 			// Generate trial offspring t_i_best1bin
 			T[0] = t_i_best1bin;
-			m_refCrossover->Execute2( X_Best_1, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+			m_refCrossover->Execute( X_Best_1, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			//m_refCrossover->Execute( 3, &X_Best_1[0], 1, &T[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			pEval->Evaluate( t_i_best1bin );
 
 
 			//========================== rand/1/bin ====================//
 			// Select parents X{ rand1, rand2, rand3 }
-			m_DE_Rand_1.Execute( X_Rand_1.Length(), (IChromosome **)X_Rand_1.begin(), i );
+			m_DE_Rand_1.Execute( X_Rand_1, i );
 			IChromosome* t_i_rand1bin	= m_Population[trialGen].GetIndividual( 1 );//Chromosome2D *t_i_rand1bin	= (Chromosome2D *)m_Population[trialGen].GetIndividual( 1 );// Trial vector2
 			t_i_rand1bin->CopyGeneFrom( x_i );
 			
 			// Generate trial offspring t_i_rand1bin
 			T[0] = t_i_rand1bin;
-			m_refCrossover->Execute2( X_Rand_1, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+			m_refCrossover->Execute( X_Rand_1, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			//m_refCrossover->Execute( 3, &X_Rand_1[0], 1, &T[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			pEval->Evaluate( t_i_rand1bin );
 
 
 			//====================== rand/2/bin =========================//
 			// 中間個体を生成する
-			m_DE_Rand_2.Execute( X_Rand_2.Length(), (IChromosome **)X_Rand_2.begin(), i );
+			m_DE_Rand_2.Execute( X_Rand_2, i );
 			IChromosome* t_i_rand2bin = m_Population[trialGen].GetIndividual( 2 );//Chromosome2D *t_i_rand2bin	= (Chromosome2D *)m_Population[trialGen].GetIndividual( 2 );// Trial vector3
 			t_i_rand2bin->CopyGeneFrom( x_i );
 			
 			// Generate trial offspring t_i_rand2bin
 			T[0] = t_i_rand2bin;
-			m_refCrossover->Execute2( X_Rand_2, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
+			m_refCrossover->Execute( X_Rand_2, T, &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			//m_refCrossover->Execute( 5, &X_Rand_2[0], 1, &T[0], &m_MutationAttrib[int( OreOreLib::genrand_real2() * 3.0 )] );
 			pEval->Evaluate( t_i_rand2bin );
 			

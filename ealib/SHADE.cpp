@@ -133,7 +133,7 @@ namespace ealib
 			m_ArchiveIndices.Init( m_Attrib.PopulationSize );
 
 
-			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromosomeArray() );
+			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromArray() );
 
 			m_bReady = true;
 		}
@@ -232,7 +232,7 @@ namespace ealib
 
 
 		UpdateControlParams();
-		m_Mutator.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
+		m_Mutator.BindPopulationData( m_Population[parentGen].ChromArray() );
 		m_Mutator.SetNumArchives( m_numActiveArchives );
 
 
@@ -246,13 +246,13 @@ namespace ealib
 			// Select parents X{ x_i, pbest, x_i, x_r1, x_r2 }
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる？→世代ごとに、個体別F/CRを新規生成するから多分関係ない
 			m_Mutator.SetP( m_Ps[id] );
-			m_Mutator.Execute( X.Length(), (IChromosome**)X.begin(), i );
+			m_Mutator.Execute( X, i );
 			
 			// Generate offspring t_i
 			T[0] = t_i;
 			t_i->CopyGeneFrom( x_i );
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
-			m_refCrossover->Execute2( X, T, &attr );
+			m_refCrossover->Execute( X, T, &attr );
 			//m_refCrossover->Execute( 5, &X[0], 1, &T[0], &attr );
 			pEval->Evaluate( t_i );
 
@@ -518,7 +518,7 @@ namespace ealib
 
 			m_ArchiveIndices.Init( m_Attrib.PopulationSize );
 
-			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromosomeArray() );
+			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromArray() );
 
 			m_bReady = true;
 		}
@@ -617,7 +617,7 @@ namespace ealib
 		int numChromTypes	= m_Population[parentGen].GetIndividual(0)->NumChromTypes();
 
 		UpdateControlParams();
-		m_Mutator.BindPopulationData( m_Attrib.PopulationSize, m_Population[parentGen].ChromosomeArray() );
+		m_Mutator.BindPopulationData( m_Population[parentGen].ChromArray() );
 		m_Mutator.SetNumArchives( m_numActiveArchives );
 
 
@@ -631,13 +631,13 @@ namespace ealib
 			// Select parents X{ x_i, pbest, x_i, x_r1, x_r2 }
 			int id = x_i->ID();// 個体IDを使って、x_iとm_pFs[i]/m_pCRs[i]を一義的に割り当てる？→世代ごとに、個体別F/CRを新規生成するから多分関係ない
 			m_Mutator.SetP( m_Ps[id] );
-			m_Mutator.Execute( X.Length(), (IChromosome**)X.begin(), i );
+			m_Mutator.Execute( X, i );
 
 			// Generate offspring t_i
 			T[0] = x_i;
 			t_i->CopyGeneFrom( x_i );
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
-			m_refCrossover->Execute2( X, T, &attr );
+			m_refCrossover->Execute( X, T, &attr );
 			//m_refCrossover->Execute( 5, &X[0], 1, &T[0], &attr );
 			pEval->Evaluate( t_i );
 

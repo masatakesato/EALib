@@ -27,7 +27,7 @@ namespace ealib
 		IConstrainer(){}
 		virtual ~IConstrainer(){}
 
-		//virtual void Execute( int numchroms, IChromosome** chromosomes, const void* attribs )=0;
+		//virtual void Execute( ArrayView<IChromosome*>& chromosomes, const void* attribs )=0;
 
 
 	private:

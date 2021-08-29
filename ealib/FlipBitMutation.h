@@ -16,7 +16,7 @@ namespace ealib
 		~FlipBitMutation();
 	
 		virtual void Execute( IChromosome* chromosome, float mutate_prob, const void* attribs=nullptr );
-		virtual void Execute( int numchroms, IChromosome** chromosomes, float mutate_prob, const void* attribs=nullptr );
+		virtual void Execute( int numchroms, IChromosome* chromosomes[], float mutate_prob, const void* attribs=nullptr );
 
 	};
 

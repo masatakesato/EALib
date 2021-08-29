@@ -68,13 +68,6 @@ namespace ealib
 
 
 
-	void SPX::Execute( int numchroms, IChromosome** chromosomes, const void* attribs )
-	{
-
-	}
-
-
-
 	void SPX::Execute( int numparents, const IChromosome* parents[], int numchildren, IChromosome* children[], const void* attribs )
 	{
 		assert( numparents >= m_xs.Length() );
@@ -136,8 +129,6 @@ namespace ealib
 
 
 
-
-
 	void SPX::Execute( OreOreLib::Memory<const IChromosome*>& X, OreOreLib::Memory<IChromosome*>& T, const void* attribs )
 	{
 		assert( X.Length() >= m_xs.Length() );
@@ -196,9 +187,6 @@ namespace ealib
 			*c->GeneAs<float>(j) = *xn->GeneAs<float>(j) + *Cn->GeneAs<float>(j);
 
 	}
-
-
-
 
 
 
