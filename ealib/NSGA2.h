@@ -209,11 +209,11 @@ namespace ealib
 		for( int m=0; m<M; ++m )
 		{
 			// Sort F using objective m
-			std::sort( order_obj_m.begin(), order_obj_m.end(), [&]( int x, int y ) { return P->GetFitness( x, m ) < P->GetFitness( y, m ); } );// return CompareFitnessAscend( F[x], F[y] );
+			std::sort( order_obj_m.begin(), order_obj_m.end(), [&]( int x, int y ) { return P->Fitness( x, m ) < P->Fitness( y, m ); } );// return CompareFitnessAscend( F[x], F[y] );
 			
 			// Get fitness range of m's objective.
-			auto fmax_m = P->GetFitness( order_obj_m[N-1], m );
-			auto fmin_m = P->GetFitness( order_obj_m[0], m );
+			auto fmax_m = P->Fitness( order_obj_m[N-1], m );
+			auto fmin_m = P->Fitness( order_obj_m[0], m );
 			auto f_range_m = Max( fmax_m - fmin_m, 1.0e-5f );
 
 			// Set extreme solution's distance to infinity.(to guarantee that they will be selected in the next generation)
@@ -225,7 +225,7 @@ namespace ealib
 				auto il = order_obj_m[i-1];
 				auto ir = order_obj_m[i+1];
 				auto ic = order_obj_m[i];
-				Fdist[ic] += ( P->GetFitness( ir, m ) - P->GetFitness( il, m ) ) / f_range_m;
+				Fdist[ic] += ( P->Fitness( ir, m ) - P->Fitness( il, m ) ) / f_range_m;
 			}
 		}
 		
@@ -239,7 +239,7 @@ namespace ealib
 		//reorder< std::vector<int>, std::vector<float>& >( sorted_idx, sorted_idx.size(), Fdist );
 
 		// Reorder F's individuals using sorted_idx
-		reorder< std::vector<int>, IChromosome** >( sorted_idx, sorted_idx.size(), P->ChromArray().begin() );
+		reorder< std::vector<int>, IChromosome** >( sorted_idx, sorted_idx.size(), P->Indivuduals().begin() );
 		
 #ifdef _DEBUG
 		tcout << "crowding_distance_population...result" << tendl;
@@ -247,7 +247,7 @@ namespace ealib
 		{
 			tcout << "( ";
 			for( int j=0; j<M; ++j )
-				tcout << P->GetFitness( i, j ) << ",";
+				tcout << P->Fitness( i, j ) << ",";
 
 			tcout << ")\n";
 		}

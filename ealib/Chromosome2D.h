@@ -36,24 +36,24 @@ namespace ealib
 		bool SetKey( const tstring& currkey, const tstring& newkey );
 
 		template< typename T >
-		T* GetGeneAs( int i=0 ) const	{ const Index2D& index = m_IndexMap.At(i); return m_ChromosomeArray[ index.first ]->GeneAs<T>( index.second ); }//{ const Index2D& index = m_pIndexMap->at(i); return (T*)( m_ChromosomeArray[ index.first ]->GetGene( index.second ) ); }//
+		T* GetGeneAs( int i=0 ) const	{ const Index2D& index = m_IndexMap.At(i); return m_Chromosomes[ index.first ]->GeneAs<T>( index.second ); }//{ const Index2D& index = m_pIndexMap->at(i); return (T*)( m_Chromosomes[ index.first ]->GetGene( index.second ) ); }//
 
 		template< typename T >
-		T* GetGeneAs( const tstring& key ) const	{ const Index2D& index = m_KeyMap.At( key ); return m_ChromosomeArray[ index.first ]->GeneAs<T>( index.second ); }//{ const Index2D& index = m_pKeyMap->at( key ); return (T*)( m_ChromosomeArray[ index.first ]->GetGene( index.second ) ); }//
+		T* GetGeneAs( const tstring& key ) const	{ const Index2D& index = m_KeyMap.At( key ); return m_Chromosomes[ index.first ]->GeneAs<T>( index.second ); }//{ const Index2D& index = m_pKeyMap->at( key ); return (T*)( m_Chromosomes[ index.first ]->GetGene( index.second ) ); }//
 		
 		// Virtual Functions Override
 		virtual void Initialize( Initializer* pInit );
-		virtual DesignParameter* GetDesignParameter( int i )				const { const Index2D& index = m_IndexMap.At( i ); return m_ChromosomeArray[ index.first ]->GetDesignParameter( index.second ); }//{ const Index2D& index = m_pIndexMap->at( i ); return m_ChromosomeArray[ index.first ]->GetDesignParameter( index.second ); }//
-		virtual DesignParameter* GetDesignParameter( const tstring& key )	const { const Index2D& index = m_KeyMap.At( key ); return m_ChromosomeArray[ index.first ]->GetDesignParameter( index.second ); }//{ const Index2D& index = m_pKeyMap->at( key ); return m_ChromosomeArray[ index.first ]->GetDesignParameter( index.second ); }//
+		virtual DesignParameter* GetDesignParameter( int i )				const { const Index2D& index = m_IndexMap.At( i ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//{ const Index2D& index = m_pIndexMap->at( i ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//
+		virtual DesignParameter* GetDesignParameter( const tstring& key )	const { const Index2D& index = m_KeyMap.At( key ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//{ const Index2D& index = m_pKeyMap->at( key ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//
 
 		// Pure Virtual Functions Override.
 		virtual IChromosome* GetChromosome( int i=0 ) const;
 		virtual IChromosome* GetChromosomeByType( int16 type ) const;
-		virtual int NumChromTypes() const			{ return m_ChromosomeArray.Length(); }
+		virtual int NumChromosomeTypes() const		{ return m_Chromosomes.Length(); }
 		//virtual int16 TypeInfo() const			{ return TYPE_UNKNOWN; }// Disabled
 		virtual int Size() const					{ return m_DesignParameters.Length(); }
-		virtual void* GetGene( int i=0 ) const		{ const Index2D& index = m_IndexMap.At(i); return m_ChromosomeArray[ index.first ]->GetGene( index.second ); }//{ const Index2D& index = m_pIndexMap->at(i); return m_ChromosomeArray[ index.first ]->GetGene( index.second ); }//
-		virtual void* GetGene( tstring key ) const	{ const Index2D& index = m_KeyMap.At( key ); return m_ChromosomeArray[ index.first ]->GetGene( index.second ); }//{ const Index2D& index = m_pKeyMap->at( key ); return m_ChromosomeArray[ index.first ]->GetGene( index.second ); }//
+		virtual void* GetGene( int i=0 ) const		{ const Index2D& index = m_IndexMap.At(i); return m_Chromosomes[ index.first ]->GetGene( index.second ); }//{ const Index2D& index = m_pIndexMap->at(i); return m_Chromosomes[ index.first ]->GetGene( index.second ); }//
+		virtual void* GetGene( tstring key ) const	{ const Index2D& index = m_KeyMap.At( key ); return m_Chromosomes[ index.first ]->GetGene( index.second ); }//{ const Index2D& index = m_pKeyMap->at( key ); return m_Chromosomes[ index.first ]->GetGene( index.second ); }//
 		virtual IChromosome* Clone() const;
 		virtual void CopyGeneFrom( const IChromosome* pSrc );// execute only when chromosome is Chromosome2D class
 		virtual void ClearGene();
@@ -62,20 +62,20 @@ namespace ealib
 	private:
 		
 		OreOreLib::StaticArray<int, NUM_TYPES>	m_TypeToIndex;// typeid to chrosomome element index conversion table
-		OreOreLib::Array<IChromosome*>	m_ChromosomeArray;
+		OreOreLib::Array<IChromosome*>	m_Chromosomes;
 
 		// m_KeyMapは名前重複があった場合の動作は保証しない. DesignParameterでKey(名前)を設定しない場合は、キー検索未登録扱いにする
 		OreOreLib::HashMap< tstring, Index2D, 128 >	m_KeyMap;
 		OreOreLib::HashMap< int, Index2D, 128 >		m_IndexMap;
 
-		//std::unique_ptr< std::unordered_map< tstring, Index2D > >	m_pKeyMap;//std::unordered_map<tstring, Index2D>	m_KeyMap;// Index2D=( index of m_ChromosomeArray, data position inside IChromosome )
+		//std::unique_ptr< std::unordered_map< tstring, Index2D > >	m_pKeyMap;//std::unordered_map<tstring, Index2D>	m_KeyMap;// Index2D=( index of m_Chromosomes, data position inside IChromosome )
 		//std::unique_ptr< std::unordered_map< int, Index2D > >		m_pIndexMap;//std::unordered_map<int, Index2D>		m_IndexMap;
 
 
 		// Private functions
 		void ClearTypeToIndex();
 		void DeepCopyChromosomeArray( const Chromosome2D& src );
-		void DeepRemoveChromosomeArray();// Check if m_ChromosomeArray is empty before calling this method!!!
+		void DeepRemoveChromosomeArray();// Check if m_Chromosomes is empty before calling this method!!!
 
 
 		using IChromosome::TypeInfo;// Disable TypeInfo method

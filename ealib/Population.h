@@ -48,17 +48,16 @@ namespace ealib
 		void Sort( SORT_MODE mode=SORT_MODE::SORT_FITNESS_DESCEND );// ソート
 		void Shuffle();	// 要素のランダム順序入れ替え
 		
-		int NumIndividuals() const				{ return m_Individuals.Length(); }		
-		const OreOreLib::Array<IChromosome*>& ChromArray() const { return m_Individuals; }
-		OreOreLib::Array<IChromosome*>& ChromArray()  { return m_Individuals; }
-		IChromosome* Individual( int i) const	{ return m_Individuals[i]; }
+		int NumIndividuals() const									{ return m_Individuals.Length(); }
+		IChromosome* Individual( int i ) const						{ return m_Individuals[i]; }
+		const OreOreLib::Array<IChromosome*>& Indivuduals() const	{ return m_Individuals; }
+		OreOreLib::Array<IChromosome*>& Indivuduals()				{ return m_Individuals; }
 
+		float Score( int i ) const			{ return m_Individuals[i]->Score(); }
+		float Score( int i, int obj ) const	{ return m_Individuals[i]->Score( obj ); }
 
-		float GetScore( int i ) const			{ return m_Individuals[i]->GetScore(); }
-		float GetScore( int i, int obj ) const	{ return m_Individuals[i]->GetScore( obj ); }
-
-		float GetFitness( int i ) const			{ return m_Individuals[i]->GetFitness(); }
-		float GetFitness( int i, int obj ) const{ return m_Individuals[i]->GetFitness( obj ); }
+		float Fitness( int i ) const			{ return m_Individuals[i]->Fitness(); }
+		float Fitness( int i, int obj ) const	{ return m_Individuals[i]->Fitness( obj ); }
 
 		int NumObjectives() const				{ return m_PopResult.NumObjectives(); }
 

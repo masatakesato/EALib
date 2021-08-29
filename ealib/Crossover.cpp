@@ -46,7 +46,7 @@ namespace ealib
 
 	void Crossover::Execute( OreOreLib::Memory<const IChromosome*>& parents, OreOreLib::Memory<IChromosome*>& children, const void* attribs )
 	{
-		for( int i=0; i<parents[0]->NumChromTypes(); ++i )
+		for( int i=0; i<parents[0]->NumChromosomeTypes(); ++i )
 		{
 			auto type = parents[0]->GetChromosome(i)->TypeInfo();
 

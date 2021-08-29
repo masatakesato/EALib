@@ -214,7 +214,7 @@ namespace ealib
 		if( !m_refSelector )
 			return;
 		
-		m_refSelector->BindPopulationData( pParentPopulation->ChromArray() );
+		m_refSelector->BindPopulationData( pParentPopulation->Indivuduals() );
 		m_refSelector->Update();
 
 		int numParents = X.Length();
@@ -275,7 +275,7 @@ namespace ealib
 	//	if( !m_refSelector )
 	//		return;
 	//	
-	//	m_refSelector->BindPopulationData( pPopulation->ChromArray() );
+	//	m_refSelector->BindPopulationData( pPopulation->Indivuduals() );
 	//	m_refSelector->Update();
 
 	//	// 親の選択
@@ -562,7 +562,7 @@ namespace ealib
 		if( !m_refSelector )
 			return;
 		
-		m_refSelector->BindPopulationData( pParentPopulation->ChromArray() );
+		m_refSelector->BindPopulationData( pParentPopulation->Indivuduals() );
 		m_refSelector->Update();
 
 		int numParents = X.Length();
@@ -621,7 +621,7 @@ namespace ealib
 		{
 			Chromosome2D* pChrom = (Chromosome2D*)( pPopulation->Individual(i) );
 
-			for( int j=0; j<pChrom->NumChromTypes(); ++j )
+			for( int j=0; j<pChrom->NumChromosomeTypes(); ++j )
 				m_refMutator->Execute( pChrom->GetChromosome(j), m_SGAAttrib.MutationRate );
 
 		}// end of i loop
@@ -664,7 +664,7 @@ namespace ealib
 	//	if(	!m_refSelector )
 	//		return;
 	
-	//	m_refSelector->BindPopulationData( pPopulation->ChromArray() );
+	//	m_refSelector->BindPopulationData( pPopulation->Indivuduals() );
 	//	m_refSelector->Update();
 	
 	//	// 親の選択
@@ -711,7 +711,7 @@ namespace ealib
 	//		
 	//		m_refCrossover->Execute( X, T, nullptr );
 	
-	//		for( int j=0; j<X[0]->NumChromTypes(); ++j )
+	//		for( int j=0; j<X[0]->NumChromosomeTypes(); ++j )
 	//		{
 	//			//IChromosome* chromosomes[] =
 	//			//{

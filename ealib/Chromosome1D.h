@@ -179,7 +179,7 @@ namespace ealib
 		// Pure Virtual Functions Override
 		virtual IChromosome* GetChromosome( int i=0 ) const { return (IChromosome*)this; }
 		virtual IChromosome* GetChromosomeByType( int16 type ) const { return type==m_TypeInfo ? (IChromosome*)this : nullptr; }
-		virtual int NumChromTypes() const			{ return 1; }
+		virtual int NumChromosomeTypes() const		{ return 1; }
 		virtual int16 TypeInfo() const				{ return m_TypeInfo; }
 		virtual int Size() const					{ return m_DesignParameters.Length(); }
 		virtual void* GetGene( int i=0 ) const		{ return (void*)&m_GeneArray[ i ]; }
@@ -190,7 +190,7 @@ namespace ealib
 		virtual void CopyGeneFrom( const IChromosome* pSrc )
 		{
 			m_GeneArray.CopyFrom( ((Chromosome1D*)pSrc)->m_GeneArray );
-			if( m_pResult )	m_pResult->CopyFrom( pSrc->GetEvalResult() );
+			if( m_pResult )	m_pResult->CopyFrom( pSrc->EvalResult() );
 		}
 
 		virtual void ClearGene()

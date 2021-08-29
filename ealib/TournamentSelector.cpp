@@ -37,7 +37,7 @@ namespace ealib
 		for( int i=0; i<m_TournamentSize; ++i )
 		{
 			int r		= int( OreOreLib::genrand_real1() * double( m_refChromosomes.Length() - 1 ) );
-			float score	= m_refChromosomes[r]->GetFitness();
+			float score	= m_refChromosomes[r]->Fitness();
 			if( score > max )
 			{
 				selected	= r;

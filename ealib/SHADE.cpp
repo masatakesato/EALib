@@ -133,7 +133,7 @@ namespace ealib
 			m_ArchiveIndices.Init( m_Attrib.PopulationSize );
 
 
-			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromArray() );
+			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].Indivuduals() );
 
 			m_bReady = true;
 		}
@@ -175,7 +175,7 @@ namespace ealib
 	//		m_ArchiveIndices.Init( m_Attrib.PopulationSize );
 
 
-	//		m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromArray() );
+	//		m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].Indivuduals() );
 
 	//		m_bReady = true;
 	//	}
@@ -232,7 +232,7 @@ namespace ealib
 
 
 		UpdateControlParams();
-		m_Mutator.BindPopulationData( m_Population[parentGen].ChromArray() );
+		m_Mutator.BindPopulationData( m_Population[parentGen].Indivuduals() );
 		m_Mutator.SetNumArchives( m_numActiveArchives );
 
 
@@ -259,7 +259,7 @@ namespace ealib
 
 			//======================	Selection	=======================//
 			// 親個体と中間個体を比較して、適応度が高い個体を選択して次世代に残す
-			if( t_i->GetFitness() > x_i->GetFitness() )
+			if( t_i->Fitness() > x_i->Fitness() )
 			{
 				m_Population[childGen].Individual( i )->CopyGeneFrom( t_i );
 				
@@ -518,7 +518,7 @@ namespace ealib
 
 			m_ArchiveIndices.Init( m_Attrib.PopulationSize );
 
-			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromArray() );
+			m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].Indivuduals() );
 
 			m_bReady = true;
 		}
@@ -559,7 +559,7 @@ namespace ealib
 
 	//		m_ArchiveIndices	= new int[ m_Attrib.PopulationSize ];
 
-	//		m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromArray() );
+	//		m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].Indivuduals() );
 
 	//		m_bReady = true;
 	//	}
@@ -614,10 +614,10 @@ namespace ealib
 		int countSuccess	= 0;
 
 		int	numArchives		= 0;
-		int numChromTypes	= m_Population[parentGen].Individual(0)->NumChromTypes();
+		int numChromTypes	= m_Population[parentGen].Individual(0)->NumChromosomeTypes();
 
 		UpdateControlParams();
-		m_Mutator.BindPopulationData( m_Population[parentGen].ChromArray() );
+		m_Mutator.BindPopulationData( m_Population[parentGen].Indivuduals() );
 		m_Mutator.SetNumArchives( m_numActiveArchives );
 
 
@@ -644,7 +644,7 @@ namespace ealib
 
 			//======================	Selection	=======================//
 			// 親個体と中間個体を比較して、適応度が高い個体を選択して次世代に残す
-			if( t_i->GetFitness() > x_i->GetFitness() )
+			if( t_i->Fitness() > x_i->Fitness() )
 			{
 				m_Population[childGen].Individual( i )->CopyGeneFrom( t_i );
 

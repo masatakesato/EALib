@@ -18,32 +18,32 @@ namespace ealib
 	//
 	//static int CompareScoreAscend( const void* pElem1, const void* pElem2 )
 	//{
-	//	float fa = ((const IChromosome *)pElem1)->GetScore();
-	//	float fb = ((const IChromosome *)pElem2)->GetScore();
+	//	float fa = ((const IChromosome *)pElem1)->Score();
+	//	float fb = ((const IChromosome *)pElem2)->Score();
 	//	return (fa > fb) - (fa < fb);// ascend
 	//}
 
 
 	//static int CompareScoreDescend( const void* pElem1, const void* pElem2 )
 	//{
-	//	float fa = ((const IChromosome *)pElem1)->GetScore();
-	//	float fb = ((const IChromosome *)pElem2)->GetScore();
+	//	float fa = ((const IChromosome *)pElem1)->Score();
+	//	float fb = ((const IChromosome *)pElem2)->Score();
 	//	return (fa < fb) - (fa > fb);// descend
 	//}
 
 
 	//static int CompareFitnessAscend( const void* pElem1, const void* pElem2 )
 	//{
-	//	float fa = ((const IChromosome *)pElem1)->GetFitness();
-	//	float fb = ((const IChromosome *)pElem2)->GetFitness();
+	//	float fa = ((const IChromosome *)pElem1)->Fitness();
+	//	float fb = ((const IChromosome *)pElem2)->Fitness();
 	//	return (fa > fb) - (fa < fb);// ascend
 	//}
 
 
 	//static int CompareFitnessDescend( const void* pElem1, const void* pElem2 )
 	//{
-	//	float fa = ((const IChromosome *)pElem1)->GetFitness();
-	//	float fb = ((const IChromosome *)pElem2)->GetFitness();
+	//	float fa = ((const IChromosome *)pElem1)->Fitness();
+	//	float fb = ((const IChromosome *)pElem2)->Fitness();
 	//	return (fa < fb) - (fa > fb);// descend
 	//}
 	
@@ -70,8 +70,8 @@ namespace ealib
 		
 		while( 1 )
 		{
-			while( /*array[i]->GetFitness() < pivot*/fpCompare( array[i], pivot ) < 0 ){ ++i; }  /* 枢軸以上の値が見つかるまで右方向へ進めていく */
-			while( /*array[j]->GetFitness() > pivot*/fpCompare( array[j], pivot ) > 0 ){ --j; }  /* 枢軸以下の値が見つかるまで左方向へ進めていく */
+			while( /*array[i]->Fitness() < pivot*/fpCompare( array[i], pivot ) < 0 ){ ++i; }  /* 枢軸以上の値が見つかるまで右方向へ進めていく */
+			while( /*array[j]->Fitness() > pivot*/fpCompare( array[j], pivot ) > 0 ){ --j; }  /* 枢軸以下の値が見つかるまで左方向へ進めていく */
 			if( i >= j )break;  // 軸がぶつかったらソート終了
 
 			// 入れ替え
@@ -133,7 +133,7 @@ namespace ealib
 		{
 			m_Individuals[i] = obj.m_Individuals[i]->Clone();
 			m_Individuals[i]->BindEvalResultView( &m_PopResult[i] );
-			m_PopResult[i].CopyFrom( obj.m_Individuals[i]->GetEvalResult() );
+			m_PopResult[i].CopyFrom( obj.m_Individuals[i]->EvalResult() );
 		}
 	}
 
@@ -163,7 +163,7 @@ namespace ealib
 			{
 				m_Individuals[i] = obj.m_Individuals[i]->Clone();
 				m_Individuals[i]->BindEvalResultView( &m_PopResult[i] );
-				m_PopResult[i].CopyFrom( obj.m_Individuals[i]->GetEvalResult() );
+				m_PopResult[i].CopyFrom( obj.m_Individuals[i]->EvalResult() );
 			}
 		}
 

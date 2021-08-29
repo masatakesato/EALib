@@ -208,7 +208,7 @@ namespace ealib
 			return;
 		
 
-		m_refSelector->BindPopulationData( pPopulation->ChromArray() );
+		m_refSelector->BindPopulationData( pPopulation->Indivuduals() );
 		m_refSelector->Update();
 
 		// 親の選択
@@ -503,7 +503,7 @@ namespace ealib
 		if( !m_refSelector )
 			return;
 		
-		m_refSelector->BindPopulationData( pPopulation->ChromArray() );
+		m_refSelector->BindPopulationData( pPopulation->Indivuduals() );
 		m_refSelector->Update();
 
 		// 親の選択
@@ -525,7 +525,7 @@ namespace ealib
 	// 交叉処理を行う
 	void MixedNSGA2::Crossover( Population* pParentPopulation, Population* pChildPopulation )
 	{
-		int numChromTypes = pParentPopulation->Individual(0)->NumChromTypes();
+		int numChromTypes = pParentPopulation->Individual(0)->NumChromosomeTypes();
 
 		for( int i=0; i<m_Parents.Length(); ++i )
 		{
@@ -572,7 +572,7 @@ namespace ealib
 		{
 			Chromosome2D* pChrom = (Chromosome2D*)( pPopulation->Individual(i) );
 
-			for( int j=0; j<pChrom->NumChromTypes(); ++j )
+			for( int j=0; j<pChrom->NumChromosomeTypes(); ++j )
 				m_refMutator->Execute( pChrom->GetChromosome(j), m_SGAAttrib.MutationRate );
 
 		}// end of i loop

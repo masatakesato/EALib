@@ -16,7 +16,6 @@ namespace ealib
 
 	Chromosome2D::Chromosome2D()
 		: IChromosome()
-		//, m_ChromosomeArray{}
 		//, m_pKeyMap( std::make_unique< std::unordered_map<tstring, Index2D> >() )
 		//, m_pIndexMap( std::make_unique< std::unordered_map<int, Index2D> >() )
 	{
@@ -27,7 +26,6 @@ namespace ealib
 
 	Chromosome2D::Chromosome2D( const DesignParamArray& designParams )
 		: IChromosome()
-		//, m_ChromosomeArray{}
 		//, m_pKeyMap( std::make_unique< std::unordered_map<tstring, Index2D> >() )
 		//, m_pIndexMap( std::make_unique< std::unordered_map<int, Index2D> >() )
 	{
@@ -124,7 +122,7 @@ namespace ealib
 		}
 
 		// Allocate Chromosome Array
-		m_ChromosomeArray.Init( chromTypeCount );
+		m_Chromosomes.Init( chromTypeCount );
 
 
 		int paramStartIdx = 0;
@@ -135,10 +133,10 @@ namespace ealib
 
 			// Create Chromosome1D
 			OreOreLib::ArrayView<DesignParameter> partialParams( &m_DesignParameters[ paramStartIdx ], numParams );
-			m_ChromosomeArray[i] =	c_Chrom1DFactory.Create( partialParams );
+			m_Chromosomes[i] = c_Chrom1DFactory.Create( partialParams );
 
 			// Register individual designparameter/gene index for Key/Index search
-			for( int j=0; j<m_ChromosomeArray[i]->Size(); ++j )
+			for( int j=0; j<m_Chromosomes[i]->Size(); ++j )
 			{
 				const DesignParameter *pDParam = &m_DesignParameters[ paramStartIdx + j ];
 				Index2D targetIndex( i, j );
@@ -174,14 +172,14 @@ namespace ealib
 		Index2D index = m_IndexMap.At( i );//m_pIndexMap->at( i );//
 
 		// 現行keyがm_KeyMapに存在する場合は削除する
-		const tstring& currkey = m_ChromosomeArray[ index.first ]->GetDesignParameter( index.second )->Key();
+		const tstring& currkey = m_Chromosomes[ index.first ]->GetDesignParameter( index.second )->Key();
 		m_KeyMap.Remove( currkey );
 
 		// { newkey, i }をm_KeyMapに登録する
 		m_KeyMap.Put( newkey, index );
 
 		// 対立遺伝子のキー値を更新する
-		m_ChromosomeArray[ index.first ]->GetDesignParameter( index.second )->SetKey( newkey );
+		m_Chromosomes[ index.first ]->GetDesignParameter( index.second )->SetKey( newkey );
 
 		return true;
 	}
@@ -196,7 +194,7 @@ namespace ealib
 	//	Index2D index = m_pIndexMap->at( i );//auto val = m_IndexMap.at( i );
 
 	//	// 現行keyがm_KeyMapに存在する場合は削除する
-	//	const tstring& currkey = m_ChromosomeArray[ index.first ]->GetDesignParameter( index.second )->Key();
+	//	const tstring& currkey = m_Chromosomes[ index.first ]->GetDesignParameter( index.second )->Key();
 	//	if( m_pKeyMap->find( currkey ) != m_pKeyMap->end() )//if( m_KeyMap.find( currkey ) != m_KeyMap.end() )
 	//		m_pKeyMap->erase( currkey );//m_KeyMap.erase( currkey );
 
@@ -204,7 +202,7 @@ namespace ealib
 	//	m_pKeyMap->insert( { newkey, index } );//m_KeyMap.insert( { newkey, index } );
 
 	//	// 対立遺伝子のキー値を更新する
-	//	m_ChromosomeArray[ index.first ]->GetDesignParameter( index.second )->SetKey( newkey );
+	//	m_Chromosomes[ index.first ]->GetDesignParameter( index.second )->SetKey( newkey );
 
 	//	return true;
 	//}
@@ -231,7 +229,7 @@ namespace ealib
 		m_KeyMap.Put( newkey, index );
 
 		// 対立遺伝子のキー値を更新する
-		m_ChromosomeArray[ index.first ]->GetDesignParameter( index.second )->SetKey( newkey );
+		m_Chromosomes[ index.first ]->GetDesignParameter( index.second )->SetKey( newkey );
 
 		return true;
 	}
@@ -256,7 +254,7 @@ namespace ealib
 	//	m_pKeyMap->insert( { newkey, index } );//m_KeyMap.insert( { newkey, val } );
 
 	//	// 対立遺伝子のキー値を更新する
-	//	m_ChromosomeArray[ index.first ]->GetDesignParameter( index.second )->SetKey( newkey );
+	//	m_Chromosomes[ index.first ]->GetDesignParameter( index.second )->SetKey( newkey );
 
 	//	return true;
 	//}
@@ -274,7 +272,7 @@ namespace ealib
 	{
 		auto psrc = (Chromosome2D*)pSrc;
 
-		for( auto* chrom : m_ChromosomeArray )
+		for( auto* chrom : m_Chromosomes )
 		{
 			int16 type = chrom->TypeInfo();
 			chrom->CopyGeneFrom( psrc->GetChromosomeByType( type ) );
@@ -288,7 +286,7 @@ namespace ealib
 
 	void Chromosome2D::ClearGene()
 	{
-		for( auto* chrom : m_ChromosomeArray )
+		for( auto* chrom : m_Chromosomes )
 			chrom->ClearGene();
 	}
 
@@ -297,7 +295,7 @@ namespace ealib
 	// Override IChromosome's Initialize()
 	void Chromosome2D::Initialize( Initializer* pInit )
 	{
-		for( auto* chrom : m_ChromosomeArray )
+		for( auto* chrom : m_Chromosomes )
 			chrom->Initialize( pInit );
 	}
 
@@ -305,14 +303,14 @@ namespace ealib
 
 	IChromosome* Chromosome2D::GetChromosome( int i ) const
 	{
-		return m_ChromosomeArray[i];
+		return m_Chromosomes[i];
 	}
 
 
 
 	IChromosome* Chromosome2D::GetChromosomeByType( int16 type ) const
 	{
-		return m_ChromosomeArray[ m_TypeToIndex[type] ];
+		return m_Chromosomes[ m_TypeToIndex[type] ];
 	}
 
 
@@ -327,16 +325,16 @@ namespace ealib
 
 	void Chromosome2D::DeepCopyChromosomeArray( const Chromosome2D& src )
 	{
-		if( !src.m_ChromosomeArray )
+		if( !src.m_Chromosomes )
 			return;
 
 		// release current allocated resources.
 		DeepRemoveChromosomeArray();
 
-		m_ChromosomeArray.Init( src.NumChromTypes() );
+		m_Chromosomes.Init( src.NumChromosomeTypes() );
 
-		for( int i=0; i<m_ChromosomeArray.Length(); ++i )
-			m_ChromosomeArray[i] = src.m_ChromosomeArray[i]->Clone();
+		for( int i=0; i<m_Chromosomes.Length(); ++i )
+			m_Chromosomes[i] = src.m_Chromosomes[i]->Clone();
 
 		m_KeyMap		= src.m_KeyMap;//m_pKeyMap		= std::make_unique< std::unordered_map<tstring, Index2D > >( *src.m_pKeyMap );//
 		m_IndexMap		= src.m_IndexMap;//m_pIndexMap		= std::make_unique< std::unordered_map<int, Index2D > >( *src.m_pIndexMap );//
@@ -347,9 +345,9 @@ namespace ealib
 
 	void Chromosome2D::DeepRemoveChromosomeArray()
 	{
-		for( auto* chrom: m_ChromosomeArray )
+		for( auto* chrom: m_Chromosomes )
 			SafeDelete( chrom );
-		m_ChromosomeArray.Release();
+		m_Chromosomes.Release();
 
 		ClearTypeToIndex();
 		

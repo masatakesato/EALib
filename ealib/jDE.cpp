@@ -165,7 +165,7 @@ namespace ealib
 
 		UpdateControlParams();
 
-		m_DE_Rand_1_Mutator.BindPopulationData( m_Population[parentGen].ChromArray() );
+		m_DE_Rand_1_Mutator.BindPopulationData( m_Population[parentGen].Indivuduals() );
 
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
 		{
@@ -188,7 +188,7 @@ namespace ealib
 			//======================	Selection	=======================//
 
 			// 親個体と中間個体を比較して、適応度が高い個体を選択して次世代に残す
-			if( t_i->GetFitness() > x_i->GetFitness() )
+			if( t_i->Fitness() > x_i->Fitness() )
 				m_Population[childGen].Individual( i )->CopyGeneFrom( t_i );
 			else
 				m_Population[childGen].Individual( i )->CopyGeneFrom( x_i );

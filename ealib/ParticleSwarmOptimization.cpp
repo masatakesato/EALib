@@ -148,25 +148,25 @@ namespace ealib
 
 	void ParticleSwarmOptimization::Step( Evaluator* pEval )
 	{
-		auto& x		= m_Population[ individual ].ChromArray();
-		auto& pbest	= m_Population[ personalbest ].ChromArray();
-		auto& v		= m_Population[ velocity ].ChromArray();
+		auto& x		= m_Population[ individual ].Indivuduals();
+		auto& pbest	= m_Population[ personalbest ].Indivuduals();
+		auto& v		= m_Population[ velocity ].Indivuduals();
 		auto pgbest	= m_Population[ groupbest ].Individual(0);
 
 		// Update Best
 		int best = 0;
-		float bestFitness = x[best]->GetFitness();
+		float bestFitness = x[best]->Fitness();
 		for( int i=1; i<m_Attrib.PopulationSize; ++i )
 		{
 			// Update Personal Best
-			if( x[i]->GetFitness() > pbest[i]->GetFitness() )
+			if( x[i]->Fitness() > pbest[i]->Fitness() )
 				pbest[i]->CopyGeneFrom( x[i] );
 
 			// Search Group best
-			if( x[i]->GetFitness() > bestFitness )
+			if( x[i]->Fitness() > bestFitness )
 			{
 				best = i;
-				bestFitness = x[best]->GetFitness();
+				bestFitness = x[best]->Fitness();
 			}
 		}
 

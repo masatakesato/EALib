@@ -146,10 +146,10 @@ namespace ealib
 														X_Rand_1( &X[5], 3 ),
 														X_Rand_2( &X[8], 5 );
 
-		m_DE_Best_1.BindPopulationData( m_Population[parentGen].ChromArray() );
-		m_DE_Rand_1.BindPopulationData( m_Population[parentGen].ChromArray() );
-		m_DE_Rand_2.BindPopulationData( m_Population[parentGen].ChromArray() );
-		m_DE_Current_to_Rand_1.BindPopulationData( m_Population[parentGen].ChromArray() );
+		m_DE_Best_1.BindPopulationData( m_Population[parentGen].Indivuduals() );
+		m_DE_Rand_1.BindPopulationData( m_Population[parentGen].Indivuduals() );
+		m_DE_Rand_2.BindPopulationData( m_Population[parentGen].Indivuduals() );
+		m_DE_Current_to_Rand_1.BindPopulationData( m_Population[parentGen].Indivuduals() );
 
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
 		{
@@ -199,7 +199,7 @@ namespace ealib
 
 			//======================	Selection	=======================//
 			// 親個体と中間個体を比較して、適応度が高い個体を選択して次世代に残す
-			if( pbest->GetFitness() > x_i->GetFitness() )
+			if( pbest->Fitness() > x_i->Fitness() )
 				m_Population[childGen].Individual( i )->CopyGeneFrom( pbest );
 			else
 				m_Population[childGen].Individual( i )->CopyGeneFrom( x_i );
@@ -403,7 +403,7 @@ namespace ealib
 
 	void MixedCoDE::Step( Evaluator* pEval )
 	{
-		int numChromTypes = m_Population[parentGen].Individual(0)->NumChromTypes();
+		int numChromTypes = m_Population[parentGen].Individual(0)->NumChromosomeTypes();
 
 		static OreOreLib::StaticArray<const IChromosome*, 11> X;// = { nullptr, nullptr, nullptr, nullptr, nullptr };
 		static OreOreLib::StaticArray<IChromosome*, 1> T;// = { nullptr };
@@ -412,10 +412,10 @@ namespace ealib
 														X_Rand_1( &X[3], 3 ),// = { rand1, rand2, rand3 }
 														X_Rand_2( &X[6], 5 );// = { rand1, rand2, rand3, rand4, rand5 }
 
-		m_DE_Best_1.BindPopulationData( m_Population[parentGen].ChromArray() );
-		m_DE_Rand_1.BindPopulationData( m_Population[parentGen].ChromArray() );
-		m_DE_Rand_2.BindPopulationData( m_Population[parentGen].ChromArray() );
-		m_DE_Current_to_Rand_1.BindPopulationData( m_Population[parentGen].ChromArray() );
+		m_DE_Best_1.BindPopulationData( m_Population[parentGen].Indivuduals() );
+		m_DE_Rand_1.BindPopulationData( m_Population[parentGen].Indivuduals() );
+		m_DE_Rand_2.BindPopulationData( m_Population[parentGen].Indivuduals() );
+		m_DE_Current_to_Rand_1.BindPopulationData( m_Population[parentGen].Indivuduals() );
 
 
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
@@ -466,7 +466,7 @@ namespace ealib
 
 			//======================	Selection	=======================//
 			// 親個体と中間個体を比較して、適応度が高い個体を選択して次世代に残す
-			if( pbest->GetFitness() > x_i->GetFitness() )
+			if( pbest->Fitness() > x_i->Fitness() )
 				m_Population[childGen].Individual( i )->CopyGeneFrom( pbest );
 			else
 				m_Population[childGen].Individual( i )->CopyGeneFrom( x_i );

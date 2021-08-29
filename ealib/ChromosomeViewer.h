@@ -39,7 +39,7 @@ namespace ealib
 			{
 				auto chrom2d = (Chromosome2D*)chromosome;
 
-				for( int i=0; i<chrom2d->NumChromTypes(); ++i )
+				for( int i=0; i<chrom2d->NumChromosomeTypes(); ++i )
 				{
 					auto chrom = chrom2d->GetChromosome(i);
 					m_ViewFuncs[ chrom->TypeInfo() ]( chrom, viewgene );
@@ -56,7 +56,7 @@ namespace ealib
 			}
 
 
-			const EvalResultView* const refResult = chromosome->GetEvalResult();
+			const EvalResultView* const refResult = chromosome->EvalResult();
 			if( !refResult )
 				return;
 
