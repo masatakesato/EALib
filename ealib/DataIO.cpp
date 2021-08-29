@@ -143,7 +143,7 @@ namespace ealib
 
 	tstring DataIO::CreateSnapshotString( const Population* population )
 	{
-		IChromosome *chromosome = population->GetIndividual( 0 );
+		IChromosome *chromosome = population->Individual( 0 );
 
 		tstring names( _T( "#" ) );
 		tstring param_set;
@@ -164,9 +164,9 @@ namespace ealib
 
 
 		//============ Create param sets part =================//
-		for( int i=0; i<population->PopulationSize(); ++i )
+		for( int i=0; i<population->NumIndividuals(); ++i )
 		{
-			chromosome = population->GetIndividual( i );
+			chromosome = population->Individual( i );
 
 			for( int j=0; j<chromosome->Size(); ++j )
 			{
@@ -183,7 +183,7 @@ namespace ealib
 
 			}// end of j loop
 
-			if( i<population->PopulationSize()-1 )
+			if( i<population->NumIndividuals()-1 )
 				param_set +=  _T( "\n" );
 
 		}// end of i loop

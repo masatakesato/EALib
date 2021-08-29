@@ -56,7 +56,7 @@ namespace ealib
 
 		EACommonAttribute GetAttribute() const	{ return m_Attrib; }
 		int NumGenerations() const				{ return m_Attrib.NumGenerations; }
-		int PopulationSize() const				{ return m_Attrib.PopulationSize; }
+		int NumIndividuals() const				{ return m_Attrib.PopulationSize; }
 		int EliteSize() const					{ return m_Attrib.EliteSize; }
 		EAStatistics* const Statistics() const	{ return (EAStatistics* const)&m_Stats; }
 

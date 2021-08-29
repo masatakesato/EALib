@@ -148,19 +148,19 @@ namespace ealib
 	static std::unordered_map< int, std::vector<int> > fast_nondominated_sort_index_ver( Population *P )
 	{
 		std::unordered_map< int, std::vector<int> > F;// Fronts. F[front][element].
-		std::unordered_map< int, std::vector<int> > D( P->PopulationSize() );// Individuals that P[i] dominates.
-		std::vector<int>				n( P->PopulationSize() );// =[0] * len( P )// Num of individuals that dominates P[i].
+		std::unordered_map< int, std::vector<int> > D( P->NumIndividuals() );// Individuals that P[i] dominates.
+		std::vector<int>				n( P->NumIndividuals() );// =[0] * len( P )// Num of individuals that dominates P[i].
 		
-		for( int i=0; i<P->PopulationSize(); ++i )// for i in range( len( P ) ):
+		for( int i=0; i<P->NumIndividuals(); ++i )// for i in range( len( P ) ):
 		{
 			n[i] = 0;// number of solutions which dominate the ai.
 			//D[i] =[]// set of solutions which ai dominates.
 
-			const IChromosome* ai = P->GetIndividual( i );
+			const IChromosome* ai = P->Individual( i );
 
-			for( int j=0; j<P->PopulationSize(); ++j )//for j in range( len( P ) ):
+			for( int j=0; j<P->NumIndividuals(); ++j )//for j in range( len( P ) ):
 			{
-				const IChromosome* aj = P->GetIndividual( j );
+				const IChromosome* aj = P->Individual( j );
 				if( ai->Dominates( aj ) ) // ajが劣解の場合はSpに追加する
 					D[i].push_back( j );
 				else if( aj->Dominates( ai ) )//# aiが劣解の場合はランクを上げる
@@ -195,7 +195,7 @@ namespace ealib
 	// P: Population, front: single front
 	static void crowding_distance_population( Population* P, Evaluator* pEval, std::vector<int> front )//
 	{
-		const int N = P->PopulationSize();
+		const int N = P->NumIndividuals();
 		const int M = pEval->NumObjectives();
 		std::vector<float>	Fdist(N);// = numpy.zeros( N, dtype='float32' )# TODO: Must be reordered along with F.Should be attached to F. 2018.08.31
 
@@ -239,7 +239,7 @@ namespace ealib
 		//reorder< std::vector<int>, std::vector<float>& >( sorted_idx, sorted_idx.size(), Fdist );
 
 		// Reorder F's individuals using sorted_idx
-		reorder< std::vector<int>, IChromosome** >( sorted_idx, sorted_idx.size(), P->ChromosomeArray() );
+		reorder< std::vector<int>, IChromosome** >( sorted_idx, sorted_idx.size(), P->ChromArray().begin() );
 		
 #ifdef _DEBUG
 		tcout << "crowding_distance_population...result" << tendl;

@@ -191,9 +191,9 @@ int main( int argc, char **argv )
 		Vec2f( 7.0, 1.0 ),
 	};
 
-	for( int i=0; i<pop.PopulationSize(); ++i )
+	for( int i=0; i<pop.NumIndividuals(); ++i )
 	{
-		auto pop_ = pop.GetIndividual( i );
+		auto pop_ = pop.Individual( i );
 
 		for( int j=0; j<Eval.NumObjectives(); ++j )
 		{
@@ -254,9 +254,9 @@ int main( int argc, char **argv )
 
 
 	// Population version.
-	for( int i=0; i<pop.PopulationSize(); ++i )
+	for( int i=0; i<pop.NumIndividuals(); ++i )
 	{
-		auto individual = pop.GetIndividual( i );
+		auto individual = pop.Individual( i );
 
 		for( int j=0; j<Eval.NumObjectives(); ++j )
 		{

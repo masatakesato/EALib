@@ -225,10 +225,10 @@ namespace ealib
 			// Select Parents
 			for( int j=0; j<numParents; ++j )
 			{
-				const IChromosome* chrom = m_Population[ parentGen ].GetIndividual( m_refSelector->Execute() );
+				const IChromosome* chrom = m_Population[ parentGen ].Individual( m_refSelector->Execute() );
 
 				while( OreOreLib::Exists( X, chrom ) )
-					chrom = m_Population[ parentGen ].GetIndividual( m_refSelector->Execute() );
+					chrom = m_Population[ parentGen ].Individual( m_refSelector->Execute() );
 				
 				X[j] = chrom;
 			}// end of j loop
@@ -240,9 +240,9 @@ namespace ealib
 				int popidx = i*numChildren + j;
 
 				if( popidx < m_Attrib.PopulationSize-m_Attrib.EliteSize )// Refer pChindPopulation's individual if possible
-					T[j] = pChildPopulation->GetIndividual( popidx );
+					T[j] = pChildPopulation->Individual( popidx );
 				else
-					T[j] = m_Population[ dummy ].GetIndividual( j );// Refer dummy data if popidx is out of range.
+					T[j] = m_Population[ dummy ].Individual( j );// Refer dummy data if popidx is out of range.
 			}
 
 			// Crossover
@@ -275,7 +275,7 @@ namespace ealib
 	//	if( !m_refSelector )
 	//		return;
 	//	
-	//	m_refSelector->BindPopulationData( pPopulation->PopulationSize(), pPopulation->ChromosomeArray() );
+	//	m_refSelector->BindPopulationData( pPopulation->ChromArray() );
 	//	m_refSelector->Update();
 
 	//	// 親の選択
@@ -299,10 +299,10 @@ namespace ealib
 	//{
 	//	for( int i=0; i<m_Parents.Length(); ++i )
 	//	{
-	//		IChromosome* p1	= pParentPopulation->GetIndividual( m_Parents[i].first );
-	//		IChromosome* p2	= pParentPopulation->GetIndividual( m_Parents[i].second );
-	//		IChromosome* c1	= pChildPopulation->GetIndividual( i*2 );
-	//		IChromosome* c2	= ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->GetIndividual( i*2+1 ) : m_Population[ dummy ].GetIndividual( 0 );
+	//		IChromosome* p1	= pParentPopulation->Individual( m_Parents[i].first );
+	//		IChromosome* p2	= pParentPopulation->Individual( m_Parents[i].second );
+	//		IChromosome* c1	= pChildPopulation->Individual( i*2 );
+	//		IChromosome* c2	= ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->Individual( i*2+1 ) : m_Population[ dummy ].Individual( 0 );
 
 	//		float crossProb	= float( OreOreLib::genrand_real1() );
 	//		
@@ -328,7 +328,7 @@ namespace ealib
 	void SimpleGA::Mutate( Population* pPopulation )
 	{
 		for( int i=0; i<m_Attrib.PopulationSize-m_Attrib.EliteSize; ++i )
-			m_refMutator->Execute( pPopulation->GetIndividual(i), m_SGAAttrib.MutationRate );
+			m_refMutator->Execute( pPopulation->Individual(i), m_SGAAttrib.MutationRate );
 
 	}
 
@@ -341,8 +341,8 @@ namespace ealib
 		int dst_start	= m_Attrib.PopulationSize - m_Attrib.EliteSize;
 		for( int i=0; i<m_Attrib.EliteSize; ++i )
 		{
-			pParent	= pParentPopulation->GetIndividual(i);
-			pChild	= pChildPopulation->GetIndividual( dst_start+i );
+			pParent	= pParentPopulation->Individual(i);
+			pChild	= pChildPopulation->Individual( dst_start+i );
 
 			pChild->CopyGeneFrom( pParent );
 		}
@@ -575,10 +575,10 @@ namespace ealib
 			// Select Parents
 			for( int j=0; j<numParents; ++j )
 			{
-				const IChromosome* chrom = m_Population[ parentGen ].GetIndividual( m_refSelector->Execute() );
+				const IChromosome* chrom = m_Population[ parentGen ].Individual( m_refSelector->Execute() );
 
 				while( OreOreLib::Exists( X, chrom ) )
-					chrom = m_Population[ parentGen ].GetIndividual( m_refSelector->Execute() );
+					chrom = m_Population[ parentGen ].Individual( m_refSelector->Execute() );
 				
 				X[j] = chrom;
 			}// end of j loop
@@ -590,9 +590,9 @@ namespace ealib
 				int popidx = i*numChildren + j;
 
 				if( popidx < m_Attrib.PopulationSize-m_Attrib.EliteSize )// Refer pChindPopulation's individual if possible
-					T[j] = pChildPopulation->GetIndividual( popidx );
+					T[j] = pChildPopulation->Individual( popidx );
 				else
-					T[j] = m_Population[ dummy ].GetIndividual( j );// Refer dummy data if popidx is out of range.
+					T[j] = m_Population[ dummy ].Individual( j );// Refer dummy data if popidx is out of range.
 			}
 
 			float crossProb	= float( OreOreLib::genrand_real1() );
@@ -619,7 +619,7 @@ namespace ealib
 	{
 		for( int i=0; i<m_Attrib.PopulationSize-m_Attrib.EliteSize; ++i )
 		{
-			Chromosome2D* pChrom = (Chromosome2D*)( pPopulation->GetIndividual(i) );
+			Chromosome2D* pChrom = (Chromosome2D*)( pPopulation->Individual(i) );
 
 			for( int j=0; j<pChrom->NumChromTypes(); ++j )
 				m_refMutator->Execute( pChrom->GetChromosome(j), m_SGAAttrib.MutationRate );
@@ -636,8 +636,8 @@ namespace ealib
 		int dst_start	= m_Attrib.PopulationSize - m_Attrib.EliteSize;
 		for( int i=0; i<m_Attrib.EliteSize; ++i )
 		{
-			pParent	= pParentPopulation->GetIndividual( i );
-			pChild	= pChildPopulation->GetIndividual( dst_start+i );
+			pParent	= pParentPopulation->Individual( i );
+			pChild	= pChildPopulation->Individual( dst_start+i );
 
 			pChild->CopyGeneFrom( pParent );
 		}
@@ -664,7 +664,7 @@ namespace ealib
 	//	if(	!m_refSelector )
 	//		return;
 	
-	//	m_refSelector->BindPopulationData( pPopulation->PopulationSize(), pPopulation->ChromosomeArray() );
+	//	m_refSelector->BindPopulationData( pPopulation->ChromArray() );
 	//	m_refSelector->Update();
 	
 	//	// 親の選択
@@ -692,10 +692,10 @@ namespace ealib
 	
 	//	for( int i=0; i<m_Parents.Length(); ++i )
 	//	{
-	//		X[0] = pParentPopulation->GetIndividual( m_Parents[i].first );
-	//		X[1] = pParentPopulation->GetIndividual( m_Parents[i].second );
-	//		T[0] = pChildPopulation->GetIndividual( i*2 );
-	//		T[1] = ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->GetIndividual( i*2+1 ) : m_Population[ dummy ].GetIndividual( 0 );
+	//		X[0] = pParentPopulation->Individual( m_Parents[i].first );
+	//		X[1] = pParentPopulation->Individual( m_Parents[i].second );
+	//		T[0] = pChildPopulation->Individual( i*2 );
+	//		T[1] = ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->Individual( i*2+1 ) : m_Population[ dummy ].Individual( 0 );
 	
 	//		float crossProb	= float( OreOreLib::genrand_real1() );
 	

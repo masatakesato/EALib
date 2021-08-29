@@ -273,7 +273,7 @@ namespace ealib
 			const int& popsize		= m_Attrib.PopulationSize;
 			const int& islandsize	= m_MIGAAttrib.IslandSize;
 
-			pOut.Init( m_pSolverArray[0]->GetPopulation()->GetIndividual(0), popsize * islandsize, m_Migrants[0].NumObjectives() );
+			pOut.Init( m_pSolverArray[0]->GetPopulation()->Individual(0), popsize * islandsize, m_Migrants[0].NumObjectives() );
 
 			for( int i=0; i<islandsize; ++i )
 				pOut.CopyChromosomes( m_pSolverArray[i]->GetPopulation(), i*popsize );
@@ -303,8 +303,8 @@ namespace ealib
 			}
 
 			// 個体群の情報を島から移民バッファにコピーする
-			for( int emig=0; emig<m_Migrants[i].PopulationSize(); ++emig )
-				m_Migrants[i].GetIndividual( emig )->CopyGeneFrom( pPopulation->GetIndividual( emig ) );
+			for( int emig=0; emig<m_Migrants[i].NumIndividuals(); ++emig )
+				m_Migrants[i].Individual( emig )->CopyGeneFrom( pPopulation->Individual( emig ) );
 
 		}// end of i loop
 	}
@@ -345,8 +345,8 @@ namespace ealib
 			}
 
 			// 個体群の情報を島から移民バッファにコピーする
-			for( int immig=0; immig<m_Migrants[i].PopulationSize(); ++immig )
-				m_Migrants[i].GetIndividual( immig )->CopyGeneFrom( pDestPopulation->GetIndividual( immig ) );
+			for( int immig=0; immig<m_Migrants[i].NumIndividuals(); ++immig )
+				m_Migrants[i].Individual( immig )->CopyGeneFrom( pDestPopulation->Individual( immig ) );
 
 		}// end of i loop
 

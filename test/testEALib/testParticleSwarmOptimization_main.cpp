@@ -1,4 +1,5 @@
-﻿#include	<crtdbg.h>
+﻿#include	<chrono>
+#include	<crtdbg.h>
 #include	<iostream>
 using namespace std;
 
@@ -84,6 +85,9 @@ int main( int argc, char **argv )
 {
 	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 
+	std::chrono::system_clock::time_point  start, end; // 型は auto で可
+	start = std::chrono::system_clock::now(); // 計測開始時間
+
 
 	//================ Init Evaluator ===============//
 	Evaluator Eval;
@@ -137,6 +141,11 @@ int main( int argc, char **argv )
 
 	DisplayPopulation( &g_SnapShot, true );
 
+
+	end = std::chrono::system_clock::now();  // 計測終了時間
+	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>( end-start ).count(); //処理に要した時間をミリ秒に変換
+
+	tcout << "time elapsed: " << elapsed << "[ms].\n";
 
 	return 0;
 }

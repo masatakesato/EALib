@@ -162,7 +162,7 @@ namespace ealib
 	//		m_ArchiveIndices.Init( m_Attrib.PopulationSize );
 
 
-	//		m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromosomeArray() );
+	//		m_Mutator.BindArchives( m_numActiveArchives, m_Population[archive].ChromArray() );
 
 	//		m_bReady = true;
 	//	}
@@ -225,8 +225,8 @@ namespace ealib
 
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
 		{
-			IChromosome *x_i	= m_Population[ parentGen ].GetIndividual( i );
-			IChromosome *t_i	= m_Population[ dummy ].GetIndividual( 0 );// 中間個体
+			IChromosome *x_i	= m_Population[ parentGen ].Individual( i );
+			IChromosome *t_i	= m_Population[ dummy ].Individual( 0 );// 中間個体
 			
 			//=================	DE_Current_to_pBest_1_Archive Mutation and Crossover	===================//			
 			// Select parents X{ x_i, pbest, x_i, x_r1, x_r2 }
@@ -245,7 +245,7 @@ namespace ealib
 			// 親個体と中間個体を比較して、適応度が高い個体を選択して次世代に残す
 			if( t_i->GetFitness() > x_i->GetFitness() )
 			{
-				m_Population[childGen].GetIndividual( i )->CopyGeneFrom( t_i );
+				m_Population[childGen].Individual( i )->CopyGeneFrom( t_i );
 				
 				sumF		+= m_Fs[id];
 				sumFSquare	+= m_Fs[id] * m_Fs[id];
@@ -257,7 +257,7 @@ namespace ealib
 			}
 			else
 			{
-				m_Population[childGen].GetIndividual( i )->CopyGeneFrom( x_i );
+				m_Population[childGen].Individual( i )->CopyGeneFrom( x_i );
 			}
 
 		}// end of i loop
@@ -269,7 +269,7 @@ namespace ealib
 			int archive_idx	= m_ArchiveIndices[i];
 			int dest_idx = m_numActiveArchives >= m_Attrib.PopulationSize ? (int)( OreOreLib::genrand_real2() * (double)m_Attrib.PopulationSize ) : m_numActiveArchives++;
 			
-			m_Population[archive].GetIndividual( dest_idx )->CopyGeneFrom( m_Population[parentGen].GetIndividual( archive_idx ) );
+			m_Population[archive].Individual( dest_idx )->CopyGeneFrom( m_Population[parentGen].Individual( archive_idx ) );
 		}
 
 

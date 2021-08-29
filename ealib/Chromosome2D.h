@@ -49,7 +49,7 @@ namespace ealib
 		// Pure Virtual Functions Override.
 		virtual IChromosome* GetChromosome( int i=0 ) const;
 		virtual IChromosome* GetChromosomeByType( int16 type ) const;
-		virtual int NumChromTypes() const			{ return m_ChromosomeArray.Length(); }//return m_NumChromTypes; }
+		virtual int NumChromTypes() const			{ return m_ChromosomeArray.Length(); }
 		//virtual int16 TypeInfo() const			{ return TYPE_UNKNOWN; }// Disabled
 		virtual int Size() const					{ return m_DesignParameters.Length(); }
 		virtual void* GetGene( int i=0 ) const		{ const Index2D& index = m_IndexMap.At(i); return m_ChromosomeArray[ index.first ]->GetGene( index.second ); }//{ const Index2D& index = m_pIndexMap->at(i); return m_ChromosomeArray[ index.first ]->GetGene( index.second ); }//
@@ -61,9 +61,8 @@ namespace ealib
 
 	private:
 		
-		//int				m_NumChromTypes;
-		OreOreLib::StaticArray<int, NUM_TYPES>	m_TypeToIndex;//int				m_ActiveTypes[ NUM_TYPES ];// 先頭から順にアクティブな "遺伝子の型" を詰め込む配列
-		OreOreLib::Array<IChromosome*>	m_ChromosomeArray;//[ NUM_TYPES ];
+		OreOreLib::StaticArray<int, NUM_TYPES>	m_TypeToIndex;// typeid to chrosomome element index conversion table
+		OreOreLib::Array<IChromosome*>	m_ChromosomeArray;
 
 		// m_KeyMapは名前重複があった場合の動作は保証しない. DesignParameterでKey(名前)を設定しない場合は、キー検索未登録扱いにする
 		OreOreLib::HashMap< tstring, Index2D, 128 >	m_KeyMap;

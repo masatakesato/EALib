@@ -148,10 +148,10 @@ namespace ealib
 
 	void ParticleSwarmOptimization::Step( Evaluator* pEval )
 	{
-		IChromosome** x		= m_Population[ individual ].ChromosomeArray();
-		IChromosome** pbest	= m_Population[ personalbest ].ChromosomeArray();
-		IChromosome** v		= m_Population[ velocity ].ChromosomeArray();
-		IChromosome* pgbest	= m_Population[ groupbest ].GetIndividual(0);
+		auto& x		= m_Population[ individual ].ChromArray();
+		auto& pbest	= m_Population[ personalbest ].ChromArray();
+		auto& v		= m_Population[ velocity ].ChromArray();
+		auto pgbest	= m_Population[ groupbest ].Individual(0);
 
 		// Update Best
 		int best = 0;
@@ -175,7 +175,7 @@ namespace ealib
 		// Update Individuals
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
 		{
-			//IChromosome* pbest	= m_Population[personalBest].GetIndividual(i);
+			//IChromosome* pbest	= m_Population[personalBest].Individual(i);
 			// Update Self position
 			IChromosome *x_i	= x[i];
 			IChromosome *v_i	= v[i];

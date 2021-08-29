@@ -169,8 +169,8 @@ namespace ealib
 
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
 		{
-			IChromosome *x_i	= m_Population[ parentGen ].GetIndividual( i );
-			IChromosome *t_i	= m_Population[ dummy ].GetIndividual( 0 );// 中間個体
+			IChromosome *x_i	= m_Population[ parentGen ].Individual( i );
+			IChromosome *t_i	= m_Population[ dummy ].Individual( 0 );// 中間個体
 
 			//=================	Mutation and Crossover	===================//
 			// Select parents X{ x_rand1, x_rand2, x_rand3 }
@@ -189,9 +189,9 @@ namespace ealib
 
 			// 親個体と中間個体を比較して、適応度が高い個体を選択して次世代に残す
 			if( t_i->GetFitness() > x_i->GetFitness() )
-				m_Population[childGen].GetIndividual( i )->CopyGeneFrom( t_i );
+				m_Population[childGen].Individual( i )->CopyGeneFrom( t_i );
 			else
-				m_Population[childGen].GetIndividual( i )->CopyGeneFrom( x_i );
+				m_Population[childGen].Individual( i )->CopyGeneFrom( x_i );
 
 		}// end of i loop
 		

@@ -74,7 +74,7 @@ namespace ealib
 			while( /*array[j]->GetFitness() > pivot*/fpCompare( array[j], pivot ) > 0 ){ --j; }  /* 枢軸以下の値が見つかるまで左方向へ進めていく */
 			if( i >= j )break;  // 軸がぶつかったらソート終了
 
-								// 入れ替え
+			// 入れ替え
 			temp = array[i];
 			array[i] = array[j];
 			array[j] = temp;
@@ -125,15 +125,15 @@ namespace ealib
 
 	// Copy constructor
 	Population::Population( const Population& obj )
-		: m_PopResult( obj.PopulationSize(), obj.NumObjectives() )
-		, m_ChromosomeArray( obj.m_ChromosomeArray )
+		: m_PopResult( obj.NumIndividuals(), obj.NumObjectives() )
+		, m_Individuals( obj.m_Individuals )
 	{
 
-		for( int i=0; i<m_ChromosomeArray.Length(); ++i )
+		for( int i=0; i<m_Individuals.Length(); ++i )
 		{
-			m_ChromosomeArray[i] = obj.m_ChromosomeArray[i]->Clone();
-			m_ChromosomeArray[i]->BindEvalResultView( &m_PopResult[i] );
-			m_PopResult[i].CopyFrom( obj.m_ChromosomeArray[i]->GetEvalResult() );
+			m_Individuals[i] = obj.m_Individuals[i]->Clone();
+			m_Individuals[i]->BindEvalResultView( &m_PopResult[i] );
+			m_PopResult[i].CopyFrom( obj.m_Individuals[i]->GetEvalResult() );
 		}
 	}
 
@@ -142,7 +142,7 @@ namespace ealib
 	// Move constructor
 	Population::Population( Population&& obj )
 		: m_PopResult( (PopulationResult&&)obj.m_PopResult )
-		, m_ChromosomeArray( (OreOreLib::Array<IChromosome*>&&)obj.m_ChromosomeArray )
+		, m_Individuals( (OreOreLib::Array<IChromosome*>&&)obj.m_Individuals )
 	{
 
 	}
@@ -156,14 +156,14 @@ namespace ealib
 		{
 			Release();
 
-			m_PopResult.Init( obj.PopulationSize(), obj.NumObjectives() );
-			m_ChromosomeArray.Init( obj.m_ChromosomeArray.Length() );
+			m_PopResult.Init( obj.NumIndividuals(), obj.NumObjectives() );
+			m_Individuals.Init( obj.m_Individuals.Length() );
 
-			for( int i=0; i<m_ChromosomeArray.Length(); ++i )
+			for( int i=0; i<m_Individuals.Length(); ++i )
 			{
-				m_ChromosomeArray[i] = obj.m_ChromosomeArray[i]->Clone();
-				m_ChromosomeArray[i]->BindEvalResultView( &m_PopResult[i] );
-				m_PopResult[i].CopyFrom( obj.m_ChromosomeArray[i]->GetEvalResult() );
+				m_Individuals[i] = obj.m_Individuals[i]->Clone();
+				m_Individuals[i]->BindEvalResultView( &m_PopResult[i] );
+				m_PopResult[i].CopyFrom( obj.m_Individuals[i]->GetEvalResult() );
 			}
 		}
 
@@ -179,8 +179,8 @@ namespace ealib
 		{
 			Release();
 
-			m_PopResult			= (PopulationResult&&)obj.m_PopResult;
-			m_ChromosomeArray	= (OreOreLib::Array<IChromosome*>&&)obj.m_ChromosomeArray;
+			m_PopResult		= (PopulationResult&&)obj.m_PopResult;
+			m_Individuals	= (OreOreLib::Array<IChromosome*>&&)obj.m_Individuals;
 		}
 
 		return *this;
@@ -198,13 +198,13 @@ namespace ealib
 
 		//===============	バッファを確保する	=================//
 		// 1世代分(入力用と出力用の2つ)のChromosome(設計変数)群の配列を確保する.
-		m_ChromosomeArray.Init( pop_size );
+		m_Individuals.Init( pop_size );
 
-		for( int i=0; i<m_ChromosomeArray.Length(); ++i )
+		for( int i=0; i<m_Individuals.Length(); ++i )
 		{
-			m_ChromosomeArray[i] = factory.Create( designParams );
-			m_ChromosomeArray[i]->SetID( i );
-			m_ChromosomeArray[i]->BindEvalResultView( &m_PopResult[i] );
+			m_Individuals[i] = factory.Create( designParams );
+			m_Individuals[i]->SetID( i );
+			m_Individuals[i]->BindEvalResultView( &m_PopResult[i] );
 		}
 	}
 
@@ -218,13 +218,13 @@ namespace ealib
 
 		//===============	バッファを確保する	=================//
 		// 1世代分(入力用と出力用の2つ)のChromosome(設計変数)群の配列を確保する.
-		m_ChromosomeArray.Init( pop_size );
+		m_Individuals.Init( pop_size );
 
-		for( int i=0; i<m_ChromosomeArray.Length(); ++i )
+		for( int i=0; i<m_Individuals.Length(); ++i )
 		{
-			m_ChromosomeArray[i] = pChromosome->Clone();
-			m_ChromosomeArray[i]->SetID( i );
-			m_ChromosomeArray[i]->BindEvalResultView( &m_PopResult[i] );
+			m_Individuals[i] = pChromosome->Clone();
+			m_Individuals[i]->SetID( i );
+			m_Individuals[i]->BindEvalResultView( &m_PopResult[i] );
 		}
 	}
 
@@ -233,9 +233,9 @@ namespace ealib
 	void Population::Release()
 	{
 		// Release Chromosomes
-		for( int i=0; i<m_ChromosomeArray.Length(); ++i )
-			SafeDelete( m_ChromosomeArray[i] );
-		m_ChromosomeArray.Release();
+		for( int i=0; i<m_Individuals.Length(); ++i )
+			SafeDelete( m_Individuals[i] );
+		m_Individuals.Release();
 
 		// Release results
 		m_PopResult.Release();
@@ -245,9 +245,9 @@ namespace ealib
 
 	void Population::CopyChromosomes( const Population* pSrc, int startidx )
 	{
-		int length = Min( pSrc->m_ChromosomeArray.Length(), m_ChromosomeArray.Length()-startidx );
+		int length = Min( pSrc->m_Individuals.Length(), m_Individuals.Length()-startidx );
 		for( int i=0; i<length; ++i )
-			m_ChromosomeArray[ i + startidx ]->CopyGeneFrom( pSrc->m_ChromosomeArray[ i ] );
+			m_Individuals[ i + startidx ]->CopyGeneFrom( pSrc->m_Individuals[ i ] );
 
 	}
 
@@ -262,8 +262,8 @@ namespace ealib
 
 	void Population::Initialize( Initializer* pInit, Evaluator* pEval )
 	{
-		for( int i=0; i<m_ChromosomeArray.Length(); ++i )
-			m_ChromosomeArray[i]->Initialize( pInit );
+		for( int i=0; i<m_Individuals.Length(); ++i )
+			m_Individuals[i]->Initialize( pInit );
 
 		Evaluate( pEval );
 	}
@@ -272,8 +272,8 @@ namespace ealib
 
 	void Population::Clear( Evaluator* pEval )
 	{
-		for( int i=0; i<m_ChromosomeArray.Length(); ++i )
-			m_ChromosomeArray[i]->ClearGene();
+		for( int i=0; i<m_Individuals.Length(); ++i )
+			m_Individuals[i]->ClearGene();
 
 		Evaluate( pEval );
 	}
@@ -282,8 +282,8 @@ namespace ealib
 
 	void Population::Evaluate( Evaluator* pEval )
 	{
-		for( int i=0; i<m_ChromosomeArray.Length(); ++i )
-			pEval->Evaluate( m_ChromosomeArray[i] );
+		for( int i=0; i<m_Individuals.Length(); ++i )
+			pEval->Evaluate( m_Individuals[i] );
 
 		Sort( SORT_MODE::SORT_FITNESS_DESCEND );// 適応度が高い順にソートする
 	}
@@ -291,18 +291,18 @@ namespace ealib
 
 	void Population::Sort( SORT_MODE mode )
 	{
-		QuickSort( m_ChromosomeArray.begin(), 0, m_ChromosomeArray.Length()-1, c_CompareFuncs[mode] );
+		QuickSort( m_Individuals.begin(), 0, m_Individuals.Length()-1, c_CompareFuncs[mode] );
 	}
 
 
 	void Population::Shuffle()
 	{
-		for( int i=0; i<m_ChromosomeArray.Length(); ++i )
+		for( int i=0; i<m_Individuals.Length(); ++i )
 		{
-			int j = int( OreOreLib::genrand_real2() * m_ChromosomeArray.Length() );
-			IChromosome* temp		= m_ChromosomeArray[i];
-			m_ChromosomeArray[i]	= m_ChromosomeArray[j];
-			m_ChromosomeArray[j]	= temp;
+			int j = int( OreOreLib::genrand_real2() * m_Individuals.Length() );
+			IChromosome* temp	= m_Individuals[i];
+			m_Individuals[i]	= m_Individuals[j];
+			m_Individuals[j]	= temp;
 		}// end of i loop	
 
 	}

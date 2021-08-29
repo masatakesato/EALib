@@ -28,7 +28,7 @@ namespace ealib
 	// Population display function
 	void DisplayPopulation( const Population* pop, bool viewgene )
 	{
-		if( pop->PopulationSize()==0 )
+		if( pop->NumIndividuals()==0 )
 		{
 			tcout << typeid(*pop).name() << _T("...Empty\n");
 			return;
@@ -39,13 +39,13 @@ namespace ealib
 		tcout << typeid(*pop).name() << _T(":\n");
 
 		tcout << _T( "  Best " );
-		DisplayChromosome( pop->GetIndividual(0), viewgene );
+		DisplayChromosome( pop->Individual(0), viewgene );
 
 		tcout << _T( "  Worst " );
-		DisplayChromosome( pop->GetIndividual(pop->PopulationSize()-1), viewgene );
+		DisplayChromosome( pop->Individual(pop->NumIndividuals()-1), viewgene );
 
 		//for( int i=0; i<num; ++i )
-		//	DisplayChromosome( pop->GetIndividual(i), viewgene );
+		//	DisplayChromosome( pop->Individual(i), viewgene );
 	}
 
 

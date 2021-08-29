@@ -232,10 +232,10 @@ namespace ealib
 	{
 		for( int i=0; i<m_Parents.Length(); ++i )
 		{
-			IChromosome* p1	= pParentPopulation->GetIndividual( m_Parents[i].first );
-			IChromosome* p2	= pParentPopulation->GetIndividual( m_Parents[i].second );
-			IChromosome* c1	= pChildPopulation->GetIndividual( i*2 );
-			IChromosome* c2	= ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->GetIndividual( i*2+1 ) : m_Population[ dummy ].GetIndividual(0);
+			IChromosome* p1	= pParentPopulation->Individual( m_Parents[i].first );
+			IChromosome* p2	= pParentPopulation->Individual( m_Parents[i].second );
+			IChromosome* c1	= pChildPopulation->Individual( i*2 );
+			IChromosome* c2	= ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->Individual( i*2+1 ) : m_Population[ dummy ].Individual(0);
 
 			float crossProb	= float( OreOreLib::genrand_real1() );
 			
@@ -262,7 +262,7 @@ namespace ealib
 	void NSGA2::Mutate( Population* pPopulation )
 	{
 		for( int i=0; i<m_Attrib.PopulationSize-m_Attrib.EliteSize; ++i )
-			m_refMutator->Execute( pPopulation->GetIndividual(i), m_SGAAttrib.MutationRate );
+			m_refMutator->Execute( pPopulation->Individual(i), m_SGAAttrib.MutationRate );
 
 	}
 
@@ -275,8 +275,8 @@ namespace ealib
 		int dst_start	= m_Attrib.PopulationSize - m_Attrib.EliteSize;
 		for( int i=0; i<m_Attrib.EliteSize; ++i )
 		{
-			pParent	= pParentPopulation->GetIndividual(i);
-			pChild	= pChildPopulation->GetIndividual( dst_start+i );
+			pParent	= pParentPopulation->Individual(i);
+			pChild	= pChildPopulation->Individual( dst_start+i );
 
 			pChild->CopyGeneFrom( pParent );
 		}
@@ -525,14 +525,14 @@ namespace ealib
 	// 交叉処理を行う
 	void MixedNSGA2::Crossover( Population* pParentPopulation, Population* pChildPopulation )
 	{
-		int numChromTypes = pParentPopulation->GetIndividual(0)->NumChromTypes();
+		int numChromTypes = pParentPopulation->Individual(0)->NumChromTypes();
 
 		for( int i=0; i<m_Parents.Length(); ++i )
 		{
-			IChromosome* p1	= pParentPopulation->GetIndividual( m_Parents[i].first );
-			IChromosome* p2	= pParentPopulation->GetIndividual( m_Parents[i].second );
-			IChromosome* c1	= pChildPopulation->GetIndividual( i*2 );
-			IChromosome* c2	= ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->GetIndividual( i*2+1 ) : m_Population[ dummy ].GetIndividual(0);
+			IChromosome* p1	= pParentPopulation->Individual( m_Parents[i].first );
+			IChromosome* p2	= pParentPopulation->Individual( m_Parents[i].second );
+			IChromosome* c1	= pChildPopulation->Individual( i*2 );
+			IChromosome* c2	= ( i*2+1 )<( m_Attrib.PopulationSize-m_Attrib.EliteSize ) ? pChildPopulation->Individual( i*2+1 ) : m_Population[ dummy ].Individual(0);
 
 			float crossProb	= float( OreOreLib::genrand_real1() );
 
@@ -570,7 +570,7 @@ namespace ealib
 	{
 		for( int i=0; i<m_Attrib.PopulationSize-m_Attrib.EliteSize; ++i )
 		{
-			Chromosome2D* pChrom = (Chromosome2D*)( pPopulation->GetIndividual(i) );
+			Chromosome2D* pChrom = (Chromosome2D*)( pPopulation->Individual(i) );
 
 			for( int j=0; j<pChrom->NumChromTypes(); ++j )
 				m_refMutator->Execute( pChrom->GetChromosome(j), m_SGAAttrib.MutationRate );
@@ -587,8 +587,8 @@ namespace ealib
 		int dst_start	= m_Attrib.PopulationSize - m_Attrib.EliteSize;
 		for( int i=0; i<m_Attrib.EliteSize; ++i )
 		{
-			pParent	= pParentPopulation->GetIndividual( i );
-			pChild	= pChildPopulation->GetIndividual( dst_start+i );
+			pParent	= pParentPopulation->Individual( i );
+			pChild	= pChildPopulation->Individual( dst_start+i );
 
 			pChild->CopyGeneFrom( pParent );
 		}

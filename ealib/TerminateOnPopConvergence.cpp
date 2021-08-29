@@ -40,8 +40,8 @@ namespace ealib
 	//	bool result = false;
 
 	//	
-	//	float max_fitness	= stat->BestFitness( currSeq % interval );//ga.GetPopulation()->GetIndividual( 0 )->GetFitness();
-	//	float min_fitness	= stat->WorstFitness( currSeq % interval );//ga.GetPopulation()->GetIndividual( ga.GetPopulation()->PopulationSize()-1 )->GetFitness();
+	//	float max_fitness	= stat->BestFitness( currSeq % interval );//ga.GetPopulation()->Individual( 0 )->GetFitness();
+	//	float min_fitness	= stat->WorstFitness( currSeq % interval );//ga.GetPopulation()->Individual( ga.GetPopulation()->NumIndividuals()-1 )->GetFitness();
 
 	//	if( max_fitness== 0 )//ga.statistics().current( GAStatistics::Maximum ) == 0 )
 	//	{

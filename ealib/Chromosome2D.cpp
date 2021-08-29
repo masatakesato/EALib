@@ -16,7 +16,6 @@ namespace ealib
 
 	Chromosome2D::Chromosome2D()
 		: IChromosome()
-		//, m_NumChromTypes( 0 )
 		//, m_ChromosomeArray{}
 		//, m_pKeyMap( std::make_unique< std::unordered_map<tstring, Index2D> >() )
 		//, m_pIndexMap( std::make_unique< std::unordered_map<int, Index2D> >() )
@@ -28,7 +27,6 @@ namespace ealib
 
 	Chromosome2D::Chromosome2D( const DesignParamArray& designParams )
 		: IChromosome()
-		//, m_NumChromTypes( 0 )
 		//, m_ChromosomeArray{}
 		//, m_pKeyMap( std::make_unique< std::unordered_map<tstring, Index2D> >() )
 		//, m_pIndexMap( std::make_unique< std::unordered_map<int, Index2D> >() )
@@ -46,11 +44,8 @@ namespace ealib
 		m_CurrentEval	= obj.m_CurrentEval;
 		m_pResult		= nullptr;
 
-		//m_NumChromTypes	= 0;
-		//memset( m_ChromosomeArray, 0, sizeof(IChromosome*) * NUM_TYPES );//	= nullptr;
 		ClearTypeToIndex();
 
-		//if( obj.m_NumChromTypes > 0 )
 		DeepCopyChromosomeArray( obj );
 	}
 
@@ -73,9 +68,6 @@ namespace ealib
 		m_CurrentEval	= obj.m_CurrentEval;
 		m_pResult		= nullptr;
 
-		//m_NumChromTypes		= 0;
-		//memset( m_ChromosomeArray, 0, sizeof(IChromosome*) * NUM_TYPES );//	= nullptr;
-		//if( obj.m_NumChromTypes > 0 )
 		DeepCopyChromosomeArray( obj );
 
 		return *this;
@@ -108,7 +100,7 @@ namespace ealib
 		std::sort( m_DesignParameters.begin(), m_DesignParameters.end(), []( const DesignParameter& a, const DesignParameter& b ){ return ( a.TypeID() < b.TypeID() ); } );
 
 
-		// Initialize Type-to-ChromosomeArray Index convertion table
+		// Initialize Type-to-ChromosomeIndex conversion table
 		int chromTypeCount = 0;
 
 		ClearTypeToIndex();
@@ -131,23 +123,8 @@ namespace ealib
 			}
 		}
 
-
-		// 最初に、"遺伝子の型"が何種類あるか、また各種類何個ずつ含まれるか調べる
-		//m_NumChromTypes	= 0;
-
-//		for( int type=0; type<NUM_TYPES; ++type )
-//		{
-//			numParamsPerType[type]	= (int)std::count_if( m_DesignParameters.begin(), m_DesignParameters.end(), [&]( const DesignParameter& a ){ return a.TypeID()==type; } );
-
-//			if( numParamsPerType[type] > 0 )
-//				m_ActiveTypes[ m_NumChromTypes++ ] = type;
-
-//		}// end of type loop
-
-
-		// Allocate ChromosomeArray
+		// Allocate Chromosome Array
 		m_ChromosomeArray.Init( chromTypeCount );
-
 
 
 		int paramStartIdx = 0;
@@ -297,28 +274,20 @@ namespace ealib
 	{
 		auto psrc = (Chromosome2D*)pSrc;
 
-		//for( int i=0; i<m_NumChromTypes; ++i )
-		//{
-		//	int type = psrc->m_ActiveTypes[i];
-		//	m_ChromosomeArray[ type ]->CopyGeneFrom( psrc->m_ChromosomeArray[ type ] );
-		//}
-
-		for( auto* chrom : m_ChromosomeArray )//int i=0; i<m_ChromosomeArray.Length(); ++i )
+		for( auto* chrom : m_ChromosomeArray )
 		{
-			int16 type = chrom->TypeInfo();//m_ChromosomeArray[i]->TypeInfo();
-			chrom->CopyGeneFrom( psrc->GetChromosomeByType( type ) );//m_ChromosomeArray[i]->CopyGeneFrom( psrc->GetChromosomeByType( type ) );
+			int16 type = chrom->TypeInfo();
+			chrom->CopyGeneFrom( psrc->GetChromosomeByType( type ) );
 		}
-
 		
-		if( m_pResult )	m_pResult->CopyFrom( psrc->m_pResult );
+		if( m_pResult )
+			m_pResult->CopyFrom( psrc->m_pResult );
 	}
 
 
 
 	void Chromosome2D::ClearGene()
 	{
-		//for( int i=0; i<m_NumChromTypes; ++i )
-		//	m_ChromosomeArray[ m_ActiveTypes[i] ]->ClearGene();
 		for( auto* chrom : m_ChromosomeArray )
 			chrom->ClearGene();
 	}
@@ -328,8 +297,6 @@ namespace ealib
 	// Override IChromosome's Initialize()
 	void Chromosome2D::Initialize( Initializer* pInit )
 	{
-		//for( int i=0; i<m_NumChromTypes; ++i )
-		//	m_ChromosomeArray[ m_ActiveTypes[i] ]->Initialize( pInit );
 		for( auto* chrom : m_ChromosomeArray )
 			chrom->Initialize( pInit );
 	}
@@ -338,7 +305,7 @@ namespace ealib
 
 	IChromosome* Chromosome2D::GetChromosome( int i ) const
 	{
-		return m_ChromosomeArray[i];//  m_ActiveTypes[i] );//return *( m_ChromosomeArray + m_ActiveTypes[i] );
+		return m_ChromosomeArray[i];
 	}
 
 
@@ -380,20 +347,10 @@ namespace ealib
 
 	void Chromosome2D::DeepRemoveChromosomeArray()
 	{
-		//if( m_ChromosomeArray )
-		//{
-		//	for( int i=0; i<NUM_TYPES; ++i )
-		//	{
-		//		if( m_ChromosomeArray[i] )
-		//			SafeDelete( m_ChromosomeArray[i] );
-		//	}
-		//}
-
 		for( auto* chrom: m_ChromosomeArray )
 			SafeDelete( chrom );
 		m_ChromosomeArray.Release();
 
-		//m_NumChromTypes	= 0;
 		ClearTypeToIndex();
 		
 		m_KeyMap.Clear();//m_pKeyMap->clear();//

@@ -76,7 +76,7 @@ namespace ealib
 		{
 			m_currSeq	= 0;
 			m_Sequence.Clear();
-			m_Sequence[0].first = pop.GetIndividual( 0 )->GetFitness();
+			m_Sequence[0].first = pop.Individual( 0 )->GetFitness();
 		}
 
 		if( m_NumLogs > 0 )
@@ -95,8 +95,8 @@ namespace ealib
 		// Set Convergence
 		++m_currSeq;
 		int currIdx = m_currSeq % m_Sequence.Length();
-		m_Sequence[ currIdx ].first		= pop.GetIndividual( 0 )->GetFitness();
-		m_Sequence[ currIdx ].second	= pop.GetIndividual( pop.PopulationSize()-1 )->GetFitness();
+		m_Sequence[ currIdx ].first		= pop.Individual( 0 )->GetFitness();
+		m_Sequence[ currIdx ].second	= pop.Individual( pop.NumIndividuals()-1 )->GetFitness();
 	}
 
 

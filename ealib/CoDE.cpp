@@ -153,12 +153,12 @@ namespace ealib
 
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
 		{
-			IChromosome* x_i = m_Population[parentGen].GetIndividual( i );
+			IChromosome* x_i = m_Population[parentGen].Individual( i );
 
 			//====================== current-to-rand/1/bin =========================//
 			// Select parents X{ current, rand2, rand3, rand4, rand5 }
 			m_DE_Current_to_Rand_1.Execute( X_Current_to_Rand_1, i );
-			IChromosome* t_i_best1bin = m_Population[trialGen].GetIndividual( 0 );// Trial vector1
+			IChromosome* t_i_best1bin = m_Population[trialGen].Individual( 0 );// Trial vector1
 			t_i_best1bin->CopyGeneFrom( x_i );
 			
 			// Generate trial offspring t_i_best1bin
@@ -171,7 +171,7 @@ namespace ealib
 			//========================== rand/1/bin ====================//
 			// Select parents X{ rand1, rand2, rand3 }
 			m_DE_Rand_1.Execute( X_Rand_1, i );
-			IChromosome* t_i_rand1bin	= m_Population[trialGen].GetIndividual( 1 );// Trial vector2
+			IChromosome* t_i_rand1bin	= m_Population[trialGen].Individual( 1 );// Trial vector2
 			t_i_rand1bin->CopyGeneFrom( x_i );
 			
 			// Generate trial offspring t_i_rand1bin
@@ -184,7 +184,7 @@ namespace ealib
 			//====================== rand/2/bin =========================//
 			// Select parents X{ rand1, rand2, rand3, rand4, rand5 }
 			m_DE_Rand_2.Execute( X_Rand_2, i );
-			IChromosome* t_i_rand2bin	= m_Population[trialGen].GetIndividual( 2 );// Trial vector3
+			IChromosome* t_i_rand2bin	= m_Population[trialGen].Individual( 2 );// Trial vector3
 			t_i_rand2bin->CopyGeneFrom( x_i );
 			
 			// Generate trial offspring t_i_rand2bin
@@ -194,15 +194,15 @@ namespace ealib
 			pEval->Evaluate( t_i_rand2bin );
 			
 			m_Population[trialGen].Sort( Population::SORT_FITNESS_DESCEND );
-			IChromosome *pbest = m_Population[trialGen].GetIndividual( 0 );
+			IChromosome *pbest = m_Population[trialGen].Individual( 0 );
 
 
 			//======================	Selection	=======================//
 			// 親個体と中間個体を比較して、適応度が高い個体を選択して次世代に残す
 			if( pbest->GetFitness() > x_i->GetFitness() )
-				m_Population[childGen].GetIndividual( i )->CopyGeneFrom( pbest );
+				m_Population[childGen].Individual( i )->CopyGeneFrom( pbest );
 			else
-				m_Population[childGen].GetIndividual( i )->CopyGeneFrom( x_i );
+				m_Population[childGen].Individual( i )->CopyGeneFrom( x_i );
 
 		}// end of i loop
 
@@ -403,7 +403,7 @@ namespace ealib
 
 	void MixedCoDE::Step( Evaluator* pEval )
 	{
-		int numChromTypes = m_Population[parentGen].GetIndividual(0)->NumChromTypes();
+		int numChromTypes = m_Population[parentGen].Individual(0)->NumChromTypes();
 
 		static OreOreLib::StaticArray<const IChromosome*, 11> X;// = { nullptr, nullptr, nullptr, nullptr, nullptr };
 		static OreOreLib::StaticArray<IChromosome*, 1> T;// = { nullptr };
@@ -420,12 +420,12 @@ namespace ealib
 
 		for( int i=0; i<m_Attrib.PopulationSize; ++i )
 		{
-			Chromosome2D* x_i	= (Chromosome2D *)m_Population[parentGen].GetIndividual( i );
+			Chromosome2D* x_i	= (Chromosome2D *)m_Population[parentGen].Individual( i );
 
 			//====================== best/1/bin =========================//
 			// Select parents X{ best, rand1, rand2 }
 			m_DE_Best_1.Execute( X_Best_1, i );
-			IChromosome *t_i_best1bin	= m_Population[trialGen].GetIndividual( 0 );//Chromosome2D *t_i_best1bin = (Chromosome2D *)m_Population[trialGen].GetIndividual( 0 );// Trial vector1
+			IChromosome *t_i_best1bin	= m_Population[trialGen].Individual( 0 );//Chromosome2D *t_i_best1bin = (Chromosome2D *)m_Population[trialGen].Individual( 0 );// Trial vector1
 			t_i_best1bin->CopyGeneFrom( x_i );
 			
 			// Generate trial offspring t_i_best1bin
@@ -438,7 +438,7 @@ namespace ealib
 			//========================== rand/1/bin ====================//
 			// Select parents X{ rand1, rand2, rand3 }
 			m_DE_Rand_1.Execute( X_Rand_1, i );
-			IChromosome* t_i_rand1bin	= m_Population[trialGen].GetIndividual( 1 );//Chromosome2D *t_i_rand1bin	= (Chromosome2D *)m_Population[trialGen].GetIndividual( 1 );// Trial vector2
+			IChromosome* t_i_rand1bin	= m_Population[trialGen].Individual( 1 );//Chromosome2D *t_i_rand1bin	= (Chromosome2D *)m_Population[trialGen].Individual( 1 );// Trial vector2
 			t_i_rand1bin->CopyGeneFrom( x_i );
 			
 			// Generate trial offspring t_i_rand1bin
@@ -451,7 +451,7 @@ namespace ealib
 			//====================== rand/2/bin =========================//
 			// 中間個体を生成する
 			m_DE_Rand_2.Execute( X_Rand_2, i );
-			IChromosome* t_i_rand2bin = m_Population[trialGen].GetIndividual( 2 );//Chromosome2D *t_i_rand2bin	= (Chromosome2D *)m_Population[trialGen].GetIndividual( 2 );// Trial vector3
+			IChromosome* t_i_rand2bin = m_Population[trialGen].Individual( 2 );//Chromosome2D *t_i_rand2bin	= (Chromosome2D *)m_Population[trialGen].Individual( 2 );// Trial vector3
 			t_i_rand2bin->CopyGeneFrom( x_i );
 			
 			// Generate trial offspring t_i_rand2bin
@@ -461,15 +461,15 @@ namespace ealib
 			pEval->Evaluate( t_i_rand2bin );
 			
 			m_Population[trialGen].Sort( Population::SORT_FITNESS_DESCEND );
-			IChromosome *pbest = m_Population[trialGen].GetIndividual( 0 );
+			IChromosome *pbest = m_Population[trialGen].Individual( 0 );
 
 
 			//======================	Selection	=======================//
 			// 親個体と中間個体を比較して、適応度が高い個体を選択して次世代に残す
 			if( pbest->GetFitness() > x_i->GetFitness() )
-				m_Population[childGen].GetIndividual( i )->CopyGeneFrom( pbest );
+				m_Population[childGen].Individual( i )->CopyGeneFrom( pbest );
 			else
-				m_Population[childGen].GetIndividual( i )->CopyGeneFrom( x_i );
+				m_Population[childGen].Individual( i )->CopyGeneFrom( x_i );
 
 		}// end of i loop
 		
