@@ -304,6 +304,50 @@ namespace ealib
 	//using DesignParamArray = OreOreLib::Array<DesignParameter>;
 
 
+
+	//##################### helper functions(temporary implementation) #########################//
+
+
+//	extern CLASS_DECLSPEC bool AddDesignParam( DesignParamArray& params, const DesignParameter& p );
+
+//	extern CLASS_DECLSPEC bool RemoveDesignParam( DesignParamArray& params, const tstring& key );
+
+//	extern CLASS_DECLSPEC bool SetBoundary( DesignParamArray& params, const tstring& key, lower, upper );
+
+
+
+
+
+	//class DesignParameters
+	//{
+	//public:
+
+	//	// Constructor
+	//	DesignParameters();
+
+	//	// Destructor
+	//	~DesignParameters();
+
+
+	//	void Add( const DesignParameter& param );
+	//	void Remove( const tstring& key );
+	//	void Clear();
+
+	//	void Display();
+
+
+
+	//private:
+
+	//	OreOreLib::Memory<DesignParameter>	m_Params;
+
+
+
+	//};
+
+
+
+
 }// end of namespace
 
 
