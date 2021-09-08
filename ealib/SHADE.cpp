@@ -634,11 +634,10 @@ namespace ealib
 			m_Mutator.Execute( X, i );
 
 			// Generate offspring t_i
-			T[0] = x_i;
+			T[0] = t_i;
 			t_i->CopyGeneFrom( x_i );
 			DEAttribute attr = { m_Fs[id], m_CRs[id],  m_Fs[id] };
 			m_refCrossover->Execute( X, T, &attr );
-			//m_refCrossover->Execute( 5, &X[0], 1, &T[0], &attr );
 			pEval->Evaluate( t_i );
 
 

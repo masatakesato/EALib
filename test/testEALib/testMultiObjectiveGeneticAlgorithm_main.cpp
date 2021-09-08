@@ -4,7 +4,7 @@ using namespace std;
 
 #include	<oreore/common/TString.h>
 #include	<oreore/mathlib/MersenneTwister.h>
-#include	<oreore/MathLib.h>
+#include	<oreore/mathlib/GraphicsMath.h>
 
 
 #include	"ealib/NSGA2.h"

@@ -300,19 +300,42 @@ namespace ealib
 
 
 
-	using DesignParamArray =  OreOreLib::Memory<DesignParameter>;
-	//using DesignParamArray = OreOreLib::Array<DesignParameter>;
+//	using DesignParamArray =  OreOreLib::Memory<DesignParameter>;
+	using DesignParamArray = OreOreLib::Array<DesignParameter>;
 
 
 
 	//##################### helper functions(temporary implementation) #########################//
 
 
-//	extern CLASS_DECLSPEC bool AddDesignParam( DesignParamArray& params, const DesignParameter& p );
+	inline static bool AddDesignParam( DesignParamArray& params, const DesignParameter& p )
+	{
+		auto idx = OreOreLib::FindIf( params, [&]( const DesignParameter& x ){ return x.Key()==p.Key(); } );
 
-//	extern CLASS_DECLSPEC bool RemoveDesignParam( DesignParamArray& params, const tstring& key );
+		if( idx>=0 )
+			params[idx] = p;
+		else
+			params.AddToTail( p );
 
-//	extern CLASS_DECLSPEC bool SetBoundary( DesignParamArray& params, const tstring& key, lower, upper );
+	}
+
+
+
+	inline static bool RemoveDesignParam( DesignParamArray& params, const tstring& key )
+	{
+
+
+	}
+
+
+
+	template < typename T >
+	inline static bool SetBoundary( DesignParamArray& params, const tstring& key, const T& lower, const T& upper )
+	{
+
+
+
+	}
 
 
 
