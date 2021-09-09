@@ -22,7 +22,7 @@ namespace ealib
 		IChromosome( const IChromosome& obj );
 		virtual ~IChromosome();
 
-		virtual void Init( const DesignParamArray& parameters );
+		virtual bool Init( const DesignParamArray& parameters );
 		virtual void Release();
 
 		void BindEvalResultView( EvalResultView* result );
@@ -39,6 +39,17 @@ namespace ealib
 
 		float Fitness( int idx ) const				{ return m_pResult->Fitness( idx ); }
 		void SetFitness( float fitness, int idx )	{ m_pResult->Fitness( idx ) = fitness; }
+
+
+		const DesignParamArray* GetDesignParamArray() const	{ return &m_DesignParameters; }
+		void ExtractOrderRestoredDesignParamArray( DesignParamArray& params )
+		{
+			params.Init( m_DesignParameters.Length() );// = m_DesignParameters;
+
+			for( const auto& p : m_DesignParameters )
+				params[ p.SequentialID() ] = p;
+		}
+
 
 
 		const EvalResultView* EvalResult() const		{ return m_pResult; }

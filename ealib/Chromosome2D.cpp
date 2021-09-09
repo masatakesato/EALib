@@ -73,10 +73,11 @@ namespace ealib
 
 
 
-	void Chromosome2D::Init( const DesignParamArray& designParams )
+	bool Chromosome2D::Init( const DesignParamArray& designParams )
 	{
 		// Init IChromosome members
-		IChromosome::Init( designParams );
+		if( !IChromosome::Init( designParams ) )
+			return false;
 
 		// Init Chromosome2D members
 		DeepRemoveChromosomeArray();
@@ -86,9 +87,6 @@ namespace ealib
 		// Preparation for Chromosome1D array generation 
 		for( int i=0; i<m_DesignParameters.Length(); ++i )
 		{
-			// Assign SequentialID to each design parameter ( for accessing chromosome/degisnparam by index )
-			m_DesignParameters[i].SetSequentialID( i );
-
 			// Accumulate num of parameters for each type
 			int16 type = m_DesignParameters[i].TypeID();
 			if( type >=0 && type <NUM_TYPES )	numParamsPerType[ type ]++;
@@ -148,6 +146,8 @@ namespace ealib
 
 		}// end of i loop
 		
+		return true;
+
 	}
 
 

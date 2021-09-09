@@ -38,13 +38,20 @@ namespace ealib
 
 
 
-	void IChromosome::Init( const DesignParamArray& parameters )
+	bool IChromosome::Init( const DesignParamArray& parameters )
 	{
+		if( !parameters )
+			return false;
+
 		m_DesignParameters	= parameters;
+		for( int i=0; i<m_DesignParameters.Length(); ++i )
+			m_DesignParameters[i].SetSequentialID( i );// Assign SequentialID
 
 		m_CurrentEval	= 0;
 		m_pResult		= nullptr;
 		m_ID			= -1;
+
+		return true;
 	}
 
 

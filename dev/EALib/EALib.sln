@@ -96,8 +96,19 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testMultiObjectiveGeneticAl
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testChromosomeFactory", "testChromosomeFactory\testChromosomeFactory.vcxproj", "{00389734-DA66-4F2C-8FFB-3720EE9CCCCC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7602C059-4141-45AA-9069-56D847518BE0} = {7602C059-4141-45AA-9069-56D847518BE0}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testPopulation", "testPopulation\testPopulation.vcxproj", "{22EA21B3-339F-42C8-A71B-F9638BA06BBD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7602C059-4141-45AA-9069-56D847518BE0} = {7602C059-4141-45AA-9069-56D847518BE0}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testDesignParameter", "testDesignParameter\testDesignParameter.vcxproj", "{13A00E98-8B40-40B8-9DA3-C487F4A81F68}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7602C059-4141-45AA-9069-56D847518BE0} = {7602C059-4141-45AA-9069-56D847518BE0}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -189,6 +200,10 @@ Global
 		{22EA21B3-339F-42C8-A71B-F9638BA06BBD}.Debug|x64.Build.0 = Debug|x64
 		{22EA21B3-339F-42C8-A71B-F9638BA06BBD}.Release|x64.ActiveCfg = Release|x64
 		{22EA21B3-339F-42C8-A71B-F9638BA06BBD}.Release|x64.Build.0 = Release|x64
+		{13A00E98-8B40-40B8-9DA3-C487F4A81F68}.Debug|x64.ActiveCfg = Debug|x64
+		{13A00E98-8B40-40B8-9DA3-C487F4A81F68}.Debug|x64.Build.0 = Debug|x64
+		{13A00E98-8B40-40B8-9DA3-C487F4A81F68}.Release|x64.ActiveCfg = Release|x64
+		{13A00E98-8B40-40B8-9DA3-C487F4A81F68}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

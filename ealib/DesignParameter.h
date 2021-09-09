@@ -307,35 +307,103 @@ namespace ealib
 
 	//##################### helper functions(temporary implementation) #########################//
 
+	template < typename T >
+	typename std::enable_if_t< std::is_arithmetic_v<T>, void >
+	SetBoundaryFromStr( DesignParameter& param, const TCHAR* str_min, const TCHAR* str_max )
+	{
+		param.SetBoundary<T>( str_min, str_max );
+	}
+
+
+	template < typename T >
+	typename std::enable_if_t< std::is_same_v<T, BitArray>, void > 
+	SetBoundaryFromStr( DesignParameter& param, const TCHAR* str_min, const TCHAR* str_max )
+	{
+		param.SetBoundary<int>( str_min, str_max );
+		param.SetType( TYPE_ID<BitArray> );
+	}
+
+
+
+
 
 	inline static bool AddDesignParam( DesignParamArray& params, const DesignParameter& p )
 	{
-		auto idx = OreOreLib::FindIf( params, [&]( const DesignParameter& x ){ return x.Key()==p.Key(); } );
+		int idx = (int)OreOreLib::FindIf( params, [&]( const DesignParameter& x ){ return x.Key()==p.Key(); } );
 
 		if( idx>=0 )
 			params[idx] = p;
 		else
 			params.AddToTail( p );
 
+		return true;
 	}
 
 
 
 	inline static bool RemoveDesignParam( DesignParamArray& params, const tstring& key )
 	{
+		int idx = (int)OreOreLib::FindIf( params, [&]( const DesignParameter& x ){ return x.Key()==key; } );
 
+		if( idx==-1 )
+			return false;
 
+		params.Remove( idx );
+
+		return true;
 	}
-
 
 
 	template < typename T >
 	inline static bool SetBoundary( DesignParamArray& params, const tstring& key, const T& lower, const T& upper )
 	{
+		int idx = (int)OreOreLib::FindIf( params, [&]( const DesignParameter& x ){ return x.Key()==key; } );
 
+		if( idx==-1 )
+			return false;
 
+		//params[idx].SetBoundary( lower, upper );
+		if( std::is_same_v<T, BitArray> )
+		{
+			params[idx].SetBoundary<int>( (int)lower, (int)upper );
+			params[idx].SetType( TYPE_ID<BitArray> );
+		}
+		else
+		{
+			params[idx].SetBoundary<T>( lower, upper );
+		}
 
+		return true;
 	}
+
+
+
+	template < typename T >
+	inline static bool SetBoundaryFromString( DesignParamArray& params, const tstring& key, const TCHAR* str_lower, const TCHAR* str_upper )
+	{
+		int idx = (int)OreOreLib::FindIf( params, [&]( const DesignParameter& x ){ return x.Key()==key; } );
+
+		if( idx==-1 )
+			return false;
+
+		//SetBoundaryFromStr<T>(	params[idx], str_lower, str_upper );
+		if( std::is_same_v<T, BitArray> )
+		{
+			params[idx].SetBoundary<int>( str_lower, str_upper );
+			params[idx].SetType( TYPE_ID<BitArray> );
+		}
+		else
+		{
+			params[idx].SetBoundary<T>( str_lower, str_upper );
+		}
+
+		return true;
+	}
+
+
+
+
+
 
 
 
@@ -359,6 +427,9 @@ namespace ealib
 	//	void Display();
 
 
+
+	// operatorでキーアクセスできるようにする
+	// operatorでインデックスアクセスできるようにする
 
 	//private:
 

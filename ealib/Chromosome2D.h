@@ -29,7 +29,7 @@ namespace ealib
 
 		Chromosome2D &operator=( const Chromosome2D& obj );
 		
-		virtual void Init( const DesignParamArray& designParams );
+		virtual bool Init( const DesignParamArray& designParams );
 		virtual void Release();
 
 		bool SetKey( int i, const tstring& newkey );
@@ -43,7 +43,11 @@ namespace ealib
 		
 		// Virtual Functions Override
 		virtual void Initialize( Initializer* pInit );
-		virtual DesignParameter* GetDesignParameter( int i )				const { const Index2D& index = m_IndexMap.At( i ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//{ const Index2D& index = m_pIndexMap->at( i ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//
+		virtual DesignParameter* GetDesignParameter( int i )				const
+		{
+			const Index2D& index = m_IndexMap.At( i );
+			return m_Chromosomes[ index.first ]->GetDesignParameter( index.second );
+		}//{ const Index2D& index = m_pIndexMap->at( i ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//
 		virtual DesignParameter* GetDesignParameter( const tstring& key )	const { const Index2D& index = m_KeyMap.At( key ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//{ const Index2D& index = m_pKeyMap->at( key ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//
 
 		// Pure Virtual Functions Override.

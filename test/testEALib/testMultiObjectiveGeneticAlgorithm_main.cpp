@@ -173,13 +173,9 @@ int main( int argc, char **argv )
 	Eval.BindObjectiveFunction( &g_SineCurve, SOLVE_MODE::MAXIMIZE );
 
 
-	Chromosome1D<float>	chromosome1;
-
-	chromosome1.Init( designParams );
-
 	Population	pop;
 
-	pop.Init( &chromosome1, 7, Eval.NumObjectives() );
+	pop.Init( designParams, 7, Eval.NumObjectives() );
 
 	const Vec2f result[] ={
 		Vec2f( 0.0, 0.0 ),

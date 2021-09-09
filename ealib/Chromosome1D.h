@@ -33,21 +33,7 @@ namespace ealib
 		Chromosome1D( const DesignParamArray& parameters )
 			: IChromosome()
 		{
-			// Init m_DesignParamerers
-			m_DesignParameters = parameters;
-
-			// Init Chromosome1D members
-			m_TypeInfo = (*parameters.begin()).TypeID();
-			m_GeneArray.Init( m_DesignParameters.Length() );
-
-			// Build key map
-			int i=0;
-			for( const auto& param : m_DesignParameters )
-			{
-				tstring key	= param.Key();
-				if( key.length()>0 )
-					m_KeyMap[ key ] = i++;//(*m_pKeyMap)[key] = i++;//
-			}
+			Init( parameters );
 		}
 
 
@@ -88,10 +74,11 @@ namespace ealib
 		}
 
 		
-		virtual void Init( const DesignParamArray& parameters )
+		virtual bool Init( const DesignParamArray& parameters )
 		{
 			// Init IChromosome members
-			IChromosome::Init( parameters );
+			if( !IChromosome::Init( parameters ) )
+				return false;
 
 			// Init Chromosome1D members
 			m_TypeInfo		= (*parameters.begin()).TypeID();
@@ -107,6 +94,7 @@ namespace ealib
 					m_KeyMap[key] = i++;//(*m_pKeyMap)[key] = i++;//
 			}
 
+			return true;
 		}
 
 

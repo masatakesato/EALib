@@ -50,38 +50,51 @@ int main( int argc, char **argv )
 	Chromosome1D<int32> chromosome1d_int;
 	IO.LoadChromosome1D( chromosome1d_int, params );
 	DisplayChromosome( &chromosome1d_int, true );
-	//chromosome1d_int.Release();
-
-
-	//Chromosome1D chromosome1d_float;
-	//InitChromosome1DFromCSV( chromosome1d_float, _T( "data.csv" ), TYPE_ID<float32> );
-	//DisplayChromosome( &chromosome1d, true );
-	//chromosome1d_float.Release();
-
 
 	Chromosome2D chromosome2d;
 	IO.LoadChromosome2D( chromosome2d, params );
 	DisplayChromosome( &chromosome2d, true );
-	//chromosome2d.Release();
 
 
+	{
+		tcout << _T( "//===================== Exporting single snapshots ====================//\n" );
 
-	//g_Population.Init( &chromosome1d_int, 16 );
-	g_Population.Init( pChromosome, 16, Eval.NumObjectives() );
-	g_Population.Initialize( &initRandom, &Eval );
+		tstring outpath = _T( "snapshot.csv" );
 
-	IO.ExportSnapshot( &g_Population, _T( "snapshot.csv" ) );
+		DesignParamArray designparams;
 
+		pChromosome->ExtractOrderRestoredDesignParamArray( designparams );
+		g_Population.Init( designparams, 16, Eval.NumObjectives() );
+		g_Population.Initialize( &initRandom, &Eval );
 
+		IO.ExportSnapshot( &g_Population, outpath );
+
+		tcout << _T("  Exported to file ") << outpath << tendl;
+
+	}
+
+	tcout << tendl;
+
+	{
+		tcout << _T( "//==================== Exporting composed snapshots ===================//\n" );
+
+		tstring outpath = _T( "composed_snapshots.csv" );
+
+		DesignParamArray designparams;
+
+		pChromosome->ExtractOrderRestoredDesignParamArray( designparams );
+		g_Populations[0].Init( designparams, 16, Eval.NumObjectives() );
+		g_Populations[0].Initialize( &initRandom, &Eval );
+
+		chromosome2d.ExtractOrderRestoredDesignParamArray( designparams );
+		g_Populations[1].Init( *chromosome2d.GetDesignParamArray(), 50, Eval.NumObjectives() );
+		g_Populations[1].Initialize( &initRandom, &Eval );
+
+		IO.ExportSnapshots( 2, g_Populations, outpath );
 	
-	g_Populations[0].Init( pChromosome, 16, Eval.NumObjectives() );
-	g_Populations[0].Initialize( &initRandom, &Eval );
+		tcout << _T("  Exported to file ") <<  outpath << tendl << tendl;
 
-	g_Populations[1].Init( &chromosome2d, 50, Eval.NumObjectives() );
-	g_Populations[1].Initialize( &initRandom, &Eval );
-
-	IO.ExportSnapshots( 2, g_Populations, _T( "composed_snapshots.csv" ) );
-	
+	}
 
 
 	SafeDelete( pChromosome );

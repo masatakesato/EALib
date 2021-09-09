@@ -273,7 +273,7 @@ namespace ealib
 			const int& popsize		= m_Attrib.PopulationSize;
 			const int& islandsize	= m_MIGAAttrib.IslandSize;
 
-			pOut.Init( m_pSolverArray[0]->GetPopulation()->Individual(0), popsize * islandsize, m_Migrants[0].NumObjectives() );
+			pOut.Init( *m_pSolverArray[0]->GetPopulation()->GetDesignParamArray(), popsize * islandsize, m_Migrants[0].NumObjectives() );
 
 			for( int i=0; i<islandsize; ++i )
 				pOut.CopyChromosomes( m_pSolverArray[i]->GetPopulation(), i*popsize );

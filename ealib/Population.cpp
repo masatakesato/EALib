@@ -108,10 +108,10 @@ namespace ealib
 
 
 	// Constructor
-	Population::Population( const IChromosome* pChromosome, int pop_size, int num_objectives )
-	{
-		Init( pChromosome, pop_size, num_objectives );
-	}
+	//Population::Population( const IChromosome* pChromosome, int pop_size, int num_objectives )
+	//{
+	//	Init( pChromosome, pop_size, num_objectives );
+	//}
 
 
 
@@ -210,23 +210,23 @@ namespace ealib
 
 
 
-	void Population::Init( const IChromosome* pChromosome, int pop_size, int num_objectives )
-	{
-		Release();
-				
-		m_PopResult.Init( pop_size, num_objectives );
+	//void Population::Init( const IChromosome* pChromosome, int pop_size, int num_objectives )
+	//{
+	//	Release();
+	//			
+	//	m_PopResult.Init( pop_size, num_objectives );
 
-		//===============	バッファを確保する	=================//
-		// 1世代分(入力用と出力用の2つ)のChromosome(設計変数)群の配列を確保する.
-		m_Individuals.Init( pop_size );
+	//	//===============	バッファを確保する	=================//
+	//	// 1世代分(入力用と出力用の2つ)のChromosome(設計変数)群の配列を確保する.
+	//	m_Individuals.Init( pop_size );
 
-		for( int i=0; i<m_Individuals.Length(); ++i )
-		{
-			m_Individuals[i] = pChromosome->Clone();
-			m_Individuals[i]->SetID( i );
-			m_Individuals[i]->BindEvalResultView( &m_PopResult[i] );
-		}
-	}
+	//	for( int i=0; i<m_Individuals.Length(); ++i )
+	//	{
+	//		m_Individuals[i] = pChromosome->Clone();
+	//		m_Individuals[i]->SetID( i );
+	//		m_Individuals[i]->BindEvalResultView( &m_PopResult[i] );
+	//	}
+	//}
 
 
 
