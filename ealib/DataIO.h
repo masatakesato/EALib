@@ -40,6 +40,8 @@ namespace ealib
 		// CSV loader
 		bool LoadCSV( const tstring& filename, ParamSetArray& params );
 
+		bool LoadDesignParams( DesignParamArray& designparams, const tstring& filepath );
+
 
 		// Chromosome loader
 		IChromosome* LoadChromosome( const tstring& filepath );

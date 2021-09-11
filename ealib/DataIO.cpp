@@ -235,6 +235,44 @@ namespace ealib
 
 
 
+	bool DataIO::LoadDesignParams( DesignParamArray& designParams, const tstring& filepath )
+	{
+		//====================== Load CSV file ======================//
+		ParamSetArray params;
+		if( !LoadCSV( filepath, params ) )
+			return false;
+
+
+		//==================== Create DesignParameters ===================//
+		designParams.Init( params.Length() );
+
+		for( int i=0; i<params.Length(); ++i )
+		{
+			OreOreLib::ArrayView<tstring> data( params[i] );
+			
+			int16 type = g_TypeInfoDict.Exists( data[1] ) ? g_TypeInfoDict.At( data[1] ) : TYPE_UNKNOWN;
+			if( type == TYPE_UNKNOWN )	continue;
+
+			designParams[i].SetType( type );
+			designParams[i].SetSamplingType( SamplingType::Enumerated );
+			designParams[i].SetBoundaryType( BoundaryType::Inclusive, BoundaryType::Inclusive );
+			designParams[i].SetKey( data[0] );
+
+			// Initialize arithmetic parameters
+			c_InitDesignParamFuncs[ type ]
+			(
+				&designParams[i],
+				data[0].c_str(),// key
+				data[2].c_str(), data[3].c_str(), data[4].c_str()// lower, upper, default_value
+			);
+		}
+
+
+		return true;
+	}
+
+
+
 	IChromosome* DataIO::LoadChromosome( const tstring& filepath )
 	{
 
@@ -266,7 +304,7 @@ namespace ealib
 			(
 				&designParams[i],
 				data[0].c_str(),// key
-				data[2].c_str(), data[3].c_str(), data[4].c_str()// min, max, default_value
+				data[2].c_str(), data[3].c_str(), data[4].c_str()// lower, upper, default_value
 			);
 		}
 
@@ -299,7 +337,7 @@ namespace ealib
 			(
 				&designParams[i],
 				data[0].c_str(),
-				data[2].c_str(), data[3].c_str(), data[4].c_str()
+				data[2].c_str(), data[3].c_str(), data[4].c_str()// lower, upper, default_value
 			);
 
 			typecounts[ type ]++;
