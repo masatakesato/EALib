@@ -355,10 +355,76 @@ namespace ealib
 
 
 
-	inline static int FindDesignParameter( DesignParamArray& params, const tstring& key )
+	inline static int FindDesignParameter( const DesignParamArray& params, const tstring& key )
 	{
 		return (int)OreOreLib::FindIf( params, [&]( const DesignParameter& x ){ return x.Key()==key; } );
 	}
+
+
+
+	template < typename T >
+	inline int NumElementsByType( const DesignParamArray& params )
+	{
+		int typeCount = 0;
+		for( const auto& p : params )
+		{
+			if( p.TypeID() == TYPE_ID<T> )
+				typeCount++;
+		}
+
+		return typeCount;
+	}
+
+
+
+	inline int NumDesignParamTypes( const DesignParamArray& params )
+	{
+		int16 type = params[0].TypeID();
+		int numTypes = 0;
+
+		for( int i=0; i<params.Length(); ++i )
+		{
+			if( i==params.Length()-1 )
+			{
+				numTypes++;
+				break;
+			}
+
+			int16 type_next = params[i+1].TypeID();
+
+			if( type != type_next )
+			{
+				numTypes++;
+				type = type_next;
+			}
+		}
+
+		return numTypes;
+	}
+
+
+
+	template < typename T >
+	inline static bool FilterDesignParamsByType( DesignParamArray& out, const DesignParamArray& params )
+	{
+		int numParams = NumElementsByType<T>( params );
+
+		if( numParams==0 )
+			return false;
+
+		out.Init( numParams );
+
+		auto* dest = out.begin();
+		for( const auto& p : params )
+		{
+			if( p.TypeID() == TYPE_ID<T> )
+				*dest++ = p;
+		}
+
+		return true;
+	}
+
+
 
 
 

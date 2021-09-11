@@ -76,6 +76,8 @@ namespace ealib
 		
 		virtual bool Init( const DesignParamArray& parameters )
 		{
+			assert( NumDesignParamTypes( parameters )==1 );
+
 			// Init IChromosome members
 			if( !IChromosome::Init( parameters ) )
 				return false;

@@ -11,15 +11,8 @@ int main( int argc, char **argv )
 	DataIO IO;
 	RandomInitializer initRandom;
 
-
-	//tcout << "//============== IO.LoadChromosome( _T( \"data.csv\" ) ================//\n\n";
-
-	//IChromosome *pChromosome	= IO.LoadChromosome( _T( "data.csv" ) );
-	//pChromosome->Initialize( &initRandom );
-	//DisplayChromosome( pChromosome, true );
-	//SafeDelete( pChromosome );
-
-	//tcout << tendl;
+	DesignParamArray designParams;
+	IO.LoadDesignParams( designParams, _T( "data.csv" ) );
 
 
 
@@ -34,14 +27,10 @@ int main( int argc, char **argv )
 
 
 
-	DataIO::ParamSetArray params;
-	IO.LoadCSV( _T("data.csv"), params );
-
-
 	tcout << "//======= IO.LoadChromosome1D_<int32>( chromosome1d__i32, params ) ========//\n\n";
 
 	Chromosome1D<int32> chromosome1d__i32;
-	IO.LoadChromosome1D( chromosome1d__i32, params );
+	IO.LoadChromosome1D( chromosome1d__i32, _T("data.csv") );
 	DisplayChromosome( &chromosome1d__i32, true );
 	chromosome1d__i32.Release();
 
@@ -51,7 +40,7 @@ int main( int argc, char **argv )
 	tcout << "//======= IO.LoadChromosome1D<float32>( chromosome1d__f32, params ) ========//\n\n";
 
 	Chromosome1D<float32> chromosome1d__f32;
-	IO.LoadChromosome1D( chromosome1d__f32, params );
+	IO.LoadChromosome1D( chromosome1d__f32, _T("data.csv") );
 	DisplayChromosome( &chromosome1d__f32, true );
 	chromosome1d__f32.Release();
 
@@ -61,7 +50,7 @@ int main( int argc, char **argv )
 	tcout << "//============== IO.LoadChromosome2D( chromosome2d, params ) ================//\n\n";
 
 	Chromosome2D chromosome2d;
-	IO.LoadChromosome2D( chromosome2d, params );
+	IO.LoadChromosome2D( chromosome2d, _T("data.csv") );
 	DisplayChromosome( &chromosome2d, true );
 	chromosome2d.Release();
 

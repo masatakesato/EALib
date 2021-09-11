@@ -44,15 +44,12 @@ int main( int argc, char **argv )
 	//SafeDelete( pChromosome );
 
 	
-	DataIO::ParamSetArray params;
-	IO.LoadCSV( _T( "data.csv" ), params );
-
 	Chromosome1D<int32> chromosome1d_int;
-	IO.LoadChromosome1D( chromosome1d_int, params );
+	IO.LoadChromosome1D( chromosome1d_int, _T("data.csv") );
 	DisplayChromosome( &chromosome1d_int, true );
 
 	Chromosome2D chromosome2d;
-	IO.LoadChromosome2D( chromosome2d, params );
+	IO.LoadChromosome2D( chromosome2d, _T("data.csv") );
 	DisplayChromosome( &chromosome2d, true );
 
 
@@ -87,7 +84,7 @@ int main( int argc, char **argv )
 		g_Populations[0].Initialize( &initRandom, &Eval );
 
 		chromosome2d.ExtractOrderRestoredDesignParamArray( designparams );
-		g_Populations[1].Init( *chromosome2d.GetDesignParamArray(), 50, Eval.NumObjectives() );
+		g_Populations[1].Init( designparams, 50, Eval.NumObjectives() );
 		g_Populations[1].Initialize( &initRandom, &Eval );
 
 		IO.ExportSnapshots( 2, g_Populations, outpath );

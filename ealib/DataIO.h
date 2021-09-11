@@ -34,33 +34,26 @@ namespace ealib
 	{
 	public:
 
-		using ParamSet = OreOreLib::Array< tstring >;
-		using ParamSetArray = OreOreLib::Array< ParamSet >;
-
-		// CSV loader
-		bool LoadCSV( const tstring& filename, ParamSetArray& params );
-
 		bool LoadDesignParams( DesignParamArray& designparams, const tstring& filepath );
-
 
 		// Chromosome loader
 		IChromosome* LoadChromosome( const tstring& filepath );
-
-		template < typename T >
-		bool LoadChromosome1D( Chromosome1D<T>& chromosome, const ParamSetArray& params );
-		bool LoadChromosome2D( Chromosome2D& chromosome, const ParamSetArray& params );
-
+		template < typename T > bool LoadChromosome1D( Chromosome1D<T>& chromosome, const tstring& filepath );
+		bool LoadChromosome2D( Chromosome2D& chromosome, const tstring& filepath );
 
 		// Experimental implementation
 		bool ExportSnapshot( const Population* population, const tstring& filepath );
 		bool ExportSnapshots( int num, const Population populations[], const tstring& filepath );
 
 
-
 	private:
 
-		int CountType( const ParamSetArray& params, int16 type );
-		ParamSet SplitString( tstring& input, TCHAR delimiter );
+		using StrParamSet = OreOreLib::Array< tstring >;
+		using StrParamSetArray = OreOreLib::Array< StrParamSet >;
+
+
+		bool LoadCSV( StrParamSetArray& params, const tstring& filename );
+		StrParamSet SplitString( tstring& input, TCHAR delimiter );
 		tstring CreateSnapshotString( const Population* population );
 
 		static tstring (* c_NumericToTString[ NUM_TYPES ] )( const void* );
@@ -72,53 +65,24 @@ namespace ealib
 
 
 	template < typename T >
-	inline bool DataIO::LoadChromosome1D( Chromosome1D<T>& chromosome, const ParamSetArray& params )
+	inline bool DataIO::LoadChromosome1D( Chromosome1D<T>& chromosome, const tstring& filepath )
 	{
-		//==================== Create DesignParameters ===================//
-		int16 type = TYPE_ID<T>;
+		//============== Load DesignParameters from CSV ============//
+		DesignParamArray designParams, designParamsT;
+		LoadDesignParams( designParams, filepath );
 
-		int descCount = CountType( params, type );
-		if( descCount==0 )	return false;
 
-		DesignParamArray designParams( descCount );
-
-		int i=0;
-		for( const auto& row : params )
-		{
-			OreOreLib::ArrayView<tstring> data( row.begin(), row.Length() );
-
-			// reject unknown type data
-			if( !g_TypeInfoDict.Exists( data[1] ) )
-				continue;
-
-			// reject unspecified data type
-			if( type != g_TypeInfoDict.At( data[1] ) )
-				continue;
-
-			designParams[i].SetKey( data[0] );
-			designParams[i].SetType( type );
-			designParams[i].SetSamplingType( SamplingType::Enumerated );
-			designParams[i].SetBoundaryType( BoundaryType::Inclusive, BoundaryType::Inclusive );
-
-			c_InitDesignParamFuncs[ designParams[i].TypeID() ]
-			(
-				&designParams[i],
-				data[0].c_str(),// key
-				data[2].c_str(), data[3].c_str(), data[4].c_str()// min, max, default_value
-			);
-
-			++i;
-		}
+		//=================== Filter by type ======================//
+		FilterDesignParamsByType<T>( designParamsT, designParams );
 
 
 		//==================== Init Chromsomes ===================//
+		if( !designParamsT )
+			return false;
 
-		// Allocate
-		chromosome.Init( designParams );
-
-
-		return true;
+		return chromosome.Init( designParamsT );
 	}
+
 
 
 }// end of namespace

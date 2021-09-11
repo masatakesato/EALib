@@ -111,11 +111,42 @@ namespace ealib
 	//##################################################################################################//
 
 
-	DataIO::ParamSet DataIO::SplitString( tstring& input, TCHAR delimiter )
+	bool DataIO::LoadCSV( StrParamSetArray& lines, const tstring& filepath )
+	{
+		tifstream ifs( filepath );
+		if( !ifs.is_open() )
+			return false;
+
+		tstring line;
+		while( getline( ifs, line ) )
+		{
+			// ignore line starting with "#"
+			if( line.find(_T("#")) == 0 )
+				continue;
+
+			auto line_elms = SplitString( line, ',' );
+
+			// ignore missing data
+			if( line_elms.Length() != 5 )
+				continue;	
+
+			// ignore unknown type data
+			if( !g_TypeInfoDict.Exists( line_elms[1] ) )
+				continue;
+
+			lines.AddToTail( line_elms );
+		}
+
+		return !lines.Empty();
+	}
+
+
+
+	DataIO::StrParamSet DataIO::SplitString( tstring& input, TCHAR delimiter )
 	{
 		tistringstream stream( input );
 		tstring field;
-		ParamSet result;
+		StrParamSet result;
 
 		while( getline( stream, field, delimiter ) )
 		{
@@ -123,20 +154,6 @@ namespace ealib
 		}
 
 		return result;
-	}
-
-
-
-	int DataIO::CountType( const ParamSetArray& params, int16 type )
-	{
-		int typeCount = 0;
-		for( const auto& data : params )
-		{
-			if( type == g_TypeInfoDict.At( data[1] ) )
-				typeCount++;
-		}
-
-		return typeCount;
 	}
 
 
@@ -201,45 +218,11 @@ namespace ealib
 	//##################################################################################################//
 
 
-
-	bool DataIO::LoadCSV( const tstring& filepath, ParamSetArray& lines )
-	{
-		tifstream ifs( filepath );
-		if( !ifs.is_open() )
-			return false;
-
-		tstring line;
-		while( getline( ifs, line ) )
-		{
-			// ignore line starting with "#"
-			if( line.find(_T("#")) == 0 )
-				continue;
-
-			auto line_elms = SplitString( line, ',' );
-
-			// ignore missing data
-			if( line_elms.Length() != 5 )
-				continue;	
-
-			// ignore unknown type data
-			if( !g_TypeInfoDict.Exists( line_elms[1] ) )
-				continue;
-
-			lines.AddToTail( line_elms );
-		}
-
-
-		return !lines.Empty();
-
-	}
-
-
-
 	bool DataIO::LoadDesignParams( DesignParamArray& designParams, const tstring& filepath )
 	{
 		//====================== Load CSV file ======================//
-		ParamSetArray params;
-		if( !LoadCSV( filepath, params ) )
+		StrParamSetArray params;
+		if( !LoadCSV( params, filepath ) )
 			return false;
 
 
@@ -275,38 +258,13 @@ namespace ealib
 
 	IChromosome* DataIO::LoadChromosome( const tstring& filepath )
 	{
+		//============ Load DesignParameters from CSV ============//
+		DesignParamArray designParams;
 
-		IChromosome* pChromosome = nullptr;
+		LoadDesignParams( designParams, filepath );
 
-		//====================== Load CSV file ======================//
-		ParamSetArray params;
-		if( !LoadCSV( filepath, params ) )
-			return nullptr;
-
-
-		//==================== Create DesignParameters ===================//
-		DesignParamArray designParams( params.Length() );
-
-		for( int i=0; i<params.Length(); ++i )
-		{
-			OreOreLib::ArrayView<tstring> data( params[i] );
-			
-			int16 type = g_TypeInfoDict.Exists( data[1] ) ? g_TypeInfoDict.At( data[1] ) : TYPE_UNKNOWN;
-			if( type == TYPE_UNKNOWN )	continue;
-
-			designParams[i].SetType( type );
-			designParams[i].SetSamplingType( SamplingType::Enumerated );
-			designParams[i].SetBoundaryType( BoundaryType::Inclusive, BoundaryType::Inclusive );
-			designParams[i].SetKey( data[0] );
-
-			// Initialize arithmetic parameters
-			c_InitDesignParamFuncs[ type ]
-			(
-				&designParams[i],
-				data[0].c_str(),// key
-				data[2].c_str(), data[3].c_str(), data[4].c_str()// lower, upper, default_value
-			);
-		}
+		if( !designParams )
+			return false;
 
 		
 		//==================== Create Chromsomes ===================//
@@ -315,48 +273,19 @@ namespace ealib
 
 
 
-	bool DataIO::LoadChromosome2D( Chromosome2D& chromosome, const ParamSetArray& params )
+	bool DataIO::LoadChromosome2D( Chromosome2D& chromosome, const tstring& filepath )
 	{
-		//==================== Create DesignParameters ===================//
-		DesignParamArray designParams( params.Length() );
-		int typecounts[ NUM_TYPES ] = { 0 };
+		//============ Load DesignParameters from CSV ============//
+		DesignParamArray designParams;
 
-		for( int i=0; i<params.Length(); ++i )
-		{
-			OreOreLib::ArrayView<tstring> data( params[i] );
+		LoadDesignParams( designParams, filepath );
 
-			int16 type = g_TypeInfoDict.Exists( data[1] ) ? g_TypeInfoDict.At( data[1] ) : TYPE_UNKNOWN;
-			if( type == TYPE_UNKNOWN )	continue;
-
-			designParams[i].SetType( type );
-			designParams[i].SetSamplingType( SamplingType::Enumerated );
-			designParams[i].SetBoundaryType( BoundaryType::Inclusive, BoundaryType::Inclusive );
-			designParams[i].SetKey( data[0] );
-
-			c_InitDesignParamFuncs[ type ]
-			(
-				&designParams[i],
-				data[0].c_str(),
-				data[2].c_str(), data[3].c_str(), data[4].c_str()// lower, upper, default_value
-			);
-
-			typecounts[ type ]++;
-		}
+		if( !designParams )
+			return false;
 
 
 		//==================== Init Chromsomes ===================//
-		int numtypes = 0;
-		for( int i=0; i<NUM_TYPES; ++i )
-			numtypes += int(typecounts[i]>0);
-
-		if( numtypes == 0 )
-			return false;
-
-		// Allocate
-		chromosome.Init( designParams );
-
-
-		return true;
+		return chromosome.Init( designParams );
 	}
 
 
