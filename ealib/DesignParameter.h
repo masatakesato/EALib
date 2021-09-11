@@ -354,6 +354,14 @@ namespace ealib
 	}
 
 
+
+	inline static int FindDesignParameter( DesignParamArray& params, const tstring& key )
+	{
+		return (int)OreOreLib::FindIf( params, [&]( const DesignParameter& x ){ return x.Key()==key; } );
+	}
+
+
+
 	template < typename T >
 	inline static bool SetBoundary( DesignParamArray& params, const tstring& key, const T& lower, const T& upper )
 	{
