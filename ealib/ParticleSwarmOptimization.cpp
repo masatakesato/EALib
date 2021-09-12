@@ -148,10 +148,10 @@ namespace ealib
 
 	void ParticleSwarmOptimization::Step( Evaluator* pEval )
 	{
-		auto& x		= m_Population[ individual ].Indivuduals();
-		auto& pbest	= m_Population[ personalbest ].Indivuduals();
-		auto& v		= m_Population[ velocity ].Indivuduals();
-		auto pgbest	= m_Population[ groupbest ].Individual(0);
+		auto& x			= m_Population[ individual ].Indivuduals();
+		auto& pbest		= m_Population[ personalbest ].Indivuduals();
+		auto& v			= m_Population[ velocity ].Indivuduals();
+		auto* pgbest	= m_Population[ groupbest ].Individual(0);
 
 		// Update Best
 		int best = 0;
@@ -185,28 +185,28 @@ namespace ealib
 
 			for( int j=0; j<x_i->Size(); ++j )
 			{
-				DesignParameter* pDParam = x_i->GetDesignParameter( j );
-				float* x_i_j	= x_i->GeneAs<float>( j );
-				float* v_i_j	= v_i->GeneAs<float>( j );
+				const DesignParameter& pDParam = x_i->GetDesignParameter( j );
+				float& x_i_j	= x_i->GeneAs<float>( j );
+				float& v_i_j	= v_i->GeneAs<float>( j );
 
 				// こっちはベクトルの更新
-				*v_i_j	= m_PSOAttrib.W * *v_i_j + lambda1 * ( *pbest[i]->GeneAs<float>(j) - *x_i_j ) + lambda2 * ( *pgbest->GeneAs<float>(j) - *x_i_j );
+				v_i_j	= m_PSOAttrib.W * v_i_j + lambda1 * ( pbest[i]->GeneAs<float>(j) - x_i_j ) + lambda2 * ( pgbest->GeneAs<float>(j) - x_i_j );
 
 				// 位置を更新する
-				*x_i_j	= *v_i_j + *x_i_j;
+				x_i_j	= v_i_j + x_i_j;
 
-				float lbound	= pDParam->LowerBoundary<float>();
-				float ubound	= pDParam->UpperBoundary<float>();
+				float lbound	= pDParam.LowerBoundary<float>();
+				float ubound	= pDParam.UpperBoundary<float>();
 
-				if( *x_i_j > ubound )
+				if( x_i_j > ubound )
 				{
-					*x_i_j	= ubound - fabs( *x_i_j - ubound );
-					*v_i_j *= -1.0f;
+					x_i_j	= ubound - fabs( x_i_j - ubound );
+					v_i_j *= -1.0f;
 				}
-				else if( *x_i_j < lbound )
+				else if( x_i_j < lbound )
 				{
-					*x_i_j	= lbound + fabs( *x_i_j - lbound );
-					*v_i_j *= -1.0f;
+					x_i_j	= lbound + fabs( x_i_j - lbound );
+					v_i_j *= -1.0f;
 				}
 
 

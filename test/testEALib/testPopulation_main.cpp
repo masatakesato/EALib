@@ -27,14 +27,14 @@ int main( int argc, char **argv )
 	tcout << "//======================= pop.Init( designParams, 16, 1 ); ============================//\n";
 	Population pop;
 	pop.Init( designParams, 16, 1 );
-	DisplayPopulation( &pop, true );
+	DisplayPopulation( pop, true );
 
 	tcout << tendl;
 
 
 	tcout << "//======================= Population pop2( designParams, 16, 1 ); ============================//\n";
 	Population pop2( designParams, 16, 1 );
-	DisplayPopulation( &pop2, true );
+	DisplayPopulation( pop2, true );
 
 
 	return 0;

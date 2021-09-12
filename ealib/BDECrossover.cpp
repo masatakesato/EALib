@@ -39,10 +39,10 @@ namespace ealib
 
 		for( int i=0; i<pTrial->Size(); ++i )
 		{
-			const auto* pParentBitArray = pParent->GeneAs<BitArray>(i);
-			auto pTrialBitArray = pTrial->GeneAs<BitArray>(i);
+			const auto& pParentBitArray = pParent->GeneAs<BitArray>(i);
+			auto& pTrialBitArray = pTrial->GeneAs<BitArray>(i);
 
-			int numParams	= pTrialBitArray->BitLength();
+			int numParams	= pTrialBitArray.BitLength();
 			int jrand		= int( OreOreLib::genrand_real2() * numParams );
 
 			// Select Crossover point from dimension
@@ -53,11 +53,11 @@ namespace ealib
 				{
 					if( OreOreLib::genrand_real1() < pAttrib->F/*MUT*/ )
 					{
-						pTrialBitArray->Flip( j );// Mutation
+						pTrialBitArray.Flip( j );// Mutation
 					}
 					else
 					{
-						pTrialBitArray->SetBit( j, pParentBitArray->GetBit( j ) );// Crossover
+						pTrialBitArray.SetBit( j, pParentBitArray.GetBit( j ) );// Crossover
 					}
 				}
 
@@ -77,10 +77,10 @@ namespace ealib
 
 		for( int i=0; i<pTrial->Size(); ++i )
 		{
-			const auto* pBParent = pParent->GeneAs<BitArray>(i);
-			auto pBTrial = pTrial->GeneAs<BitArray>(i);
+			const auto& pBParent = pParent->GeneAs<BitArray>(i);
+			auto& pBTrial = pTrial->GeneAs<BitArray>(i);
 
-			int numParams	= pBTrial->BitLength();
+			int numParams	= pBTrial.BitLength();
 			int jrand		= int( OreOreLib::genrand_real2() * numParams );
 
 			// Select Crossover point from dimension
@@ -91,11 +91,11 @@ namespace ealib
 				{
 					if( OreOreLib::genrand_real1() < pAttrib->F/*MUT*/ )
 					{
-						pBTrial->Flip( j );// Mutation
+						pBTrial.Flip( j );// Mutation
 					}
 					else
 					{
-						pBTrial->SetBit( j, pBParent->GetBit( j ) );// Crossover
+						pBTrial.SetBit( j, pBParent.GetBit( j ) );// Crossover
 					}
 				}
 

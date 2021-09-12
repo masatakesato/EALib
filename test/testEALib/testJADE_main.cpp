@@ -28,7 +28,7 @@ public:
 
 		for( int i=0; i<chromosome->Size(); ++i )
 		{
-			float xi = *chromosome->GeneAs<float>( i );
+			float xi = chromosome->GeneAs<float>( i );
 			result	+= ( xi * xi -10.0f * cos( 2.0f*M_PI*xi ) );
 		}
 
@@ -179,7 +179,7 @@ int main( int argc, char **argv )
 		g_SGASolver.TakeSnapshot( g_SnapShot );
 		g_SGASolver.ReleasePopulation();
 	
-		DisplayPopulation( &g_SnapShot, true );
+		DisplayPopulation( g_SnapShot, true );
 	//}
 
 	tcout << tendl;
@@ -206,7 +206,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 	tcout << tendl;
 
@@ -231,7 +231,7 @@ int main( int argc, char **argv )
 		g_jDESolver.TakeSnapshot( g_SnapShot );
 		g_jDESolver.ReleasePopulation();
 
-		DisplayPopulation( &g_SnapShot, true );
+		DisplayPopulation( g_SnapShot, true );
 	}
 
 	tcout << tendl;
@@ -259,7 +259,7 @@ int main( int argc, char **argv )
 		g_JADESolver.TakeSnapshot( g_SnapShot );
 		g_JADESolver.ReleasePopulation();
 
-		DisplayPopulation( &g_SnapShot, true );
+		DisplayPopulation( g_SnapShot, true );
 	}
 
 	return 0;

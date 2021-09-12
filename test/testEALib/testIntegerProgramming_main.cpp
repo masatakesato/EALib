@@ -25,8 +25,8 @@ class IntegerPrpblem : public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		float x = (float)( *chromosome->GeneAs<int>( 0 ) );
-		float y = (float)( *chromosome->GeneAs<int>( 1 ) );
+		float x = (float)( chromosome->GeneAs<int>( 0 ) );
+		float y = (float)( chromosome->GeneAs<int>( 1 ) );
 
 		bool const1 = x > 1.0f;
 		bool const2 = y > ( 0.25f * x - 0.5f );

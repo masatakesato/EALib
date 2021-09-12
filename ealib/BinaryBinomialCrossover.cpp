@@ -33,16 +33,16 @@ namespace ealib
 
 		for( int i=0; i<pTrial->Size(); ++i )
 		{
-			const auto* pParentBitArray1 = parents[0]->GeneAs<BitArray>(i);
-			auto pTrialBitArray = pTrial->GeneAs<BitArray>(i);
+			const auto& pParentBitArray1 = parents[0]->GeneAs<BitArray>(i);
+			auto& pTrialBitArray = pTrial->GeneAs<BitArray>(i);
 
-			int numParams	= pTrialBitArray->BitLength();
+			int numParams	= pTrialBitArray.BitLength();
 			int jrand		= int( OreOreLib::genrand_real2() * numParams );
 
 			// Select Crossover point from dimention
 			for( int j=0; j<numParams; ++j )
 			{
-				uint32 t_j = pTrialBitArray->GetBit( j );
+				uint32 t_j = pTrialBitArray.GetBit( j );
 
 				// Crossover
 				if( OreOreLib::genrand_real1() < pAttrib->CR || j==jrand )
@@ -50,11 +50,11 @@ namespace ealib
 					// Apply Mutation. parents[0] + F * ( parents[1] - parents[2] ) + F * ( parents[3] - parents[4] )...
 					uint32 accum = 0;
 					for( int k=1; k<numparents; k+=2 )
-						accum |= ( uint32(parents[k]->GeneAs<BitArray>(i)->GetBit( j )) ^ uint32(parents[k+1]->GeneAs<BitArray>(i)->GetBit( j )) );// altered '+=' by 'OR', '-' by 'XOR'  //( pParents[i]->Gene( j ) - pParents[i+1]->Gene( j ) );
+						accum |= ( uint32(parents[k]->GeneAs<BitArray>(i).GetBit( j )) ^ uint32(parents[k+1]->GeneAs<BitArray>(i).GetBit( j )) );// altered '+=' by 'OR', '-' by 'XOR'  //( pParents[i]->Gene( j ) - pParents[i+1]->Gene( j ) );
 
-					t_j	= uint32(pParentBitArray1->GetBit( j )) | uint32(pAttrib->F * (float)accum);// altered '+' by 'OR' 
+					t_j	= uint32(pParentBitArray1.GetBit( j )) | uint32(pAttrib->F * (float)accum);// altered '+' by 'OR' 
 
-					pTrialBitArray->SetBit( j, (int)t_j );
+					pTrialBitArray.SetBit( j, (int)t_j );
 				}
 				else
 				{
@@ -77,16 +77,16 @@ namespace ealib
 
 		for( int i=0; i<pTrial->Size(); ++i )
 		{
-			const auto* pBParent = pX0->GeneAs<BitArray>(i);
-			auto pBTrial = pTrial->GeneAs<BitArray>(i);
+			const auto& pBParent = pX0->GeneAs<BitArray>(i);
+			auto& pBTrial = pTrial->GeneAs<BitArray>(i);
 
-			int numParams	= pBTrial->BitLength();
+			int numParams	= pBTrial.BitLength();
 			int jrand		= int( OreOreLib::genrand_real2() * numParams );
 
 			// Select Crossover point from dimention
 			for( int j=0; j<numParams; ++j )
 			{
-				uint32 t_j = pBTrial->GetBit( j );
+				uint32 t_j = pBTrial.GetBit( j );
 
 				// Crossover
 				if( OreOreLib::genrand_real1() < pAttrib->CR || j==jrand )
@@ -95,14 +95,14 @@ namespace ealib
 					uint32 accum = 0;
 					for( int k=1; k<X.Length(); k+=2 )
 					{
-						accum |= (	uint32( X[k]->GetChromosomeByType(TypeID)->GeneAs<BitArray>(i)->GetBit( j )) ^
-									uint32( X[k+1]->GetChromosomeByType(TypeID)->GeneAs<BitArray>(i)->GetBit( j ))
+						accum |= (	uint32( X[k]->GetChromosomeByType(TypeID)->GeneAs<BitArray>(i).GetBit( j )) ^
+									uint32( X[k+1]->GetChromosomeByType(TypeID)->GeneAs<BitArray>(i).GetBit( j ))
 								);// altered '+=' by 'OR', '-' by 'XOR'  //( pParents[i]->Gene( j ) - pParents[i+1]->Gene( j ) );
 					}
 
-					t_j	= uint32(pBParent->GetBit( j )) | uint32(pAttrib->F * (float)accum);// altered '+' by 'OR' 
+					t_j	= uint32(pBParent.GetBit( j )) | uint32(pAttrib->F * (float)accum);// altered '+' by 'OR' 
 
-					pBTrial->SetBit( j, (int)t_j );
+					pBTrial.SetBit( j, (int)t_j );
 				}
 				else
 				{

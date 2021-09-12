@@ -23,7 +23,7 @@ class Rastrigin1D: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		float value		= *chromosome->GeneAs<float>();
+		const float& value		= chromosome->GeneAs<float>();
 		float result	= 10.0f + ( value * value -10.0f*cos( 2.0f*M_PI*value ) );
 
 		//tcout << "value = " << value << ", sin(value) = " << result << tendl;
@@ -107,7 +107,7 @@ int main( int argc, char **argv )
 	g_SGASolver.TakeSnapshot( g_SnapShot );
 	g_SGASolver.ReleasePopulation();
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 
 	tcout << tendl;
@@ -138,7 +138,7 @@ int main( int argc, char **argv )
 	end = std::chrono::system_clock::now();  // 計測終了時間
 	auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>( end-start ).count(); //処理に要した時間をミリ秒に変換
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 	tcout << tendl;
 

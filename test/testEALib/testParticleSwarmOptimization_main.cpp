@@ -22,7 +22,7 @@ class Rastrigin1D: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		float value		= *chromosome->GeneAs<float>();//*pParam->GetGene();
+		float value		= chromosome->GeneAs<float>();//*pParam->GetGene();
 		float result	= 10.0f + ( value * value -10.0f*cos( 2.0f*M_PI*value ) );
 
 		//tcout << "value = " << value << ", sin(value) = " << result << tendl;
@@ -36,7 +36,7 @@ class SinCurveEvaluator: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=NULL )
 	{
-		float value		= *chromosome->GeneAs<float>();
+		float value		= chromosome->GeneAs<float>();
 		float result	= sin( value );
 
 		//tcout << "value = " << value << ", sin(value) = " << result << tendl;
@@ -52,7 +52,7 @@ class LogisticFuncEvaluator: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=NULL )
 	{
-		float value		= *chromosome->GeneAs<float>();
+		float value		= chromosome->GeneAs<float>();
 		float result	= 1.0f / (1.0f + exp( -value ));
 		
 		//tcout << "value = " << value << ", f(value) = " << result << tendl;
@@ -120,7 +120,7 @@ int main( int argc, char **argv )
 	g_PSOSolver.TakeSnapshot( g_SnapShot );
 	g_PSOSolver.ReleasePopulation();
 	
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 
 	//========= test Multi-Island PSO solver	========//
@@ -139,7 +139,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 
 	end = std::chrono::system_clock::now();  // 計測終了時間

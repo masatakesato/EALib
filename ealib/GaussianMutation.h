@@ -39,16 +39,16 @@ namespace ealib
 		{
 			for( int i=0; i<chromosome->Size(); ++i )
 			{
-				DesignParameter* pDParam = chromosome->GetDesignParameter( i );
-				const float range		=  0.1f * float( pDParam->UpperBoundary<T>() - pDParam->LowerBoundary<T>() );
+				const DesignParameter& pDParam = chromosome->GetDesignParameter( i );
+				const float range		=  0.1f * float( pDParam.UpperBoundary<T>() - pDParam.LowerBoundary<T>() );
 
 				float mutateProb	= float( OreOreLib::genrand_real1() );
 				if( mutateProb < mutate_prob )
 				{
 					//tcout << "Mutate_RealNumber()... Applying Gaussian Mutation..." << tendl;
-					float param_i = (float)*chromosome->GeneAs<T>( i );
+					float param_i = (float)chromosome->GeneAs<T>( i );
 					float value = GaussDistributionRandom( param_i, range );
-					*chromosome->GeneAs<T>( i ) = (T)Clamp( value, (float)pDParam->LowerBoundary<T>(), (float)pDParam->UpperBoundary<T>() );
+					chromosome->GeneAs<T>( i ) = (T)Clamp( value, (float)pDParam.LowerBoundary<T>(), (float)pDParam.UpperBoundary<T>() );
 				}
 
 			}// end of i loop

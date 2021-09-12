@@ -49,14 +49,14 @@ int main( int argc, char **argv )
 
 	// 変数の参照渡しであれば、型指定抜きで値代入可
 	int16 a= 71, b=80;
-	chromosome.GetDesignParameter( _T( "attrib3-2" ) )->SetLowerBoundary( a );
-	chromosome.GetDesignParameter( _T( "attrib3-2" ) )->SetUpperBoundary( b );
+	chromosome.GetDesignParameter( _T( "attrib3-2" ) ).SetLowerBoundary( a );
+	chromosome.GetDesignParameter( _T( "attrib3-2" ) ).SetUpperBoundary( b );
 	chromosome.Initialize( &initRandom );
 
-	*chromosome.GetGeneAs<float>( _T( "attrib1" ) ) = -99999.435f;
+	chromosome.GeneAs<float>( _T( "attrib1" ) ) = -99999.435f;
 
 
-	tcout << *chromosome.GetGeneAs<float>( _T( "attrib1" ) )  << tendl;
+	tcout << chromosome.GeneAs<float>( _T( "attrib1" ) )  << tendl;
 
 	DisplayChromosome( &chromosome, true );
 
@@ -69,14 +69,14 @@ int main( int argc, char **argv )
 	chromosome.SetKey( 4, _T( "pppp.-+45y9%" ) );
 
 	DisplayChromosome( &chromosome, true );
-	
+
 
 	tcout << "//================== changing value ========================//" << tendl;
 	tcout << "Set Obj1.attrib to -41.33f;\n";
 	tcout << "Set pppp.-+45y9% to -2465;\n";
 	tcout << tendl;
-	*chromosome.GetGeneAs<float>( _T( "Obj1.attrib" ) ) = -41.33f;
-	*chromosome.GetGeneAs<short>( _T( "pppp.-+45y9%" ) ) = -2465;
+	chromosome.GeneAs<float>( _T( "Obj1.attrib" ) ) = -41.33f;
+	chromosome.GeneAs<short>( _T( "pppp.-+45y9%" ) ) = -2465;
 
 	DisplayChromosome( &chromosome, true );
 
@@ -90,10 +90,7 @@ int main( int argc, char **argv )
 
 
 //chromosome2.Initialize();
-	*chromosome2.GetGeneAs<float>( _T( "Obj1.attrib" ) ) = -5521.0f;
-
-	float aaa = *chromosome2.GetGeneAs<float>( _T( "Obj1.attrib" ) );
-	aaa = *chromosome2.GetGeneAs<float>(0 );
+	chromosome2.GeneAs<float>( _T( "Obj1.attrib" ) ) = -5521.0f;
 
 	DisplayChromosome( &chromosome2, true );
 

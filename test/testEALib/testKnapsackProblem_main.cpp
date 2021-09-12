@@ -31,14 +31,14 @@ class Knapsack: public IObjectiveFunction
 	{
 		const int MaxWeight = 40;// ナップサックに入る荷物の最大重量
 
-		BitArray *pBitString	= chromosome->GeneAs<BitArray>();
+		const auto& pBitString	= chromosome->GeneAs<BitArray>();
 
 		int totalWeight		= 0;
 		float totalPrice	= 0.0f;
 
-		for( int i=0; i<pBitString->BitLength(); ++i )
+		for( int i=0; i<pBitString.BitLength(); ++i )
 		{
-			int bitValue = pBitString->GetBit( i );
+			int bitValue = pBitString.GetBit( i );
 			totalWeight += g_Weight[i] * bitValue;
 			totalPrice	+= g_Price[i] * float( bitValue );
 		}
@@ -161,7 +161,7 @@ int main( int argc, char **argv )
 		g_SGASolver.ReleasePopulation();
 	}
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 	tcout << tendl;
 
@@ -193,7 +193,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 	tcout << tendl;
 
@@ -219,7 +219,7 @@ int main( int argc, char **argv )
 		g_DESolver.TakeSnapshot( g_SnapShot );
 		g_DESolver.ReleasePopulation();
 
-		DisplayPopulation( &g_SnapShot, true );
+		DisplayPopulation( g_SnapShot, true );
 	}
 
 

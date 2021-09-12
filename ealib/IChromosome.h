@@ -40,8 +40,9 @@ namespace ealib
 		float Fitness( int idx ) const				{ return m_pResult->Fitness( idx ); }
 		void SetFitness( float fitness, int idx )	{ m_pResult->Fitness( idx ) = fitness; }
 
+		DesignParamArray& GetDesignParamArray()				{ return m_DesignParameters; }
+		const DesignParamArray& GetDesignParamArray() const	{ return m_DesignParameters; }
 
-		const DesignParamArray* GetDesignParamArray() const	{ return &m_DesignParameters; }
 		void ExtractOrderRestoredDesignParamArray( DesignParamArray& params )
 		{
 			params.Init( m_DesignParameters.Length() );// = m_DesignParameters;
@@ -68,27 +69,34 @@ namespace ealib
 
 		// Virtual Functions
 		virtual void Initialize( Initializer* pInit );
-		virtual DesignParameter* GetDesignParameter( int i )				const { return (DesignParameter*)(&m_DesignParameters[i]); }
-		virtual DesignParameter* GetDesignParameter( const tstring& key )	const { return nullptr; }
+
 
 		// Pure Virtual Functions.
-		virtual IChromosome* GetChromosome( int i=0 ) const=0;
-		virtual IChromosome* GetChromosomeByType( int16 type ) const=0;
+		virtual int Size() const = 0;
 		virtual int NumChromosomeTypes() const=0;
 		virtual int16 TypeInfo() const=0;
-		virtual int Size() const = 0;
+		
+		virtual IChromosome* GetChromosome( int i=0 ) const=0;
+		virtual IChromosome* GetChromosomeByType( int16 type ) const=0;
+		virtual IChromosome* Clone() const=0;
+
 		virtual void* GetGene( int i=0 ) const=0;
 		virtual void* GetGene( tstring key ) const=0;
-		virtual IChromosome* Clone() const=0;
 		virtual void CopyGeneFrom( const IChromosome* pSrc )=0;
 		virtual void ClearGene()=0;
 
+		virtual DesignParameter& GetDesignParameter( int i )=0;
+		virtual const DesignParameter& GetDesignParameter( int i ) const=0;
+		virtual DesignParameter& GetDesignParameter( const tstring& key )=0;
+		virtual const DesignParameter& GetDesignParameter( const tstring& key )	const=0;
 
-		template< typename T >
-		inline T* GeneAs( int i=0 ) const			{ return (T*)GetGene(i); }
 
-		template< typename T >
-		inline T* GeneAs( const tstring& key ) const { return (T*)GetGene(key); }
+
+		template< typename T > inline T& GeneAs( int i=0 )				{ return *(T*)GetGene(i); }
+		template< typename T > inline const T& GeneAs( int i=0 ) const	{ return *(T*)GetGene(i); }
+
+		template< typename T > inline T& GeneAs( const tstring& key )	{ return *(T*)GetGene(key); }
+		template< typename T > inline const T& GeneAs( const tstring& key ) const { return *(T*)GetGene(key); }
 
 
 	protected:

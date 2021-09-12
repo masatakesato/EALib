@@ -229,8 +229,8 @@ namespace ealib
 		// Initialize 1st Generation
 		for( int i=0; i<m_MIGAAttrib.IslandSize; ++i )
 		{
-			m_pSolverArray[i]->GetPopulation()->Initialize( m_refInitializer, pEval );// Random initialization
-			m_pSolverArray[i]->Statistics()->Reset( *m_pSolverArray[i]->GetPopulation() );
+			m_pSolverArray[i]->GetPopulation().Initialize( m_refInitializer, pEval );// Random initialization
+			m_pSolverArray[i]->Statistics()->Reset( m_pSolverArray[i]->GetPopulation() );
 		}
 
 
@@ -258,7 +258,7 @@ namespace ealib
 				Immigrate( m_MIGAAttrib.MigrationMode );
 
 				for( int i=0; i<m_MIGAAttrib.IslandSize; ++i )
-					m_pSolverArray[i]->GetPopulation()->Sort( Population::SORT_FITNESS_DESCEND );
+					m_pSolverArray[i]->GetPopulation().Sort( Population::SORT_FITNESS_DESCEND );
 			}
 
 		}// end of gen loop
@@ -273,10 +273,10 @@ namespace ealib
 			const int& popsize		= m_Attrib.PopulationSize;
 			const int& islandsize	= m_MIGAAttrib.IslandSize;
 
-			pOut.Init( *m_pSolverArray[0]->GetPopulation()->GetDesignParamArray(), popsize * islandsize, m_Migrants[0].NumObjectives() );
+			pOut.Init( m_pSolverArray[0]->GetPopulation().GetDesignParamArray(), popsize * islandsize, m_Migrants[0].NumObjectives() );
 
 			for( int i=0; i<islandsize; ++i )
-				pOut.CopyChromosomes( m_pSolverArray[i]->GetPopulation(), i*popsize );
+				pOut.CopyChromosomes( &m_pSolverArray[i]->GetPopulation(), i*popsize );
 
 			pOut.Sort( Population::SORT_FITNESS_DESCEND );
 		}
@@ -287,16 +287,16 @@ namespace ealib
 	{
 		for( int i=0; i<m_MIGAAttrib.IslandSize; ++i )
 		{
-			Population *pPopulation	= m_pSolverArray[i]->GetPopulation();
+			Population& pPopulation	= m_pSolverArray[i]->GetPopulation();
 
 			// 個体の順序をソートする
 			if( mode==SELECT_BEST_REPLACE_WORST || mode==SELECT_BEST_REPLACE_RANDOM )// 適応値の高い個体を移住させる場合
 			{
-				pPopulation->Sort( Population::SORT_FITNESS_DESCEND );// 適応度で降順にソート
+				pPopulation.Sort( Population::SORT_FITNESS_DESCEND );// 適応度で降順にソート
 			}
 			else if( mode==SELECT_RANDOM_REPLACE_WORST || mode==SELECT_RANDOM_REPLACE_RANDOM )// ランダム選択した個体を移住させる場合
 			{
-				pPopulation->Shuffle();// シャッフル
+				pPopulation.Shuffle();// シャッフル
 			}
 			else
 			{
@@ -304,7 +304,7 @@ namespace ealib
 
 			// 個体群の情報を島から移民バッファにコピーする
 			for( int emig=0; emig<m_Migrants[i].NumIndividuals(); ++emig )
-				m_Migrants[i].Individual( emig )->CopyGeneFrom( pPopulation->Individual( emig ) );
+				m_Migrants[i].Individual( emig )->CopyGeneFrom( pPopulation.Individual( emig ) );
 
 		}// end of i loop
 	}
@@ -329,16 +329,16 @@ namespace ealib
 		for( int i=0; i<m_MIGAAttrib.IslandSize; ++i )
 		{
 			int destIsland				= m_Destinations[i];
-			Population *pDestPopulation	= m_pSolverArray[destIsland]->GetPopulation();
+			Population& pDestPopulation	= m_pSolverArray[destIsland]->GetPopulation();
 
 			// 個体の順序をソートする
 			if( mode==SELECT_BEST_REPLACE_WORST || mode==SELECT_RANDOM_REPLACE_WORST )// 適応値の低い島民個体を、移民で置き換える場合
 			{
-				pDestPopulation->Sort( Population::SORT_FITNESS_ASCEND );// 昇順(適応値が低い順)にソート
+				pDestPopulation.Sort( Population::SORT_FITNESS_ASCEND );// 昇順(適応値が低い順)にソート
 			}
 			else if( mode==  SELECT_BEST_REPLACE_RANDOM || mode==SELECT_RANDOM_REPLACE_RANDOM )// ランダム選択した島民個体を、移民で置き換える場合
 			{
-				pDestPopulation->Shuffle();// シャッフル
+				pDestPopulation.Shuffle();// シャッフル
 			}
 			else
 			{
@@ -346,7 +346,7 @@ namespace ealib
 
 			// 個体群の情報を島から移民バッファにコピーする
 			for( int immig=0; immig<m_Migrants[i].NumIndividuals(); ++immig )
-				m_Migrants[i].Individual( immig )->CopyGeneFrom( pDestPopulation->Individual( immig ) );
+				m_Migrants[i].Individual( immig )->CopyGeneFrom( pDestPopulation.Individual( immig ) );
 
 		}// end of i loop
 

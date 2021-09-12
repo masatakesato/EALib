@@ -47,12 +47,12 @@ int main( int argc, char **argv )
 
 	for( int i=0; i<designParams.Length(); ++i )
 	{
-		g_Chromosome.GetDesignParameter(i)->SetLowerBoundary( 0.0f + float(i) );
-		g_Chromosome.GetDesignParameter(i)->SetUpperBoundary( 0.1f + float(i) );
+		g_Chromosome.GetDesignParameter(i).SetLowerBoundary( 0.0f + float(i) );
+		g_Chromosome.GetDesignParameter(i).SetUpperBoundary( 0.1f + float(i) );
 	}
 
 
-	g_Chromosome.GetDesignParameter( _T("abssrf") )->SetUpperBoundary( 6.5f );
+	g_Chromosome.GetDesignParameter( _T("abssrf") ).SetUpperBoundary( 6.5f );
 
 	// change key
 	g_Chromosome.SetKey( _T( "abssrf" ), _T( "newkey" ) );

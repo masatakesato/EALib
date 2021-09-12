@@ -82,10 +82,10 @@ namespace ealib
 				for( int j=start; j<=end; ++j )
 				{
 					// |++++ parent1 ++++|---- parent2 ----|++++ parent1 ++++|---...
-					*pChild1->GeneAs<Type>( j )	= *pParent1->GeneAs<Type>( j );// pChild1をParent1で部分上書きする
+					pChild1->GeneAs<Type>( j )	= pParent1->GeneAs<Type>( j );// pChild1をParent1で部分上書きする
 
 					// |---- parent2 ----|++++ parent1 ++++|---- parent2 ----|+++...
-					*pChild2->GeneAs<Type>( j )	= *pParent2->GeneAs<Type>( j );// pChild2をpParent2で部分上書きする
+					pChild2->GeneAs<Type>( j )	= pParent2->GeneAs<Type>( j );// pChild2をpParent2で部分上書きする
 				}
 
 			}// end of i loop
@@ -100,12 +100,12 @@ namespace ealib
 		{
 			for( int i=0; i<(*parents)->Size(); ++i )
 			{
-				const BitArray *pParent1	= parents[0]->GeneAs<BitArray>(i);
-				const BitArray *pParent2	= parents[1]->GeneAs<BitArray>(i);
-				BitArray *pChild1			= children[0]->GeneAs<BitArray>(i);
-				BitArray *pChild2			= children[1]->GeneAs<BitArray>(i);
+				const auto& pParent1	= parents[0]->GeneAs<BitArray>(i);
+				const auto& pParent2	= parents[1]->GeneAs<BitArray>(i);
+				auto& pChild1			= children[0]->GeneAs<BitArray>(i);
+				auto& pChild2			= children[1]->GeneAs<BitArray>(i);
 
-				int bitLength	= Min( Min( Min( pParent1->BitLength(), pParent2->BitLength() ), pChild1->BitLength() ), pChild2->BitLength() );
+				int bitLength	= Min( Min( Min( pParent1.BitLength(), pParent2.BitLength() ), pChild1.BitLength() ), pChild2.BitLength() );
 				int splicePoints[2]	={ int( OreOreLib::genrand_real2() * bitLength ), int( OreOreLib::genrand_real2() * bitLength ) };
 
 				if( splicePoints[0] > splicePoints[1] )
@@ -116,12 +116,12 @@ namespace ealib
 				}
 
 				// |++++ parent1 ++++|---- parent2 ----|++++ parent1 ++++|
-				pChild1->CopyFrom( pParent1 );
-				pChild1->CopyFrom( splicePoints[0], pParent2, splicePoints[0], splicePoints[1]-splicePoints[0] );
+				pChild1.CopyFrom( &pParent1 );
+				pChild1.CopyFrom( splicePoints[0], &pParent2, splicePoints[0], splicePoints[1]-splicePoints[0] );
 
 				// |---- parent2 ----|++++ parent1 ++++|---- parent2 ----|
-				pChild2->CopyFrom( pParent2 );
-				pChild2->CopyFrom( splicePoints[0], pParent1, splicePoints[0], splicePoints[1]-splicePoints[0] );
+				pChild2.CopyFrom( &pParent2 );
+				pChild2.CopyFrom( splicePoints[0], &pParent1, splicePoints[0], splicePoints[1]-splicePoints[0] );
 			}
 
 		}
@@ -161,10 +161,10 @@ namespace ealib
 				for( int j=start; j<=end; ++j )
 				{
 					// |++++ parent1 ++++|---- parent2 ----|++++ parent1 ++++|---...
-					*pChild1->GeneAs<Type>( j )	= *pParent1->GeneAs<Type>( j );// pChild1をParent1で部分上書きする
+					pChild1->GeneAs<Type>( j )	= pParent1->GeneAs<Type>( j );// pChild1をParent1で部分上書きする
 
 					// |---- parent2 ----|++++ parent1 ++++|---- parent2 ----|+++...
-					*pChild2->GeneAs<Type>( j )	= *pParent2->GeneAs<Type>( j );// pChild2をpParent2で部分上書きする
+					pChild2->GeneAs<Type>( j )	= pParent2->GeneAs<Type>( j );// pChild2をpParent2で部分上書きする
 				}
 
 			}// end of i loop
@@ -184,12 +184,12 @@ namespace ealib
 
 			for( int i=0; i<pParent1->Size(); ++i )
 			{
-				const BitArray *pBParent1	= pParent1->GeneAs<BitArray>(i);
-				const BitArray *pBParent2	= pParent2->GeneAs<BitArray>(i);
-				BitArray *pBChild1			= pChild1->GeneAs<BitArray>(i);
-				BitArray *pBChild2			= pChild2->GeneAs<BitArray>(i);
+				const auto& pBParent1	= pParent1->GeneAs<BitArray>(i);
+				const auto& pBParent2	= pParent2->GeneAs<BitArray>(i);
+				auto& pBChild1			= pChild1->GeneAs<BitArray>(i);
+				auto& pBChild2			= pChild2->GeneAs<BitArray>(i);
 
-				int bitLength	= Min( Min( Min( pBParent1->BitLength(), pBParent2->BitLength() ), pBChild1->BitLength() ), pBChild2->BitLength() );
+				int bitLength	= Min( Min( Min( pBParent1.BitLength(), pBParent2.BitLength() ), pBChild1.BitLength() ), pBChild2.BitLength() );
 				int splicePoints[2]	={ int( OreOreLib::genrand_real2() * bitLength ), int( OreOreLib::genrand_real2() * bitLength ) };
 
 				if( splicePoints[0] > splicePoints[1] )
@@ -200,12 +200,12 @@ namespace ealib
 				}
 
 				// |++++ parent1 ++++|---- parent2 ----|++++ parent1 ++++|
-				pBChild1->CopyFrom( pBParent1 );
-				pBChild1->CopyFrom( splicePoints[0], pBParent2, splicePoints[0], splicePoints[1]-splicePoints[0] );
+				pBChild1.CopyFrom( &pBParent1 );
+				pBChild1.CopyFrom( splicePoints[0], &pBParent2, splicePoints[0], splicePoints[1]-splicePoints[0] );
 
 				// |---- parent2 ----|++++ parent1 ++++|---- parent2 ----|
-				pBChild2->CopyFrom( pBParent2 );
-				pBChild2->CopyFrom( splicePoints[0], pBParent1, splicePoints[0], splicePoints[1]-splicePoints[0] );
+				pBChild2.CopyFrom( &pBParent2 );
+				pBChild2.CopyFrom( splicePoints[0], &pBParent1, splicePoints[0], splicePoints[1]-splicePoints[0] );
 			}
 
 		}

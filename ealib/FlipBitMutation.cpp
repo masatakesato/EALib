@@ -28,13 +28,13 @@ namespace ealib
 	{
 		for( int i=0; i<chromosome->Size(); ++i )
 		{
-			BitArray *pBitString = chromosome->GeneAs<BitArray>( i );
+			auto& pBitString = chromosome->GeneAs<BitArray>( i );
 
-			for( int j=0; j<pBitString->BitLength(); ++j )
+			for( int j=0; j<pBitString.BitLength(); ++j )
 			{
 				float mutateProb	= float( OreOreLib::genrand_real1() );
 				if( mutateProb < mutate_prob )
-					pBitString->Flip( j );
+					pBitString.Flip( j );
 			}
 		}
 

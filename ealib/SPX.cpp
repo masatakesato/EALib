@@ -77,12 +77,12 @@ namespace ealib
 		// Calculate center of mass
 		for( int i=0; i<m_G->Size(); ++i )
 		{
-			auto gi = m_G->GeneAs<float>(i);
+			float& gi = m_G->GeneAs<float>(i);
 
 			for( int j=0; j<m_xs.Length(); ++j )
-				*gi += *parents[j]->GeneAs<float>(i);
+				gi += parents[j]->GeneAs<float>(i);
 
-			*gi /= numparents;
+			gi /= numparents;
 		}
 
 		// Generte random numbers
@@ -95,12 +95,12 @@ namespace ealib
 		// Calculate xi and Ci
 		for( int k=0; k<m_xs.Length(); ++k )
 		{
-			auto xi = m_xs[k];
-			auto pi = parents[k];
+			auto* xi = m_xs[k];
+			const auto* pi = parents[k];
 
 			// xi = G + epsilon * (P[k] - G )
 			for( int j=0; j<xi->Size(); ++j )
-				*xi->GeneAs<float>(j) = c_Epsilon * ( *pi->GeneAs<float>(j) - *m_G->GeneAs<float>(j) );
+				xi->GeneAs<float>(j) = c_Epsilon * ( pi->GeneAs<float>(j) - m_G->GeneAs<float>(j) );
 
 			// C[k]
 			if( k==0 )
@@ -112,18 +112,18 @@ namespace ealib
 			{
 				// C[k] = r[k-1] * ( x[k-1] - x[k] + C[k-1] )
 				for( int j=0; j<xi->Size(); ++j )
-					*m_Cs[k]->GeneAs<float>(j) = m_rs[k-1] * ( *m_xs[k-1]->GeneAs<float>(j) - *m_xs[k]->GeneAs<float>(j) + *m_Cs[k-1]->GeneAs<float>(j) );
+					m_Cs[k]->GeneAs<float>(j) = m_rs[k-1] * ( m_xs[k-1]->GeneAs<float>(j) - m_xs[k]->GeneAs<float>(j) + m_Cs[k-1]->GeneAs<float>(j) );
 			}
 		}
 
 		// Generate offspring
-		auto c = children[0];
+		auto* c = children[0];
 
-		auto xn = m_xs[ m_xs.Length()-1 ];// [ m_Cs.L]
-		auto Cn = m_Cs[ m_Cs.Length()-1 ];
+		auto* xn = m_xs[ m_xs.Length()-1 ];// [ m_Cs.L]
+		auto* Cn = m_Cs[ m_Cs.Length()-1 ];
 
 		for( int j=0; j<c->Size(); ++j )
-			*c->GeneAs<float>(j) = *xn->GeneAs<float>(j) + *Cn->GeneAs<float>(j);
+			c->GeneAs<float>(j) = xn->GeneAs<float>(j) + Cn->GeneAs<float>(j);
 
 	}
 
@@ -138,12 +138,12 @@ namespace ealib
 		// Calculate center of mass
 		for( int i=0; i<m_G->Size(); ++i )
 		{
-			auto gi = m_G->GeneAs<float>(i);
+			float& gi = m_G->GeneAs<float>(i);
 
 			for( int j=0; j<m_xs.Length(); ++j )
-				*gi += *X[j]->GetChromosomeByType(TypeID)->GeneAs<float>(i);
+				gi += X[j]->GetChromosomeByType(TypeID)->GeneAs<float>(i);
 
-			*gi /= X.Length();
+			gi /= X.Length();
 		}
 
 		// Generte random numbers
@@ -156,12 +156,12 @@ namespace ealib
 		// Calculate xi and Ci
 		for( int k=0; k<m_xs.Length(); ++k )
 		{
-			auto xi = m_xs[k];
-			auto pi = X[k]->GetChromosomeByType( TypeID );
+			auto* xi = m_xs[k];
+			auto* pi = X[k]->GetChromosomeByType( TypeID );
 
 			// xi = G + epsilon * (P[k] - G )
 			for( int j=0; j<xi->Size(); ++j )
-				*xi->GeneAs<float>(j) = c_Epsilon * ( *pi->GeneAs<float>(j) - *m_G->GeneAs<float>(j) );
+				xi->GeneAs<float>(j) = c_Epsilon * ( pi->GeneAs<float>(j) - m_G->GeneAs<float>(j) );
 
 			// C[k]
 			if( k==0 )
@@ -173,18 +173,18 @@ namespace ealib
 			{
 				// C[k] = r[k-1] * ( x[k-1] - x[k] + C[k-1] )
 				for( int j=0; j<xi->Size(); ++j )
-					*m_Cs[k]->GeneAs<float>(j) = m_rs[k-1] * ( *m_xs[k-1]->GeneAs<float>(j) - *m_xs[k]->GeneAs<float>(j) + *m_Cs[k-1]->GeneAs<float>(j) );
+					m_Cs[k]->GeneAs<float>(j) = m_rs[k-1] * ( m_xs[k-1]->GeneAs<float>(j) - m_xs[k]->GeneAs<float>(j) + m_Cs[k-1]->GeneAs<float>(j) );
 			}
 		}
 
 		// Generate offspring
-		auto c = T[0]->GetChromosomeByType( TypeID );
+		auto* c = T[0]->GetChromosomeByType( TypeID );
 
-		auto xn = m_xs[ m_xs.Length()-1 ];// [ m_Cs.L]
-		auto Cn = m_Cs[ m_Cs.Length()-1 ];
+		auto* xn = m_xs[ m_xs.Length()-1 ];// [ m_Cs.L]
+		auto* Cn = m_Cs[ m_Cs.Length()-1 ];
 
 		for( int j=0; j<c->Size(); ++j )
-			*c->GeneAs<float>(j) = *xn->GeneAs<float>(j) + *Cn->GeneAs<float>(j);
+			c->GeneAs<float>(j) = xn->GeneAs<float>(j) + Cn->GeneAs<float>(j);
 
 	}
 

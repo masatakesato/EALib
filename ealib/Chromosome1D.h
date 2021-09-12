@@ -162,21 +162,18 @@ namespace ealib
 
 		T* GeneAs( const tstring& key ) /*const*/	{ return m_GeneArray.begin() + m_KeyMap.At( key ); }//{ return (T*)&m_GeneArray[ m_KeyMap.At( key ) ]; }
 	
-		// Virtual Functions Override
-		using IChromosome::GetDesignParameter;
-		virtual DesignParameter* GetDesignParameter( const tstring& key ) const	{ return (DesignParameter*)&m_DesignParameters[ m_KeyMap.At( key ) ]; }
 
 		// Pure Virtual Functions Override
-		virtual IChromosome* GetChromosome( int i=0 ) const { return (IChromosome*)this; }
-		virtual IChromosome* GetChromosomeByType( int16 type ) const { return type==m_TypeInfo ? (IChromosome*)this : nullptr; }
+		virtual int Size() const					{ return m_DesignParameters.Length(); }
 		virtual int NumChromosomeTypes() const		{ return 1; }
 		virtual int16 TypeInfo() const				{ return m_TypeInfo; }
-		virtual int Size() const					{ return m_DesignParameters.Length(); }
-		virtual void* GetGene( int i=0 ) const		{ return (void*)&m_GeneArray[ i ]; }
-		virtual void* GetGene( tstring key ) const	{ return (void*)&m_GeneArray[ m_KeyMap.At(key) ]; }
+
+		virtual IChromosome* GetChromosome( int i=0 ) const { return (IChromosome*)this; }
+		virtual IChromosome* GetChromosomeByType( int16 type ) const { return type==m_TypeInfo ? (IChromosome*)this : nullptr; }
 		virtual IChromosome* Clone() const			{ return new Chromosome1D( *this ); }
 
-
+		virtual void* GetGene( int i=0 ) const		{ return (void*)&m_GeneArray[ i ]; }
+		virtual void* GetGene( tstring key ) const	{ return (void*)&m_GeneArray[ m_KeyMap.At(key) ]; }
 		virtual void CopyGeneFrom( const IChromosome* pSrc )
 		{
 			m_GeneArray.CopyFrom( ((Chromosome1D*)pSrc)->m_GeneArray );
@@ -187,6 +184,11 @@ namespace ealib
 		{
 			m_GeneArray.Clear();
 		}
+
+		virtual DesignParameter& GetDesignParameter( int i )				{ return m_DesignParameters[i]; }
+		virtual const DesignParameter& GetDesignParameter( int i ) const	{ return m_DesignParameters[i]; }
+		virtual DesignParameter& GetDesignParameter( const tstring& key )	{ return m_DesignParameters[ m_KeyMap.At( key ) ]; }
+		virtual const DesignParameter& GetDesignParameter( const tstring& key ) const	{ return m_DesignParameters[ m_KeyMap.At( key ) ]; }
 
 
 

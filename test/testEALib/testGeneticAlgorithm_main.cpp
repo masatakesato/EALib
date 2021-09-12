@@ -23,7 +23,7 @@ class SinCurveEvaluator: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=NULL )
 	{
-		float value		= *chromosome->GeneAs<float>();
+		float value		= chromosome->GeneAs<float>();
 		float result	= sin( value );
 
 		//tcout << "value = " << value << ", sin(value) = " << result << tendl;
@@ -39,7 +39,7 @@ class LogisticFuncEvaluator: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=NULL )
 	{
-		float value		= *chromosome->GeneAs<float>();
+		float value		= chromosome->GeneAs<float>();
 		float result	= 1.0f / (1.0f + exp( -value ));
 		
 		//tcout << "value = " << value << ", f(value) = " << result << tendl;
@@ -103,6 +103,101 @@ int main( int argc, char **argv )
 	DesignParamArray designParams =
 	{
 		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+/*
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+*/
+
 	};
 
 
@@ -134,7 +229,7 @@ g_SGASolver.InitPopulation( designParams, Eval.NumObjectives() );
 	g_SGASolver.TakeSnapshot( g_SnapShot );
 	g_SGASolver.ReleasePopulation();
 	
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 
 	tcout << tendl;
@@ -161,7 +256,7 @@ g_MIEASolver.InitPopulation( designParams, Eval.NumObjectives() );
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 	//}
 
 	tcout << tendl;

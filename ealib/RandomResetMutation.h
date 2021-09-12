@@ -39,15 +39,15 @@ namespace ealib
 		{
 			for( int i=0; i<chromosome->Size(); ++i )
 			{
-				DesignParameter* pDParam = chromosome->GetDesignParameter( i );
+				const DesignParameter& pDParam = chromosome->GetDesignParameter( i );
 
 				float mutateProb = float( OreOreLib::genrand_real1() );
 				if( mutateProb < mutate_prob )
 				{
 					//tcout << "Mutate_RealNumber()... Applying Gaussian Mutation..." << tendl;
-					T value = pDParam->DefaultValue<T>();
-					Lerp( value, pDParam->LowerBoundary<T>(), pDParam->UpperBoundary<T>(), OreOreLib::genrand_real1() );
-					*chromosome->GeneAs<T>( i ) = value;
+					T value = pDParam.DefaultValue<T>();
+					Lerp( value, pDParam.LowerBoundary<T>(), pDParam.UpperBoundary<T>(), OreOreLib::genrand_real1() );
+					chromosome->GeneAs<T>( i ) = value;
 				}
 
 			}// end of i loop

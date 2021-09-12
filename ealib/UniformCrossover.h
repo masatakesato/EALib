@@ -65,28 +65,28 @@ namespace ealib
 
 			for( int i =0; i<pChild1->Size(); ++i )
 			{
-				DesignParameter* pDParam1	= pChild1->GetDesignParameter( i );// child1's design parameter
-				DesignParameter* pDParam2	= pChild2->GetDesignParameter( i );// child2's design parameter
+				const DesignParameter& pDParam1	= pChild1->GetDesignParameter( i );// child1's design parameter
+				const DesignParameter& pDParam2	= pChild2->GetDesignParameter( i );// child2's design parameter
 
-				Type* p1_i					= pParent1->GeneAs<Type>( i );
-				Type* p2_i					= pParent2->GeneAs<Type>( i );
-				Type* c1_i					= pChild1->GeneAs<Type>( i );
-				Type* c2_i					= pChild2->GeneAs<Type>( i );
+				const auto& p1_i	= pParent1->GeneAs<Type>( i );
+				const auto& p2_i	= pParent2->GeneAs<Type>( i );
+				auto& c1_i			= pChild1->GeneAs<Type>( i );
+				auto& c2_i			= pChild2->GeneAs<Type>( i );
 
 
 				if( OreOreLib::genrand_real1() > 0.5 )// Crossover children
 				{
-					*c1_i	= *p2_i;// 子供1のi番目遺伝子を、親2のi番目遺伝子で上書きする
-					*c2_i	= *p1_i;// 子供2のi番目遺伝子を、親1のi番目遺伝子で上書きする
+					c1_i = p2_i;// 子供1のi番目遺伝子を、親2のi番目遺伝子で上書きする
+					c2_i = p1_i;// 子供2のi番目遺伝子を、親1のi番目遺伝子で上書きする
 				}
 				else
 				{
-					*c1_i	= *p1_i;
-					*c2_i	= *p2_i;
+					c1_i = p1_i;
+					c2_i = p2_i;
 				}
 
-				Clamp( *c1_i, pDParam1->LowerBoundary<Type>(), pDParam1->UpperBoundary<Type>() );
-				Clamp( *c2_i, pDParam2->LowerBoundary<Type>(), pDParam2->UpperBoundary<Type>() );
+				Clamp( c1_i, pDParam1.LowerBoundary<Type>(), pDParam1.UpperBoundary<Type>() );
+				Clamp( c2_i, pDParam2.LowerBoundary<Type>(), pDParam2.UpperBoundary<Type>() );
 
 			}// end of i loop
 
@@ -100,22 +100,22 @@ namespace ealib
 		{
 			for( int i=0; i<(*parents)->Size(); ++i )
 			{
-				const BitArray* pParent1	= parents[0]->GeneAs<BitArray>( i );
-				const BitArray* pParent2	= parents[1]->GeneAs<BitArray>( i );
-				BitArray* pChild1			= children[0]->GeneAs<BitArray>( i );
-				BitArray* pChild2			= children[1]->GeneAs<BitArray>( i );
+				const auto& pParent1	= parents[0]->GeneAs<BitArray>( i );
+				const auto& pParent2	= parents[1]->GeneAs<BitArray>( i );
+				auto& pChild1			= children[0]->GeneAs<BitArray>( i );
+				auto& pChild2			= children[1]->GeneAs<BitArray>( i );
 
-				int bitLength = Min( Min( Min( pParent1->BitLength(), pParent2->BitLength() ), pChild1->BitLength() ), pChild2->BitLength() );
+				int bitLength = Min( Min( Min( pParent1.BitLength(), pParent2.BitLength() ), pChild1.BitLength() ), pChild2.BitLength() );
 
-				pChild1->CopyFrom( pParent1 );
-				pChild2->CopyFrom( pParent2 );
+				pChild1.CopyFrom( &pParent1 );
+				pChild2.CopyFrom( &pParent2 );
 
 				for( int j = 0; j<bitLength; ++j )
 				{
 					if( OreOreLib::genrand_real1() > 0.5 )
 					{
-						pChild1->SetBit( j, pParent2->GetBit( j ) );
-						pChild2->SetBit( j, pParent1->GetBit( j ) );
+						pChild1.SetBit( j, pParent2.GetBit( j ) );
+						pChild2.SetBit( j, pParent1.GetBit( j ) );
 					}
 				}// end of j loop
 
@@ -136,28 +136,28 @@ namespace ealib
 
 			for( int i =0; i<pChild1->Size(); ++i )
 			{
-				DesignParameter* pDParam1	= pChild1->GetDesignParameter( i );// child1's design parameter
-				DesignParameter* pDParam2	= pChild2->GetDesignParameter( i );// child2's design parameter
+				const DesignParameter& pDParam1	= pChild1->GetDesignParameter( i );// child1's design parameter
+				const DesignParameter& pDParam2	= pChild2->GetDesignParameter( i );// child2's design parameter
 
-				Type* p1_i					= pParent1->GeneAs<Type>( i );
-				Type* p2_i					= pParent2->GeneAs<Type>( i );
-				Type* c1_i					= pChild1->GeneAs<Type>( i );
-				Type* c2_i					= pChild2->GeneAs<Type>( i );
+				const auto& p1_i	= pParent1->GeneAs<Type>( i );
+				const auto& p2_i	= pParent2->GeneAs<Type>( i );
+				auto& c1_i			= pChild1->GeneAs<Type>( i );
+				auto& c2_i			= pChild2->GeneAs<Type>( i );
 
 
 				if( OreOreLib::genrand_real1() > 0.5 )// Crossover children
 				{
-					*c1_i	= *p2_i;// 子供1のi番目遺伝子を、親2のi番目遺伝子で上書きする
-					*c2_i	= *p1_i;// 子供2のi番目遺伝子を、親1のi番目遺伝子で上書きする
+					c1_i = p2_i;// 子供1のi番目遺伝子を、親2のi番目遺伝子で上書きする
+					c2_i = p1_i;// 子供2のi番目遺伝子を、親1のi番目遺伝子で上書きする
 				}
 				else
 				{
-					*c1_i	= *p1_i;
-					*c2_i	= *p2_i;
+					c1_i = p1_i;
+					c2_i = p2_i;
 				}
 
-				Clamp( *c1_i, pDParam1->LowerBoundary<Type>(), pDParam1->UpperBoundary<Type>() );
-				Clamp( *c2_i, pDParam2->LowerBoundary<Type>(), pDParam2->UpperBoundary<Type>() );
+				Clamp( c1_i, pDParam1.LowerBoundary<Type>(), pDParam1.UpperBoundary<Type>() );
+				Clamp( c2_i, pDParam2.LowerBoundary<Type>(), pDParam2.UpperBoundary<Type>() );
 
 			}// end of i loop
 
@@ -178,22 +178,22 @@ namespace ealib
 
 			for( int i=0; i<pParent1->Size(); ++i )
 			{
-				const BitArray* pBParent1	= pParent1->GeneAs<BitArray>( i );
-				const BitArray* pBParent2	= pParent2->GeneAs<BitArray>( i );
-				BitArray* pBChild1			= pChild1->GeneAs<BitArray>( i );
-				BitArray* pBChild2			= pChild2->GeneAs<BitArray>( i );
+				const auto& pBParent1	= pParent1->GeneAs<BitArray>( i );
+				const auto& pBParent2	= pParent2->GeneAs<BitArray>( i );
+				auto& pBChild1			= pChild1->GeneAs<BitArray>( i );
+				auto& pBChild2			= pChild2->GeneAs<BitArray>( i );
 
-				int bitLength = Min( Min( Min( pBParent1->BitLength(), pBParent2->BitLength() ), pBChild1->BitLength() ), pBChild2->BitLength() );
+				int bitLength = Min( Min( Min( pBParent1.BitLength(), pBParent2.BitLength() ), pBChild1.BitLength() ), pBChild2.BitLength() );
 
-				pBChild1->CopyFrom( pBParent1 );
-				pBChild2->CopyFrom( pBParent2 );
+				pBChild1.CopyFrom( &pBParent1 );
+				pBChild2.CopyFrom( &pBParent2 );
 
 				for( int j = 0; j<bitLength; ++j )
 				{
 					if( OreOreLib::genrand_real1() > 0.5 )
 					{
-						pBChild1->SetBit( j, pBParent2->GetBit( j ) );
-						pBChild2->SetBit( j, pBParent1->GetBit( j ) );
+						pBChild1.SetBit( j, pBParent2.GetBit( j ) );
+						pBChild2.SetBit( j, pBParent1.GetBit( j ) );
 					}
 				}// end of j loop
 

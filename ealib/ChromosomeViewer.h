@@ -3,6 +3,7 @@
 
 #include	<oreore/common/TString.h>
 
+#include	"CHromosome1D.h"
 #include	"Chromosome2D.h"
 #include	"Population.h"
 
@@ -86,12 +87,12 @@ namespace ealib
 				tcout << _T( "  Params:\n" );
 				for( int i=0; i<chromosome->Size(); ++i )
 				{
-					const DesignParameter* pDParam = chromosome->GetDesignParameter(i);
+					const DesignParameter& pDParam = chromosome->GetDesignParameter(i);
 
-					tcout	<< _T( "    " ) << pDParam->Key()// key
+					tcout	<< _T( "    " ) << pDParam.Key()// key
 							<< _T( "(" ) << typeid(T).name() << _T( ") " ) // type
-							<< _T( "[" ) << pDParam->LowerBoundary<T>() << ", " << pDParam->UpperBoundary<T>() <<	"]: "// boundary
-							<< *( chromosome->GeneAs<T>( i ) ) << tendl;
+							<< _T( "[" ) << pDParam.LowerBoundary<T>() << ", " << pDParam.UpperBoundary<T>() <<	"]: "// boundary
+							<< chromosome->GeneAs<T>( i ) << tendl;
 				}
 			}
 			
@@ -108,12 +109,12 @@ namespace ealib
 				tcout << _T( "  Params:\n" );
 				for( int i=0; i<chromosome->Size(); ++i )
 				{
-					const DesignParameter* pDParam = chromosome->GetDesignParameter(i);
+					const DesignParameter& pDParam = chromosome->GetDesignParameter(i);
 					const BitArray* bitarray = (BitArray*)chromosome->GetGene(i);
 
-					tcout	<< _T( "    " ) << pDParam->Key()// key
+					tcout	<< _T( "    " ) << pDParam.Key()// key
 					<< _T( "(" ) << typeid(T).name() << _T( ") " ) // type
-					<< _T( "[" ) << pDParam->UpperBoundary<int>() <<	_T("]: ");
+					<< _T( "[" ) << pDParam.UpperBoundary<int>() <<	_T("]: ");
 					for( int j=bitarray->BitLength()-1; j>=0; --j )
 					{
 						tcout << bitarray->GetBit(j);
@@ -165,7 +166,7 @@ namespace ealib
 
 
 	// Population display function
-	extern CLASS_DECLSPEC void DisplayPopulation( const Population* pop, bool viewgene=false );
+	extern CLASS_DECLSPEC void DisplayPopulation( const Population& pop, bool viewgene=false );
 
 
 

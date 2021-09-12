@@ -26,11 +26,11 @@ class FloatAndShort: public IObjectiveFunction
 	{
 		Chromosome2D	*pParams	= (Chromosome2D *)chromosome;
 
-		float param1	= *pParams->GeneAs<float>( _T( "attrib1" ) );// [0.1, 0.5]
-		short param2	= *pParams->GeneAs<short>( _T( "attrib3-2" ) );// [64, 251]
-		short param3	= *pParams->GeneAs<short>( _T( "attrib3-3" ) );// [-250,128]
+		float param1	= pParams->GeneAs<float>( _T( "attrib1" ) );// [0.1, 0.5]
+		short param2	= pParams->GeneAs<short>( _T( "attrib3-2" ) );// [64, 251]
+		short param3	= pParams->GeneAs<short>( _T( "attrib3-3" ) );// [-250,128]
 
-		float sign		= *pParams->GeneAs<short>( _T( "attrib3-4" ) )==1 ? 1.0f : -1.0f;
+		float sign		= pParams->GeneAs<short>( _T( "attrib3-4" ) )==1 ? 1.0f : -1.0f;
 
 		float result = cos( param1 ) * float( param2 ) * float( param3 ) * sign;
 
@@ -91,6 +91,72 @@ int main( int argc, char **argv )
 	//==============	Init Chromosome	================//
 	DesignParamArray designParams =
 	{
+
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+
+
+
 		{ _T( "attrib1" ), 0.0f, 0.1f, 0.5f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
 		//{ _T( "attrib2" ), 0, 0, 0, 0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
 		//{ _T( "attrib3-1" ), (int16)0, (int16)0, (int16)0, (int16)0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
@@ -98,6 +164,42 @@ int main( int argc, char **argv )
 		{ _T( "attrib3-3" ), (int16)0, (int16)-250, (int16)128, (int16)0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
 		{ _T( "attrib3-4" ), (int16)0, (int16)0, (int16)1, (int16)0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
 		//{ _T( "attrib4" ), 0.0f, -10.0f, -7.5f, 0.0f, BoundaryType::Exclusive, BoundaryType::Exclusive, SamplingType::Enumerated },
+
+
+
+
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		{ _T(""), 0.0f, -M_PI * 2.0f, M_PI * 2.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+
+
 	};
 
 	//g_Chromosome.Init( designParams );
@@ -127,7 +229,7 @@ int main( int argc, char **argv )
 	g_MixedSGASolver.TakeSnapshot( g_SnapShot );
 	g_MixedSGASolver.ReleasePopulation();
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 	tcout << tendl;
 
@@ -152,7 +254,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 	tcout << tendl;
 
@@ -173,7 +275,7 @@ int main( int argc, char **argv )
 	g_MixedCoDESolver.TakeSnapshot( g_SnapShot );
 	g_MixedCoDESolver.ReleasePopulation();
 	
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 	tcout << tendl;
 
@@ -197,7 +299,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 	tcout << tendl;
 
@@ -216,7 +318,7 @@ int main( int argc, char **argv )
 	g_MixedSHADESolver.TakeSnapshot( g_SnapShot );
 	g_MixedSHADESolver.ReleasePopulation();
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 	tcout << tendl;
 
@@ -240,7 +342,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 
 	return 0;

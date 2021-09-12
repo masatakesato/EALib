@@ -35,32 +35,29 @@ namespace ealib
 		bool SetKey( int i, const tstring& newkey );
 		bool SetKey( const tstring& currkey, const tstring& newkey );
 
-		template< typename T >
-		T* GetGeneAs( int i=0 ) const	{ const Index2D& index = m_IndexMap.At(i); return m_Chromosomes[ index.first ]->GeneAs<T>( index.second ); }//{ const Index2D& index = m_pIndexMap->at(i); return (T*)( m_Chromosomes[ index.first ]->GetGene( index.second ) ); }//
 
-		template< typename T >
-		T* GetGeneAs( const tstring& key ) const	{ const Index2D& index = m_KeyMap.At( key ); return m_Chromosomes[ index.first ]->GeneAs<T>( index.second ); }//{ const Index2D& index = m_pKeyMap->at( key ); return (T*)( m_Chromosomes[ index.first ]->GetGene( index.second ) ); }//
-		
 		// Virtual Functions Override
 		virtual void Initialize( Initializer* pInit );
-		virtual DesignParameter* GetDesignParameter( int i )				const
-		{
-			const Index2D& index = m_IndexMap.At( i );
-			return m_Chromosomes[ index.first ]->GetDesignParameter( index.second );
-		}//{ const Index2D& index = m_pIndexMap->at( i ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//
-		virtual DesignParameter* GetDesignParameter( const tstring& key )	const { const Index2D& index = m_KeyMap.At( key ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//{ const Index2D& index = m_pKeyMap->at( key ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//
+
 
 		// Pure Virtual Functions Override.
-		virtual IChromosome* GetChromosome( int i=0 ) const;
-		virtual IChromosome* GetChromosomeByType( int16 type ) const;
+		virtual int Size() const					{ return m_DesignParameters.Length(); }
 		virtual int NumChromosomeTypes() const		{ return m_Chromosomes.Length(); }
 		//virtual int16 TypeInfo() const			{ return TYPE_UNKNOWN; }// Disabled
-		virtual int Size() const					{ return m_DesignParameters.Length(); }
+
+		virtual IChromosome* GetChromosome( int i=0 ) const;
+		virtual IChromosome* GetChromosomeByType( int16 type ) const;
+		virtual IChromosome* Clone() const;
+
 		virtual void* GetGene( int i=0 ) const		{ const Index2D& index = m_IndexMap.At(i); return m_Chromosomes[ index.first ]->GetGene( index.second ); }//{ const Index2D& index = m_pIndexMap->at(i); return m_Chromosomes[ index.first ]->GetGene( index.second ); }//
 		virtual void* GetGene( tstring key ) const	{ const Index2D& index = m_KeyMap.At( key ); return m_Chromosomes[ index.first ]->GetGene( index.second ); }//{ const Index2D& index = m_pKeyMap->at( key ); return m_Chromosomes[ index.first ]->GetGene( index.second ); }//
-		virtual IChromosome* Clone() const;
 		virtual void CopyGeneFrom( const IChromosome* pSrc );// execute only when chromosome is Chromosome2D class
 		virtual void ClearGene();
+
+		virtual DesignParameter& GetDesignParameter( int i )				{ const Index2D& index = m_IndexMap.At( i ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second );		}//{ const Index2D& index = m_pIndexMap->at( i ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//
+		virtual const DesignParameter& GetDesignParameter( int i ) const	{ const Index2D& index = m_IndexMap.At( i ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second );		}//{ const Index2D& index = m_pIndexMap->at( i ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//
+		virtual DesignParameter& GetDesignParameter( const tstring& key )	{ const Index2D& index = m_KeyMap.At( key ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//{ const Index2D& index = m_pKeyMap->at( key ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//
+		virtual const DesignParameter& GetDesignParameter( const tstring& key ) const { const Index2D& index = m_KeyMap.At( key ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//{ const Index2D& index = m_pKeyMap->at( key ); return m_Chromosomes[ index.first ]->GetDesignParameter( index.second ); }//
 
 
 	private:

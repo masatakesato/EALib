@@ -32,10 +32,10 @@ namespace ealib
 	
 		for( int i=0; i<pTrial->Size(); ++i )
 		{
-			auto pParentBitArray1 = parents[0]->GeneAs<BitArray>(i);
-			auto pTrialBitArray = pTrial->GeneAs<BitArray>(i);
+			const auto& pParentBitArray1 = parents[0]->GeneAs<BitArray>(i);
+			auto& pTrialBitArray = pTrial->GeneAs<BitArray>(i);
 
-			int numParams	= pTrialBitArray->BitLength();
+			int numParams	= pTrialBitArray.BitLength();
 			int j			= int( OreOreLib::genrand_real2() * numParams );
 			int L			= 0;
 	
@@ -44,11 +44,11 @@ namespace ealib
 				// Apply Mutation. parents[0] + F * ( parents[1] - parents[2] ) + F * ( parents[3] - parents[4] )...
 				uint32 accum = 0;
 				for( int k=1; k<numparents; k+=2 )
-					accum |= ( uint32(parents[k]->GeneAs<BitArray>(i)->GetBit( j )) ^ uint32(parents[k+1]->GeneAs<BitArray>(i)->GetBit( j )) );// altered '+=' by '|=', '-' by '^'
+					accum |= ( uint32(parents[k]->GeneAs<BitArray>(i).GetBit( j )) ^ uint32(parents[k+1]->GeneAs<BitArray>(i).GetBit( j )) );// altered '+=' by '|=', '-' by '^'
 
-				uint32 t_j	= uint32(pParentBitArray1->GetBit( j )) | uint32(pAttrib->F * (float)accum);// altered '+' by '|'
+				uint32 t_j	= uint32(pParentBitArray1.GetBit( j )) | uint32(pAttrib->F * (float)accum);// altered '+' by '|'
 
-				pTrialBitArray->SetBit( j, (int)t_j );
+				pTrialBitArray.SetBit( j, (int)t_j );
 
 	
 				j	= ( j+1 )%numParams;
@@ -69,10 +69,10 @@ namespace ealib
 	
 		for( int i=0; i<pTrial->Size(); ++i )
 		{
-			auto pParentBitArray1 = pX0->GeneAs<BitArray>(i);
-			auto pTrialBitArray = pTrial->GeneAs<BitArray>(i);
+			const auto& pParentBitArray1 = pX0->GeneAs<BitArray>(i);
+			auto& pTrialBitArray = pTrial->GeneAs<BitArray>(i);
 
-			int numParams	= pTrialBitArray->BitLength();
+			int numParams	= pTrialBitArray.BitLength();
 			int j			= int( OreOreLib::genrand_real2() * numParams );
 			int L			= 0;
 	
@@ -81,13 +81,13 @@ namespace ealib
 				// Apply Mutation. X[0] + F * ( X[1] - X[2] ) + F * ( X[3] - X[4] )...
 				uint32 accum = 0;
 				for( int k=1; k<X.Length(); k+=2 )
-					accum |= (	uint32(X[k]->GetChromosomeByType(TypeID)->GeneAs<BitArray>(i)->GetBit( j )) ^ 
-								uint32(X[k+1]->GetChromosomeByType(TypeID)->GeneAs<BitArray>(i)->GetBit( j ))
+					accum |= (	uint32(X[k]->GetChromosomeByType(TypeID)->GeneAs<BitArray>(i).GetBit( j )) ^ 
+								uint32(X[k+1]->GetChromosomeByType(TypeID)->GeneAs<BitArray>(i).GetBit( j ))
 							);// altered '+=' by '|=', '-' by '^'
 
-				uint32 t_j	= uint32(pParentBitArray1->GetBit( j )) | uint32(pAttrib->F * (float)accum);// altered '+' by '|'
+				uint32 t_j	= uint32(pParentBitArray1.GetBit( j )) | uint32(pAttrib->F * (float)accum);// altered '+' by '|'
 
-				pTrialBitArray->SetBit( j, (int)t_j );
+				pTrialBitArray.SetBit( j, (int)t_j );
 
 	
 				j	= ( j+1 )%numParams;

@@ -92,7 +92,7 @@ int main( int argc, char **argv )
 	g_SGASolver.TakeSnapshot( g_SnapShot );
 	g_SGASolver.ReleasePopulation();
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 
 	tcout << tendl;
@@ -120,7 +120,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.TakeSnapshot( g_SnapShot );
 	g_MIEASolver.ReleasePopulation();
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 
 
 	return 0;

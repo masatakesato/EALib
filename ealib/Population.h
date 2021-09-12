@@ -53,7 +53,8 @@ namespace ealib
 		const OreOreLib::Array<IChromosome*>& Indivuduals() const	{ return m_Individuals; }
 		OreOreLib::Array<IChromosome*>& Indivuduals()				{ return m_Individuals; }
 
-		const DesignParamArray* GetDesignParamArray() const			{ return m_Individuals[0]->GetDesignParamArray(); }
+		DesignParamArray& GetDesignParamArray()						{ return m_Individuals[0]->GetDesignParamArray(); }
+		const DesignParamArray& GetDesignParamArray() const			{ return m_Individuals[0]->GetDesignParamArray(); }
 			
 
 		float Score( int i ) const			{ return m_Individuals[i]->Score(); }

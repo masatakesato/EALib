@@ -33,7 +33,8 @@ namespace ealib
 		virtual IEvolutionaryAlgorithm* Clone() const;
 		virtual void Step( Evaluator* pEval );
 		virtual void Evolve( Evaluator* pEval, unsigned int seed=0 );
-		virtual Population* GetPopulation() const{ return (Population *)&m_Population[parentGen]; }
+		virtual Population& GetPopulation() { return m_Population[ parentGen ]; }
+		virtual const Population& GetPopulation() const { return m_Population[ parentGen ]; }
 		virtual void TakeSnapshot( Population& pOut ) const;
 
 		
@@ -90,7 +91,8 @@ namespace ealib
 		virtual IEvolutionaryAlgorithm* Clone() const;
 		virtual void Step( Evaluator* pEval );
 		virtual void Evolve( Evaluator* pEval, unsigned int seed=0 );
-		virtual Population* GetPopulation() const{ return (Population *)&m_Population[ parentGen ]; }
+		virtual Population& GetPopulation() { return m_Population[ parentGen ]; }
+		virtual const Population& GetPopulation() const { return m_Population[ parentGen ]; }
 		virtual void TakeSnapshot( Population& pOut ) const;
 
 

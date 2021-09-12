@@ -32,30 +32,30 @@ namespace ealib
 
 		for( int i=0; i<pTrial->Size(); ++i )
 		{
-			auto pTrialBitArray		= pTrial->GeneAs<BitArray>(i);
-			auto pParentBitArray1	= parents[0]->GeneAs<BitArray>(i);
-			auto pParentBitArray2	= parents[1]->GeneAs<BitArray>(i);
-			auto pParentBitArray3	= parents[2]->GeneAs<BitArray>(i);
+			auto& pTrialBitArray			= pTrial->GeneAs<BitArray>(i);
+			const auto& pParentBitArray1	= parents[0]->GeneAs<BitArray>(i);
+			const auto& pParentBitArray2	= parents[1]->GeneAs<BitArray>(i);
+			const auto& pParentBitArray3	= parents[2]->GeneAs<BitArray>(i);
 
-			int numParams	= pTrialBitArray->BitLength();
+			int numParams	= pTrialBitArray.BitLength();
 			int jrand		= int( OreOreLib::genrand_real2() * numParams );
 
 			// Select Crossover point from dimention
 			for( int j=0; j<numParams; ++j )
 			{
-				int t_j	= pTrialBitArray->GetBit( j );
+				int t_j	= pTrialBitArray.GetBit( j );
 
 				// Crossover
 				if( OreOreLib::genrand_real1() < pAttrib->CR || j==jrand )
 				{
-					int x_r1_j = pParentBitArray1->GetBit( j ),
-						x_r2_j = pParentBitArray2->GetBit( j ),
-						x_r3_j = pParentBitArray3->GetBit( j );
+					int x_r1_j = pParentBitArray1.GetBit( j ),
+						x_r2_j = pParentBitArray2.GetBit( j ),
+						x_r3_j = pParentBitArray3.GetBit( j );
 
 					int fa = (int)round( pAttrib->F * float( x_r2_j != x_r3_j ) );
 					t_j	= int( x_r1_j != fa );
 
-					pTrialBitArray->SetBit( j, t_j );
+					pTrialBitArray.SetBit( j, t_j );
 				}
 				else
 				{
@@ -81,30 +81,30 @@ namespace ealib
 
 		for( int i=0; i<pTrial->Size(); ++i )
 		{
-			auto pBTrial	= pTrial->GeneAs<BitArray>(i);
-			auto pBParent1	= pParent1->GeneAs<BitArray>(i);
-			auto pBParent2	= pParent2->GeneAs<BitArray>(i);
-			auto pBParent3	= pParent3->GeneAs<BitArray>(i);
+			auto& pBTrial			= pTrial->GeneAs<BitArray>(i);
+			const auto& pBParent1	= pParent1->GeneAs<BitArray>(i);
+			const auto& pBParent2	= pParent2->GeneAs<BitArray>(i);
+			const auto& pBParent3	= pParent3->GeneAs<BitArray>(i);
 
-			int numParams	= pBTrial->BitLength();
+			int numParams	= pBTrial.BitLength();
 			int jrand		= int( OreOreLib::genrand_real2() * numParams );
 
 			// Select Crossover point from dimention
 			for( int j=0; j<numParams; ++j )
 			{
-				int t_j	= pBTrial->GetBit( j );
+				int t_j	= pBTrial.GetBit( j );
 
 				// Crossover
 				if( OreOreLib::genrand_real1() < pAttrib->CR || j==jrand )
 				{
-					int x_r1_j = pBParent1->GetBit( j ),
-						x_r2_j = pBParent2->GetBit( j ),
-						x_r3_j = pBParent3->GetBit( j );
+					int x_r1_j = pBParent1.GetBit( j ),
+						x_r2_j = pBParent2.GetBit( j ),
+						x_r3_j = pBParent3.GetBit( j );
 
 					int fa = (int)round( pAttrib->F * float( x_r2_j != x_r3_j ) );
 					t_j	= int( x_r1_j != fa );
 
-					pBTrial->SetBit( j, t_j );
+					pBTrial.SetBit( j, t_j );
 				}
 				else
 				{

@@ -40,15 +40,15 @@ namespace ealib
 
 			for( int i=0; i<chromosome->Size(); ++i )
 			{
-				DesignParameter* pDParam = chromosome->GetDesignParameter( i );
-				const float64 range = 0.1 * float64( pDParam->UpperBoundary<T>() - pDParam->LowerBoundary<T>() );
+				const DesignParameter& pDParam = chromosome->GetDesignParameter( i );
+				const float64 range = 0.1 * float64( pDParam.UpperBoundary<T>() - pDParam.LowerBoundary<T>() );
 
 				float mutateProb	= float( OreOreLib::genrand_real1() );
 				if( mutateProb < mutate_prob )
 				{
 					//tcout << "Mutate_RealNumber()... Applying Gaussian Mutation..." << tendl;
-					T val = *chromosome->GeneAs<T>( i ) + T( range * ( 2.0 * OreOreLib::genrand_real1() - 1.0 ) ); // offset by range * [-1.0, +1.0]
-					*chromosome->GeneAs<T>( i ) = Clamp( val, pDParam->LowerBoundary<T>(), pDParam->UpperBoundary<T>() );
+					T val = chromosome->GeneAs<T>( i ) + T( range * ( 2.0 * OreOreLib::genrand_real1() - 1.0 ) ); // offset by range * [-1.0, +1.0]
+					chromosome->GeneAs<T>( i ) = Clamp( val, pDParam.LowerBoundary<T>(), pDParam.UpperBoundary<T>() );
 				}
 			}// end of i loop
 

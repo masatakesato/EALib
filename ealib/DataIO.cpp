@@ -169,7 +169,7 @@ namespace ealib
 		//============== Create param names part ================//
 		for( int i=0; i<chromosome->Size(); ++i )
 		{
-			tstring key = chromosome->GetDesignParameter( i )->Key();
+			tstring key = chromosome->GetDesignParameter( i ).Key();
 
 			if( key.empty() )
 				key = tstring( _T( "param_" ) ) + to_tstring( i );
@@ -188,7 +188,7 @@ namespace ealib
 			for( int j=0; j<chromosome->Size(); ++j )
 			{
 
-				int16 type = chromosome->GetDesignParameter( j )->TypeID();
+				int16 type = chromosome->GetDesignParameter( j ).TypeID();
 
 				if( type!= TYPE_UNKNOWN )
 					param_set += c_NumericToTString[ type ]( chromosome->GetGene( j ) );

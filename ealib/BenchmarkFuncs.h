@@ -26,7 +26,7 @@ class AckleyFunction : public IObjectiveFunction
 
 		for( int i=0; i<chromosome->Size(); ++i )
 		{
-			double xi	= double( *chromosome->GeneAs<float>( i ) );
+			double xi	= double( chromosome->GeneAs<float>( i ) );
 
 			x_sqrd_sum	+= xi * xi;
 			x_cos_sum	+= cos( 2.0 * M_PI * xi );
@@ -56,7 +56,7 @@ class SphereFunction : public IObjectiveFunction
 
 		for( int i=0; i<chromosome->Size(); ++i )
 		{
-			double xi	= double( *chromosome->GeneAs<float>( i ) );
+			double xi	= double( chromosome->GeneAs<float>( i ) );
 			result	+= xi * xi;
 		}
 
@@ -81,8 +81,8 @@ class RosenbrockFunction : public IObjectiveFunction
 
 		for( int i=0; i<chromosome->Size()-1; ++i )
 		{
-			double xi		= double( *chromosome->GeneAs<float>( i ) );
-			double xi_1	= double( *chromosome->GeneAs<float>( i + 1 ) );
+			double xi		= double( chromosome->GeneAs<float>( i ) );
+			double xi_1	= double( chromosome->GeneAs<float>( i + 1 ) );
 
 			result += 100.0 * pow( xi_1 - xi * xi, 2.0 ) + pow( xi-1, 2.0 );
 		}
@@ -102,8 +102,8 @@ class BealeFunction : public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		double x1	= double( *chromosome->GeneAs<float>( 0 ) );
-		double x2	= double( *chromosome->GeneAs<float>( 1 ) );
+		double x1	= double( chromosome->GeneAs<float>( 0 ) );
+		double x2	= double( chromosome->GeneAs<float>( 1 ) );
 		double result	= pow( 1.5 - x1 + x1 * x2, 2.0 ) + pow( 2.25 - x1 + x1*x2*x2, 2.0 ) + pow( 2.625 - x1 + x1 * x2*x2*x2, 2.0 );
 
 		return float( result );
@@ -122,8 +122,8 @@ class GoldsteinPriceFunction: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		double x1	= double( *chromosome->GeneAs<float>( 0 ) );
-		double x2	= double( *chromosome->GeneAs<float>( 1 ) );
+		double x1	= double( chromosome->GeneAs<float>( 0 ) );
+		double x2	= double( chromosome->GeneAs<float>( 1 ) );
 		double result	= ( 1 + pow( x1 + x2 + 1, 2 ) * ( 19 - 14*x1 + 3*x1*x1 - 14*x2 + 6*x1*x2 + 3*x2*x2 ) ) *
 							( 30 + pow( 2*x1 - 3*x2, 2 ) * ( 18 - 32*x1 + 12*x1*x1 + 48*x2 - 36*x1*x2 + 27*x2*x2 ) );
 
@@ -143,8 +143,8 @@ class BukinFunctionN6: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		double x1	= double( *chromosome->GeneAs<float>( 0 ) );
-		double x2	= double( *chromosome->GeneAs<float>( 1 ) );
+		double x1	= double( chromosome->GeneAs<float>( 0 ) );
+		double x2	= double( chromosome->GeneAs<float>( 1 ) );
 		double result	= 100 * sqrt( fabs( x2 - 0.01*x2*x2 ) ) + 0.01 * fabs( x1 + 10 );
 
 		return float( result );
@@ -166,8 +166,8 @@ class MatyasFunction: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		double x1	= double( *chromosome->GeneAs<float>( 0 ) );
-		double x2	= double( *chromosome->GeneAs<float>( 1 ) );
+		double x1	= double( chromosome->GeneAs<float>( 0 ) );
+		double x2	= double( chromosome->GeneAs<float>( 1 ) );
 		double result	= 0.26 * ( x1*x1 + x2*x2 ) - 0.48 * x1 * x2;
 
 		return float( result );
@@ -186,8 +186,8 @@ class LeviFunctionN13: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		double x1	= double( *chromosome->GeneAs<float>( 0 ) );
-		double x2	= double( *chromosome->GeneAs<float>( 1 ) );
+		double x1	= double( chromosome->GeneAs<float>( 0 ) );
+		double x2	= double( chromosome->GeneAs<float>( 1 ) );
 		double result	= pow( sin( 3*M_PI*x1 ), 2 ) + pow( x1-1, 2 ) * ( 1 + pow( sin( 3*M_PI*x2 ), 2 ) ) + pow( x2-1, 2 ) * ( 1 + pow( sin( 2*M_PI*x2 ), 2 ) );
 
 		return float( result );
@@ -206,8 +206,8 @@ class ThreeHumpCamelFunction: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		double x1	= double( *chromosome->GeneAs<float>( 0 ) );
-		double x2	= double( *chromosome->GeneAs<float>( 1 ) );
+		double x1	= double( chromosome->GeneAs<float>( 0 ) );
+		double x2	= double( chromosome->GeneAs<float>( 1 ) );
 		double result	= 2*x1*x1 - 1.05*pow( x1, 4 ) + pow( x1, 6 )/6 + x1*x2 + x2*x2;
 
 		return float( result );
@@ -226,8 +226,8 @@ class EasomFunction: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		double x1	= double( *chromosome->GeneAs<float>( 0 ) );
-		double x2	= double( *chromosome->GeneAs<float>( 1 ) );
+		double x1	= double( chromosome->GeneAs<float>( 0 ) );
+		double x2	= double( chromosome->GeneAs<float>( 1 ) );
 		double result	= -cos( x1 ) * cos( x2 ) * exp( -( pow( x1-M_PI, 2 ) + pow( x2-M_PI, 2 ) ) );
 
 		return float( result );
@@ -246,8 +246,8 @@ class EggholderFunction: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		double x1	= double( *chromosome->GeneAs<float>( 0 ) );
-		double x2	= double( *chromosome->GeneAs<float>( 1 ) );
+		double x1	= double( chromosome->GeneAs<float>( 0 ) );
+		double x2	= double( chromosome->GeneAs<float>( 1 ) );
 		double result	= -( x2 + 47 ) * sin( sqrt( fabs( x2 + x1/2 + 47 ) ) ) - x1 * sin( sqrt( fabs( x1 - ( x2 + 47 ) ) ) );
 
 		return float( result );
@@ -266,8 +266,8 @@ class McCormickFunction : public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		double x1	= double( *chromosome->GeneAs<float>( 0 ) );
-		double x2	= double( *chromosome->GeneAs<float>( 1 ) );
+		double x1	= double( chromosome->GeneAs<float>( 0 ) );
+		double x2	= double( chromosome->GeneAs<float>( 1 ) );
 		double result	= sin( x1+x2 ) + pow( x1-x2, 2 ) - 1.5*x1 + 2.5*x2 + 1;
 
 		return float( result );
@@ -288,8 +288,8 @@ class SchafferFunctionN2 : public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		double x1	= double( *chromosome->GeneAs<float>( 0 ) );
-		double x2	= double( *chromosome->GeneAs<float>( 1 ) );
+		double x1	= double( chromosome->GeneAs<float>( 0 ) );
+		double x2	= double( chromosome->GeneAs<float>( 1 ) );
 		double result	= ( 0.5 + pow( sin( x1*x1 - x2*x2 ), 2.0 ) - 0.5 ) / pow( 1.0 + .001 * ( x1*x1 + x2*x2 ), 2.0 );
 
 		return float( result );
@@ -310,8 +310,8 @@ class SchafferFunctionN4: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=0 )
 	{
-		double x1	= double( *chromosome->GeneAs<float>( 0 ) );
-		double x2	= double( *chromosome->GeneAs<float>( 1 ) );
+		double x1	= double( chromosome->GeneAs<float>( 0 ) );
+		double x2	= double( chromosome->GeneAs<float>( 1 ) );
 		double result	= ( 0.5 + pow(  cos( sin( x1*x1 - x2*x2 )), 2.0 ) - 0.5 ) / pow( 1.0 + .001 * ( x1*x1 + x2*x2 ), 2.0 );
 
 		return float( result );
@@ -336,7 +336,7 @@ class StyblinskiTankFunction: public IObjectiveFunction
 
 		for( int i=0; i<chromosome->Size(); ++i )
 		{
-			double xi	= double( *chromosome->GeneAs<float>( i ) );
+			double xi	= double( chromosome->GeneAs<float>( i ) );
 			result	+= pow( xi, 4.0 ) - 16.0 * pow( xi, 2.0 ) + 5.0 * xi;
 		}
 

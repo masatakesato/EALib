@@ -172,14 +172,14 @@ namespace ealib
 		Index2D index = m_IndexMap.At( i );//m_pIndexMap->at( i );//
 
 		// 現行keyがm_KeyMapに存在する場合は削除する
-		const tstring& currkey = m_Chromosomes[ index.first ]->GetDesignParameter( index.second )->Key();
+		const tstring& currkey = m_Chromosomes[ index.first ]->GetDesignParameter( index.second ).Key();
 		m_KeyMap.Remove( currkey );
 
 		// { newkey, i }をm_KeyMapに登録する
 		m_KeyMap.Put( newkey, index );
 
 		// 対立遺伝子のキー値を更新する
-		m_Chromosomes[ index.first ]->GetDesignParameter( index.second )->SetKey( newkey );
+		m_Chromosomes[ index.first ]->GetDesignParameter( index.second ).SetKey( newkey );
 
 		return true;
 	}
@@ -229,7 +229,7 @@ namespace ealib
 		m_KeyMap.Put( newkey, index );
 
 		// 対立遺伝子のキー値を更新する
-		m_Chromosomes[ index.first ]->GetDesignParameter( index.second )->SetKey( newkey );
+		m_Chromosomes[ index.first ]->GetDesignParameter( index.second ).SetKey( newkey );
 
 		return true;
 	}

@@ -45,11 +45,11 @@ namespace ealib
 			//chromosome->ClearResult();
 			for( int i=0; i<chromosome->Size(); ++i )
 			{
-				DesignParameter* pDParam = chromosome->GetDesignParameter( i );
+				const DesignParameter& pDParam = chromosome->GetDesignParameter( i );
 
-				T value = pDParam->DefaultValue<T>();
-				Lerp( value, pDParam->LowerBoundary<T>(), pDParam->UpperBoundary<T>(), OreOreLib::genrand_real1() );
-				*chromosome->GeneAs<T>( i ) = value;
+				T value = pDParam.DefaultValue<T>();
+				Lerp( value, pDParam.LowerBoundary<T>(), pDParam.UpperBoundary<T>(), OreOreLib::genrand_real1() );
+				chromosome->GeneAs<T>( i ) = value;
 			}
 		}
 
@@ -59,7 +59,7 @@ namespace ealib
 		{
 			//chromosome->ClearResult();		
 			for( int i=0; i<chromosome->Size(); ++i )
-				chromosome->GeneAs<BitArray>(i)->RandomizeAll();
+				chromosome->GeneAs<BitArray>(i).RandomizeAll();
 		}
 
 

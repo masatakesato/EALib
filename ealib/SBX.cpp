@@ -57,19 +57,19 @@ namespace ealib
 
 		for( int i=0; i<pChild1->Size(); ++i )
 		{
-			DesignParameter* pDParam1	= pChild1->GetDesignParameter( i );// child1's design parameters
-			DesignParameter* pDParam2	= pChild2->GetDesignParameter( i );// child2's design parameters
+			DesignParameter& pDParam1	= pChild1->GetDesignParameter( i );// child1's design parameters
+			DesignParameter& pDParam2	= pChild2->GetDesignParameter( i );// child2's design parameters
 
-			float* p1_i	= pParent1->GeneAs<float>( i );
-			float* p2_i	= pParent2->GeneAs<float>( i );
-			float* c1_i	= pChild1->GeneAs<float>( i );
-			float* c2_i	= pChild2->GeneAs<float>( i );
+			const auto& p1_i	= pParent1->GeneAs<float>( i );
+			const auto& p2_i	= pParent2->GeneAs<float>( i );
+			auto& c1_i			= pChild1->GeneAs<float>( i );
+			auto& c2_i			= pChild2->GeneAs<float>( i );
 
 			float child1=0, child2=0;
-			sbx( *p1_i, *p2_i, child1, child2 );
+			sbx( p1_i, p2_i, child1, child2 );
 
-			*c1_i	= Clamp( child1, pDParam1->LowerBoundary<float>(), pDParam1->UpperBoundary<float>() );
-			*c2_i	= Clamp( child2, pDParam2->LowerBoundary<float>(), pDParam2->UpperBoundary<float>() );
+			c1_i	= Clamp( child1, pDParam1.LowerBoundary<float>(), pDParam1.UpperBoundary<float>() );
+			c2_i	= Clamp( child2, pDParam2.LowerBoundary<float>(), pDParam2.UpperBoundary<float>() );
 
 		}// end of i loop
 	}
@@ -85,19 +85,19 @@ namespace ealib
 
 		for( int i=0; i<pChild1->Size(); ++i )
 		{
-			DesignParameter* pDParam1	= pChild1->GetDesignParameter( i );// child1's design parameters
-			DesignParameter* pDParam2	= pChild2->GetDesignParameter( i );// child2's design parameters
+			const DesignParameter& pDParam1	= pChild1->GetDesignParameter( i );// child1's design parameters
+			const DesignParameter& pDParam2	= pChild2->GetDesignParameter( i );// child2's design parameters
 
-			float* p1_i	= pParent1->GeneAs<float>( i );
-			float* p2_i	= pParent2->GeneAs<float>( i );
-			float* c1_i	= pChild1->GeneAs<float>( i );
-			float* c2_i	= pChild2->GeneAs<float>( i );
+			const auto& p1_i	= pParent1->GeneAs<float>( i );
+			const auto& p2_i	= pParent2->GeneAs<float>( i );
+			auto& c1_i			= pChild1->GeneAs<float>( i );
+			auto& c2_i			= pChild2->GeneAs<float>( i );
 
 			float child1=0, child2=0;
-			sbx( *p1_i, *p2_i, child1, child2 );
+			sbx( p1_i, p2_i, child1, child2 );
 
-			*c1_i	= Clamp( child1, pDParam1->LowerBoundary<float>(), pDParam1->UpperBoundary<float>() );
-			*c2_i	= Clamp( child2, pDParam2->LowerBoundary<float>(), pDParam2->UpperBoundary<float>() );
+			c1_i	= Clamp( child1, pDParam1.LowerBoundary<float>(), pDParam1.UpperBoundary<float>() );
+			c2_i	= Clamp( child2, pDParam2.LowerBoundary<float>(), pDParam2.UpperBoundary<float>() );
 
 		}// end of i loop
 	}

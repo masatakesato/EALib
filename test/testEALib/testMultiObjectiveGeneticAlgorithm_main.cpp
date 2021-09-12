@@ -46,7 +46,7 @@ class SinCurveEvaluator: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=NULL )
 	{
-		float value		= *chromosome->GeneAs<float>();
+		float value		= chromosome->GeneAs<float>();
 		float result	= sin( value );
 
 		//tcout << "value = " << value << ", sin(value) = " << result << tendl;
@@ -62,7 +62,7 @@ class LogisticFuncEvaluator: public IObjectiveFunction
 {
 	virtual float Execute( IChromosome* chromosome, const void* attribs=NULL )
 	{
-		float value		= *chromosome->GeneAs<float>();
+		float value		= chromosome->GeneAs<float>();
 		float result	= 1.0f / (1.0f + exp( -value ));
 		
 		//tcout << "value = " << value << ", f(value) = " << result << tendl;
@@ -321,7 +321,7 @@ int main( int argc, char **argv )
 	//g_NSGA2Solver.TakeSnapshot( g_SnapShot );
 	//g_NSGA2Solver.Release();
 
-	//DisplayPopulation( &g_SnapShot, true );
+	//DisplayPopulation( g_SnapShot, true );
 
 	/*
 	//========= test Multi-Island GA solver	========//
@@ -346,7 +346,7 @@ int main( int argc, char **argv )
 	g_MIEASolver.Release();
 
 
-	DisplayPopulation( &g_SnapShot, true );
+	DisplayPopulation( g_SnapShot, true );
 	*/
 	return 0;
 }
