@@ -24,9 +24,8 @@ namespace ealib
 
 	namespace BoundaryType
 	{
-		const uint8	None		= 0;
-		const uint8	Inclusive	= 1;
-		const uint8	Exclusive	= 2;
+		const uint8	Inclusive	= 0;
+		const uint8	Exclusive	= 1;
 	}
 
 
@@ -243,6 +242,18 @@ namespace ealib
 		const tstring& Key() const
 		{
 			return m_Key;
+		}
+
+
+		uint8 LowerBoundaryType() const
+		{
+			return m_LowerBoundaryType;
+		}
+
+
+		uint8 UpperBoundaryType() const
+		{
+			return m_UpperBoundaryType;
 		}
 
 

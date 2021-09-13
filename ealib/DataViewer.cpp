@@ -1,4 +1,4 @@
-﻿#include	"ChromosomeViewer.h"
+﻿#include	"DataViewer.h"
 
 
 
@@ -11,8 +11,36 @@ namespace ealib
 	//																									//
 	//##################################################################################################//
 
+	// Viewer instances
+	const DesignParameterViewer< g_ChoromosomeTypes > c_DesignParamViewer;
+	const ChromosomeViewer< g_ChoromosomeTypes > c_ChromViewer;
 
-	const ChromosomeViewer< g_ChoromosomeTypes > c_Viewr;
+
+
+
+	// DesignParameter display function
+	void DisplayDesignParameter( const DesignParameter& param )
+	{
+		tcout << typeid(param).name() << _T(":\n");
+
+		c_DesignParamViewer.View( param );
+
+		tcout << tendl;
+	}
+
+
+
+	// DesignParamArrayr display function
+	void DisplayDesignParamArray( const DesignParamArray& params )
+	{
+		tcout << _T("DesignParamArray:\n");
+
+		for( const auto& param : params )
+			c_DesignParamViewer.View( param );
+
+		tcout << tendl;
+	}
+
 
 
 	// Chromosome display function
@@ -20,7 +48,7 @@ namespace ealib
 	{
 		assert( chromosome != nullptr );
 
-		c_Viewr.View( chromosome, chromosome->TypeInfo(), viewgene );
+		c_ChromViewer.View( chromosome, chromosome->TypeInfo(), viewgene );
 	}
 
 
@@ -38,14 +66,11 @@ namespace ealib
 
 		tcout << typeid(pop).name() << _T(":\n");
 
-		tcout << _T( "  Best " );
+		tcout << _T("  Best ");
 		DisplayChromosome( pop.Individual(0), viewgene );
 
-		tcout << _T( "  Worst " );
+		tcout << _T("  Worst ");
 		DisplayChromosome( pop.Individual(pop.NumIndividuals()-1), viewgene );
-
-		//for( int i=0; i<num; ++i )
-		//	DisplayChromosome( pop->Individual(i), viewgene );
 	}
 
 

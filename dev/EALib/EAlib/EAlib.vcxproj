@@ -21,12 +21,12 @@
     <ClInclude Include="..\..\..\ealib\Chromosome1DFactory.h" />
     <ClInclude Include="..\..\..\ealib\Chromosome2D.h" />
     <ClInclude Include="..\..\..\ealib\ChromosomeFactory.h" />
-    <ClInclude Include="..\..\..\ealib\ChromosomeViewer.h" />
     <ClInclude Include="..\..\..\ealib\CoDE.h" />
     <ClInclude Include="..\..\..\ealib\CreepMutation.h" />
     <ClInclude Include="..\..\..\ealib\Crossover.h" />
     <ClInclude Include="..\..\..\ealib\DataIO.h" />
     <ClInclude Include="..\..\..\ealib\DataSizes.h" />
+    <ClInclude Include="..\..\..\ealib\DataViewer.h" />
     <ClInclude Include="..\..\..\ealib\DEAttribute.h" />
     <ClInclude Include="..\..\..\ealib\DesignParameter.h" />
     <ClInclude Include="..\..\..\ealib\DE_Best_1.h" />
@@ -91,10 +91,10 @@
     <ClCompile Include="..\..\..\ealib\BinaryExponentialCrossover.cpp" />
     <ClCompile Include="..\..\..\ealib\BLXalpha.cpp" />
     <ClCompile Include="..\..\..\ealib\Chromosome2D.cpp" />
-    <ClCompile Include="..\..\..\ealib\ChromosomeViewer.cpp" />
     <ClCompile Include="..\..\..\ealib\CoDE.cpp" />
     <ClCompile Include="..\..\..\ealib\Crossover.cpp" />
     <ClCompile Include="..\..\..\ealib\DataIO.cpp" />
+    <ClCompile Include="..\..\..\ealib\DataViewer.cpp" />
     <ClCompile Include="..\..\..\ealib\DE_Best_1.cpp" />
     <ClCompile Include="..\..\..\ealib\DE_Best_2.cpp" />
     <ClCompile Include="..\..\..\ealib\DE_Current_to_Best_1.cpp" />
@@ -207,7 +207,6 @@ copy $(TargetDir)$(TargetName).lib ..\..\..\lib\$(Platform)\</Command>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <ExceptionHandling>Async</ExceptionHandling>
-      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

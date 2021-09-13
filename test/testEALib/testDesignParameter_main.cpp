@@ -20,7 +20,6 @@ int main( int argc, char **argv )
 
 	DesignParamArray designParams;
 
-
 	DesignParameter p{ _T( "attrib1" ), 0.0f, 0.1f, 0.5f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated };
 	AddDesignParam( designParams, p );
 	AddDesignParam( designParams, { _T( "attrib2" ), 3, -5, 5, 0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated } );
@@ -28,6 +27,8 @@ int main( int argc, char **argv )
 	AddDesignParam( designParams, { _T( "attrib4" ), 30, -50, 50, 0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated } );
 
 	SetBoundary( designParams, _T("attrib1"), -999.9f, 333.3f );
+
+	DisplayDesignParamArray( designParams );
 
 	g_Chromosome = Chromosome2D( designParams );
 	DisplayChromosome( &g_Chromosome, true );
@@ -38,6 +39,9 @@ int main( int argc, char **argv )
 	tcout << _T("//===================== Remove attrib2 ======================//\n" );
 
 	RemoveDesignParam( designParams, _T("attrib2") );
+
+	DisplayDesignParamArray( designParams );
+
 
 	g_Chromosome = Chromosome2D( designParams );
 	DisplayChromosome( &g_Chromosome, true );
@@ -50,6 +54,8 @@ int main( int argc, char **argv )
 	DesignParamArray designParams2;
 
 	FilterDesignParamsByType<int32>( designParams2, designParams );
+
+	DisplayDesignParamArray( designParams2 );
 
 	g_Chromosome = Chromosome2D( designParams2 );
 	DisplayChromosome( &g_Chromosome, true );

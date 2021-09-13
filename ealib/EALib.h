@@ -103,5 +103,5 @@
 
 
 //=================== Other helpers =====================//
-#include	"./ChromosomeViewer.h"
+#include	"./DataViewer.h"
 #include	"./ChromosomeFactory.h"

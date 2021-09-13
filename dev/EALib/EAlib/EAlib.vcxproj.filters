@@ -84,9 +84,6 @@
     <ClInclude Include="..\..\..\ealib\Chromosome2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\ealib\ChromosomeViewer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\ealib\CoDE.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -234,6 +231,9 @@
     <ClInclude Include="..\..\..\ealib\RandomInitOperator.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\ealib\DataViewer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\ealib\RandomInitializer.cpp">
@@ -279,9 +279,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\ealib\Chromosome2D.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\ealib\ChromosomeViewer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\ealib\CoDE.cpp">
@@ -372,6 +369,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\ealib\Population.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\ealib\DataViewer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
