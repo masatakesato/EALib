@@ -85,7 +85,7 @@ namespace ealib
 		int	numParamsPerType[ NUM_TYPES ] = { 0 };
 
 		// Preparation for Chromosome1D array generation 
-		for( int i=0; i<m_DesignParameters.Length(); ++i )
+		for( int32 i=0; i<m_DesignParameters.Length<int32>(); ++i )
 		{
 			// Accumulate num of parameters for each type
 			int16 type = m_DesignParameters[i].TypeID();
@@ -102,7 +102,7 @@ namespace ealib
 		ClearTypeToIndex();
 		int16 type = m_DesignParameters[0].TypeID();
 
-		for( int i=0; i<m_DesignParameters.Length(); ++i )
+		for( int32 i=0; i<m_DesignParameters.Length<int32>(); ++i )
 		{
 			if( i==m_DesignParameters.Length()-1 )
 			{
@@ -333,7 +333,7 @@ namespace ealib
 
 		m_Chromosomes.Init( src.NumChromosomeTypes() );
 
-		for( int i=0; i<m_Chromosomes.Length(); ++i )
+		for( int32 i=0; i<m_Chromosomes.Length<int32>(); ++i )
 			m_Chromosomes[i] = src.m_Chromosomes[i]->Clone();
 
 		m_KeyMap		= src.m_KeyMap;//m_pKeyMap		= std::make_unique< std::unordered_map<tstring, Index2D > >( *src.m_pKeyMap );//

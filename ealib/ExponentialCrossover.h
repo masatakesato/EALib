@@ -97,9 +97,9 @@ namespace ealib
 				const auto& pParentBitArray1 = parents[0]->GeneAs<BitArray>(i);
 				auto& pTrialBitArray = pTrial->GeneAs<BitArray>(i);
 
-				int numParams	= pTrialBitArray.BitLength();
-				int j			= int( OreOreLib::genrand_real4()/*genrand_real2()*/ * numParams );
-				int L			= 0;
+				int32 numParams	= pTrialBitArray.BitLength<int32>();
+				int32 j			= int32( OreOreLib::genrand_real4()/*genrand_real2()*/ * numParams );
+				int32 L			= 0;
 	
 				do
 				{
@@ -110,7 +110,7 @@ namespace ealib
 
 					uint32 t_j	= uint32(pParentBitArray1.GetBit( j )) | uint32(pAttrib->F * (float)accum);// altered '+' by '|'
 
-					pTrialBitArray.SetBit( j, (int)t_j );
+					pTrialBitArray.SetBit( j, (bool)t_j );
 
 	
 					j	= ( j+1 )%numParams;
@@ -143,7 +143,7 @@ namespace ealib
 				
 				// Apply Mutation. X[0] + F * ( X[1] - X[2] ) + F * ( X[3] - X[4] )...
 				Type accum = 0;
-				for( int i=1; i<X.Length(); i+=2 )
+				for( int32 i=1; i<X.Length<int32>(); i+=2 )
 					accum += ( X[i]->GetChromosomeByType(TypeID)->GeneAs<Type>( j ) - X[i+1]->GetChromosomeByType(TypeID)->GeneAs<Type>( j ) );
 
 				t_j = Clamp( Type( pX0->GeneAs<Type>( j ) + Type(pAttrib->F * (float)accum) ), pDParam.LowerBoundary<Type>(), pDParam.UpperBoundary<Type>() );
@@ -170,15 +170,15 @@ namespace ealib
 				const auto& pBParent = pX0->GeneAs<BitArray>(i);
 				auto& pBTrial = pTrial->GeneAs<BitArray>(i);
 
-				int numParams	= pBTrial.BitLength();
-				int j			= int( OreOreLib::genrand_real4()/*genrand_real2()*/ * numParams );
-				int L			= 0;
+				int32 numParams	= pBTrial.BitLength<int32>();
+				int32 j			= int32( OreOreLib::genrand_real4()/*genrand_real2()*/ * numParams );
+				int32 L			= 0;
 	
 				do
 				{
 					// Apply Mutation. X[0] + F * ( X[1] - X[2] ) + F * ( X[3] - X[4] )...
 					uint32 accum = 0;
-					for( int k=1; k<X.Length(); k+=2 )
+					for( int32 k=1; k<X.Length<int32>(); k+=2 )
 					{
 						accum |= (	uint32( X[k]->GetChromosomeByType(TypeID)->GeneAs<BitArray>(i).GetBit( j ) ) ^
 									uint32( X[k+1]->GetChromosomeByType(TypeID)->GeneAs<BitArray>(i).GetBit( j )) );// altered '+=' by '|=', '-' by '^'
@@ -186,7 +186,7 @@ namespace ealib
 
 					uint32 t_j	= uint32(pBParent.GetBit( j )) | uint32(pAttrib->F * (float)accum);// altered '+' by '|'
 
-					pBTrial.SetBit( j, (int)t_j );
+					pBTrial.SetBit( j, (bool)t_j );
 
 	
 					j	= ( j+1 )%numParams;

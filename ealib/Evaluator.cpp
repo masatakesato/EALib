@@ -30,9 +30,9 @@ namespace ealib
 
 
 
-	int Evaluator::NumObjectives() const
+	int32 Evaluator::NumObjectives() const
 	{
-		return m_EvalFuncs.Length();
+		return m_EvalFuncs.Length<int32>();
 	}
 
 
@@ -55,7 +55,7 @@ namespace ealib
 	{	
 		int idx = -1;
 
-		for( int i=0; i<m_EvalFuncs.Length(); ++i )
+		for( int32 i=0; i<m_EvalFuncs.Length<int32>(); ++i )
 		{
 			if( pfunc == m_EvalFuncs[i] )
 			{
@@ -76,7 +76,7 @@ namespace ealib
 
 	bool Evaluator::UnbindObjectiveFunction( int i )
 	{
-		if( i<0 || i>=m_EvalFuncs.Length() )
+		if( i<0 || i>=m_EvalFuncs.Length<int32>() )
 			return false;
 
 		m_EvalFuncs.Remove( i );
@@ -89,7 +89,7 @@ namespace ealib
 
 	bool Evaluator::SetSolveMode( int i, SOLVE_MODE mode )
 	{
-		if( i<0 || i>=m_EvalFuncs.Length() )
+		if( i<0 || i>=m_EvalFuncs.Length<int32>() )
 			return false;
 
 		m_Modes[ i ] = mode;

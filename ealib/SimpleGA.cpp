@@ -217,13 +217,13 @@ namespace ealib
 		m_refSelector->BindPopulationData( pParentPopulation->Indivuduals() );
 		m_refSelector->Update();
 
-		int numParents = X.Length();
-		int numChildren = T.Length();
+		int32 numParents = X.Length<int32>();
+		int32 numChildren = T.Length<int32>();
 
 		for( int i=0; i<m_NumFamilies; ++i )
 		{
 			// Select Parents
-			for( int j=0; j<numParents; ++j )
+			for( int32 j=0; j<numParents; ++j )
 			{
 				const IChromosome* chrom = m_Population[ parentGen ].Individual( m_refSelector->Execute() );
 
@@ -235,7 +235,7 @@ namespace ealib
 
 
 			// Construct children group T
-			for( int j=0; j<numChildren; ++j )
+			for( int32 j=0; j<numChildren; ++j )
 			{
 				int popidx = i*numChildren + j;
 
@@ -565,11 +565,11 @@ namespace ealib
 		m_refSelector->BindPopulationData( pParentPopulation->Indivuduals() );
 		m_refSelector->Update();
 
-		int numParents = X.Length();
-		int numChildren = T.Length();
+		int32 numParents = X.Length<int32>();
+		int32 numChildren = T.Length<int32>();
 
 
-		for( int i=0; i<m_NumFamilies; ++i )
+		for( int32 i=0; i<m_NumFamilies; ++i )
 		{
 
 			// Select Parents
@@ -585,7 +585,7 @@ namespace ealib
 
 
 			// Construct children group T
-			for( int j=0; j<numChildren; ++j )
+			for( int32 j=0; j<numChildren; ++j )
 			{
 				int popidx = i*numChildren + j;
 
@@ -617,11 +617,11 @@ namespace ealib
 
 	void MixedSimpleGA::Mutate( Population* pPopulation )
 	{
-		for( int i=0; i<m_Attrib.PopulationSize-m_Attrib.EliteSize; ++i )
+		for( int32 i=0; i<m_Attrib.PopulationSize-m_Attrib.EliteSize; ++i )
 		{
 			Chromosome2D* pChrom = (Chromosome2D*)( pPopulation->Individual(i) );
 
-			for( int j=0; j<pChrom->NumChromosomeTypes(); ++j )
+			for( int32 j=0; j<pChrom->NumChromosomeTypes(); ++j )
 				m_refMutator->Execute( pChrom->GetChromosome(j), m_SGAAttrib.MutationRate );
 
 		}// end of i loop

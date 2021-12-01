@@ -114,7 +114,7 @@ namespace ealib
 			//============== 島毎のGAを初期化する ==============//
 			m_pSolverArray.Init( m_MIGAAttrib.IslandSize );
 			m_bReady = true;
-			for( int i=0; i<m_MIGAAttrib.IslandSize; ++i )
+			for( int32 i=0; i<m_MIGAAttrib.IslandSize; ++i )
 			{
 				m_pSolverArray[i] = m_refSolver->Clone();
 				m_bReady &= m_pSolverArray[i]->InitPopulation( designParams, numObjectives );
@@ -126,7 +126,7 @@ namespace ealib
 			m_Migrants.Init( m_MIGAAttrib.IslandSize );
 			int numMigrants	= Clamp( (int)ceil( m_MIGAAttrib.MigrationRate * (float)m_Attrib.PopulationSize ), 0, m_Attrib.PopulationSize );
 
-			for( int i=0; i<m_MIGAAttrib.IslandSize; ++i )
+			for( int32 i=0; i<m_MIGAAttrib.IslandSize; ++i )
 			{
 				m_Destinations[i]	= -1;
 				m_Migrants[i].Init( designParams, numMigrants, numObjectives );
@@ -192,7 +192,7 @@ namespace ealib
 
 	void MultiIslandEA::ReleasePopulation()
 	{
-		for( int i=0; i<m_pSolverArray.Length(); ++i )
+		for( int32 i=0; i<m_pSolverArray.Length<int32>(); ++i )
 			SafeDelete( m_pSolverArray[i] );
 		m_pSolverArray.Release();
 		

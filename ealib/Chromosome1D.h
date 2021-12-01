@@ -164,8 +164,8 @@ namespace ealib
 	
 
 		// Pure Virtual Functions Override
-		virtual int Size() const					{ return m_DesignParameters.Length(); }
-		virtual int NumChromosomeTypes() const		{ return 1; }
+		virtual int32 Size() const					{ return m_DesignParameters.Length<int32>(); }
+		virtual int32 NumChromosomeTypes() const	{ return 1; }
 		virtual int16 TypeInfo() const				{ return m_TypeInfo; }
 
 		virtual IChromosome* GetChromosome( int i=0 ) const { return (IChromosome*)this; }

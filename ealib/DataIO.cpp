@@ -229,7 +229,7 @@ namespace ealib
 		//==================== Create DesignParameters ===================//
 		designParams.Init( params.Length() );
 
-		for( int i=0; i<params.Length(); ++i )
+		for( int32 i=0; i<params.Length<int32>(); ++i )
 		{
 			OreOreLib::ArrayView<tstring> data( params[i] );
 			

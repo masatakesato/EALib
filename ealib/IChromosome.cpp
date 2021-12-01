@@ -44,7 +44,7 @@ namespace ealib
 			return false;
 
 		m_DesignParameters	= parameters;
-		for( int i=0; i<m_DesignParameters.Length(); ++i )
+		for( int32 i=0; i<m_DesignParameters.Length<int32>(); ++i )
 			m_DesignParameters[i].SetSequentialID( i );// Assign SequentialID
 
 		m_CurrentEval	= 0;

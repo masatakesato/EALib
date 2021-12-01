@@ -9,11 +9,11 @@
 namespace ealib
 {
 	// Forward declaration
-	template< typename T, int N, typename enabled=void > class NPointCrossover;
+	template< typename T, int32 N, typename enabled=void > class NPointCrossover;
 
 
 	// Class implementation
-	template< typename T, int N >
+	template< typename T, int32 N >
 	class /*CLASS_DECLSPEC*/ NPointCrossover< T, N, std::enable_if_t< (std::is_arithmetic_v<T> || std::is_same_v<T, BitArray>) > > : public ICrossoverOperator
 	{
 	public:
@@ -99,7 +99,7 @@ namespace ealib
 				auto& pChild1			= children[0]->GeneAs<BitArray>(i);
 				auto& pChild2			= children[1]->GeneAs<BitArray>(i);
 
-				int bitLength	= Min( Min( Min( pParent1.BitLength(), pParent2.BitLength() ), pChild1.BitLength() ), pChild2.BitLength() );
+				int32 bitLength	= static_cast<int32>( Min( Min( Min( pParent1.BitLength(), pParent2.BitLength() ), pChild1.BitLength() ), pChild2.BitLength() ) );
 
 				// Generate Splice Points without duplication
 				//for( int j=0; j<bitLength; ++j )
@@ -107,7 +107,7 @@ namespace ealib
 
 				//Shuffle( m_SplicePoints, m_BitLength );
 
-				for( int j=0; j<N; ++j )
+				for( int32 j=0; j<N; ++j )
 					m_SplicePoints[j] = int( OreOreLib::genrand_real2() * bitLength );
 
 				std::sort( m_SplicePoints, m_SplicePoints + N );
@@ -188,7 +188,7 @@ namespace ealib
 				auto& pBChild1			= pChild1->GeneAs<BitArray>(i);
 				auto& pBChild2			= pChild2->GeneAs<BitArray>(i);
 
-				int bitLength	= Min( Min( Min( pBParent1.BitLength(), pBParent2.BitLength() ), pBChild1.BitLength() ), pBChild2.BitLength() );
+				int32 bitLength	= static_cast<int32>( Min( Min( Min( pBParent1.BitLength(), pBParent2.BitLength() ), pBChild1.BitLength() ), pBChild2.BitLength() ) );
 
 				// Generate Splice Points without duplication
 				//for( int j=0; j<bitLength; ++j )
@@ -196,7 +196,7 @@ namespace ealib
 
 				//Shuffle( m_SplicePoints, m_BitLength );
 
-				for( int j=0; j<N; ++j )	m_SplicePoints[j] = int( OreOreLib::genrand_real2() * bitLength );
+				for( int32 j=0; j<N; ++j )	m_SplicePoints[j] = int( OreOreLib::genrand_real2() * bitLength );
 				std::sort( m_SplicePoints, m_SplicePoints + N );
 
 

@@ -36,19 +36,19 @@ namespace ealib
 		if( !m_refChromosomes )
 			return;
 
-		int numChroms = m_refChromosomes.Length();
+		int32 numChroms = m_refChromosomes.Length<int32>();
 
-		int pbest = int( OreOreLib::genrand_real2() * (double)m_P * (double)numChroms );
-		int r1	= int( OreOreLib::genrand_real2() * (double)numChroms );
-		int r2	= int( OreOreLib::genrand_real2() * (double)numChroms );
+		int32 pbest = int( OreOreLib::genrand_real2() * (double)m_P * (double)numChroms );
+		int32 r1	= int( OreOreLib::genrand_real2() * (double)numChroms );
+		int32 r2	= int( OreOreLib::genrand_real2() * (double)numChroms );
 
 		if( numChroms >= 4 )
 		{
 			while( r1==pbest || r1==current )
-				r1	= int( OreOreLib::genrand_real2() * (double)numChroms );
+				r1	= int32( OreOreLib::genrand_real2() * (double)numChroms );
 
 			while( r2==pbest || r2==r1 || r2==current )
-				r2	= int( OreOreLib::genrand_real2() * (double)numChroms );
+				r2	= int32( OreOreLib::genrand_real2() * (double)numChroms );
 		}
 
 		selections[0] = m_refChromosomes[current];

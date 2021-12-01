@@ -393,7 +393,7 @@ namespace ealib
 		int16 type = params[0].TypeID();
 		int numTypes = 0;
 
-		for( int i=0; i<params.Length(); ++i )
+		for( int32 i=0; i<params.Length<int32>(); ++i )
 		{
 			if( i==params.Length()-1 )
 			{
@@ -466,7 +466,7 @@ namespace ealib
 	template < typename T >
 	inline static bool SetBoundaryFromString( DesignParamArray& params, const tstring& key, const TCHAR* str_lower, const TCHAR* str_upper )
 	{
-		int idx = (int)OreOreLib::FindIf( params, [&]( const DesignParameter& x ){ return x.Key()==key; } );
+		int32 idx = (int32)OreOreLib::FindIf( params, [&]( const DesignParameter& x ){ return x.Key()==key; } );
 
 		if( idx==-1 )
 			return false;

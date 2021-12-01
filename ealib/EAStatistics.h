@@ -22,7 +22,7 @@ namespace ealib
 
 		EAStatistics &operator=( const EAStatistics& obj );
 
-		void Init( int maxiter, int interval, int numlogs );
+		void Init( uint32 maxiter, uint32 interval, uint32 numlogs );
 		void Release();
 		void Reset( const Population& pop );
 		void Update( const Population& pop );
@@ -30,37 +30,37 @@ namespace ealib
 		EAStatistics* Clone() const;
 		
 		
-		void InitConvergenceChecker( int interval );
+		void InitConvergenceChecker( uint32 interval );
 		void ReleaseConvergenceChecker();
-		void InitLogBuffer( int numlogs );
+		void InitLogBuffer( uint32 numlogs );
 		void ReleaseLogBuffer();
 
-		int MaxIteration() const		{ return m_MaxIter; }
-		void SetMaxIteration( int maxiter ){ m_MaxIter = maxiter; }
+		uint32 MaxIteration() const		{ return m_MaxIter; }
+		void SetMaxIteration( uint32 maxiter ){ m_MaxIter = maxiter; }
 
-		int CurrentIteration() const	{ return m_CurrentIter; }
+		uint32 CurrentIteration() const	{ return m_CurrentIter; }
 
-		int CurrentSequence() const	{ return m_currSeq; }
-		int Interval() const { return m_Sequence.Length(); }
+		uint32 CurrentSequence() const	{ return m_currSeq; }
+		uint32 Interval() const { return m_Sequence.Length<uint32>(); }
 
-		float BestFitness( int iter ) const { return m_Sequence[iter].first; }
-		float WorstFitness( int iter ) const { return m_Sequence[iter].second; }
+		float BestFitness( uint32 iter ) const { return m_Sequence[iter].first; }
+		float WorstFitness( uint32 iter ) const { return m_Sequence[iter].second; }
 
 
 
 	private:
 		
-		using Fitness = Pair<float, float>;// best, worst
+		using Fitness = OreOreLib::Pair<float, float>;// best, worst
 
-		int		m_MaxIter;// max iteration
-		int		m_CurrentIter;// current iteration
+		uint32	m_MaxIter;// max iteration
+		uint32	m_CurrentIter;// current iteration
 
 		// Sequential generation info to keep tracking while iteration
-		int		m_currSeq;
+		uint32	m_currSeq;
 		OreOreLib::Array<Fitness>	m_Sequence;// best/worst fittness of latest m_numSeq iterations
 
 		// Logs
-		int		m_NumLogs;	// number of generations to keep log
+		uint32	m_NumLogs;	// number of generations to keep log
 
 
 		void DeepCopyArrays( const EAStatistics& src );

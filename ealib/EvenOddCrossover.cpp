@@ -34,12 +34,12 @@ namespace ealib
 			auto& pChild1			= children[0]->GeneAs<BitArray>(i);
 			auto& pChild2			= children[1]->GeneAs<BitArray>(i);
 
-			int bitLength = Min(Min(Min(pParent1.BitLength(), pParent2.BitLength()), pChild1.BitLength()), pChild2.BitLength());
+			int32 bitLength = static_cast<int32>( Min(Min(Min(pParent1.BitLength(), pParent2.BitLength()), pChild1.BitLength()), pChild2.BitLength()) );
 
 			pChild1.CopyFrom( &pParent1 );
 			pChild2.CopyFrom( &pParent2 );
 
-			for( int j=0; j<bitLength; j+=2 )
+			for( int32 j=0; j<bitLength; j+=2 )
 			{
 				pChild1.SetBit( j, pParent2.GetBit(j) );// +-+-+-+-
 				pChild2.SetBit( j, pParent1.GetBit(j) );// -+-+-+-+
@@ -65,12 +65,12 @@ namespace ealib
 			auto& pBChild1			= pChild1->GeneAs<BitArray>(i);
 			auto& pBChild2			= pChild2->GeneAs<BitArray>(i);
 
-			int bitLength = Min(Min(Min(pBParent1.BitLength(), pBParent2.BitLength()), pBChild1.BitLength()), pBChild2.BitLength());
+			int32 bitLength = static_cast<int32>( Min(Min(Min(pBParent1.BitLength(), pBParent2.BitLength()), pBChild1.BitLength()), pBChild2.BitLength()) );
 
 			pBChild1.CopyFrom( &pBParent1 );
 			pBChild2.CopyFrom( &pBParent2 );
 
-			for( int j=0; j<bitLength; j+=2 )
+			for( int32 j=0; j<bitLength; j+=2 )
 			{
 				pBChild1.SetBit( j, pBParent2.GetBit(j) );// +-+-+-+-
 				pBChild2.SetBit( j, pBParent1.GetBit(j) );// -+-+-+-+

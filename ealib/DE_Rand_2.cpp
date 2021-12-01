@@ -29,30 +29,30 @@ namespace ealib
 		if( !m_refChromosomes )
 			return;
 
-		int numChroms = m_refChromosomes.Length();
+		int32 numChroms = m_refChromosomes.Length<int32>();
 
-		int r1	= int( OreOreLib::genrand_real2() * (double)numChroms );
-		int r2	= int( OreOreLib::genrand_real2() * (double)numChroms );
-		int r3	= int( OreOreLib::genrand_real2() * (double)numChroms );
-		int r4	= int( OreOreLib::genrand_real2() * (double)numChroms );
-		int r5	= int( OreOreLib::genrand_real2() * (double)numChroms );
+		int32 r1	= int32( OreOreLib::genrand_real2() * (double)numChroms );
+		int32 r2	= int32( OreOreLib::genrand_real2() * (double)numChroms );
+		int32 r3	= int32( OreOreLib::genrand_real2() * (double)numChroms );
+		int32 r4	= int32( OreOreLib::genrand_real2() * (double)numChroms );
+		int32 r5	= int32( OreOreLib::genrand_real2() * (double)numChroms );
 
 		if( numChroms >= 6 )
 		{
 			while( r1 == current )
-				r1	= int( OreOreLib::genrand_real2() * (double)numChroms );
+				r1	= int32( OreOreLib::genrand_real2() * (double)numChroms );
 
 			while( r2==r1 || r2==current )
-				r2	= int( OreOreLib::genrand_real2() * (double)numChroms );
+				r2	= int32( OreOreLib::genrand_real2() * (double)numChroms );
 
 			while( r3==r1 || r3==r2 || r3==current )
-				r3	= int( OreOreLib::genrand_real2() * (double)numChroms );
+				r3	= int32( OreOreLib::genrand_real2() * (double)numChroms );
 
 			while( r4==r1 || r4==r2 || r4==r3 || r4==current )
-				r4	= int( OreOreLib::genrand_real2() * (double)numChroms );
+				r4	= int32( OreOreLib::genrand_real2() * (double)numChroms );
 
 			while( r5==r1 || r5==r2 || r5==r3 || r5==r4 || r5==current )
-				r5	= int( OreOreLib::genrand_real2() * (double)numChroms );
+				r5	= int32( OreOreLib::genrand_real2() * (double)numChroms );
 		}
 		
 		selections[0] = m_refChromosomes[r1];

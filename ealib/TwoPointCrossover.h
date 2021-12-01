@@ -105,12 +105,12 @@ namespace ealib
 				auto& pChild1			= children[0]->GeneAs<BitArray>(i);
 				auto& pChild2			= children[1]->GeneAs<BitArray>(i);
 
-				int bitLength	= Min( Min( Min( pParent1.BitLength(), pParent2.BitLength() ), pChild1.BitLength() ), pChild2.BitLength() );
-				int splicePoints[2]	={ int( OreOreLib::genrand_real2() * bitLength ), int( OreOreLib::genrand_real2() * bitLength ) };
+				int32 bitLength			= static_cast<int32>( Min( Min( Min( pParent1.BitLength(), pParent2.BitLength() ), pChild1.BitLength() ), pChild2.BitLength() ) );
+				int32 splicePoints[2]	= { int32( OreOreLib::genrand_real2() * bitLength ), int32( OreOreLib::genrand_real2() * bitLength ) };
 
 				if( splicePoints[0] > splicePoints[1] )
 				{
-					int temp = splicePoints[0];
+					int32 temp = splicePoints[0];
 					splicePoints[0]	= splicePoints[1];
 					splicePoints[1]	= temp;
 				}
@@ -189,12 +189,12 @@ namespace ealib
 				auto& pBChild1			= pChild1->GeneAs<BitArray>(i);
 				auto& pBChild2			= pChild2->GeneAs<BitArray>(i);
 
-				int bitLength	= Min( Min( Min( pBParent1.BitLength(), pBParent2.BitLength() ), pBChild1.BitLength() ), pBChild2.BitLength() );
-				int splicePoints[2]	={ int( OreOreLib::genrand_real2() * bitLength ), int( OreOreLib::genrand_real2() * bitLength ) };
+				int32 bitLength			= static_cast<int32>( Min( Min( Min( pBParent1.BitLength(), pBParent2.BitLength() ), pBChild1.BitLength() ), pBChild2.BitLength() ) );
+				int32 splicePoints[2]	= { int32( OreOreLib::genrand_real2() * bitLength ), int32( OreOreLib::genrand_real2() * bitLength ) };
 
 				if( splicePoints[0] > splicePoints[1] )
 				{
-					int temp = splicePoints[0];
+					int32 temp = splicePoints[0];
 					splicePoints[0]	= splicePoints[1];
 					splicePoints[1]	= temp;
 				}

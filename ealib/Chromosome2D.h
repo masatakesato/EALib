@@ -18,7 +18,7 @@ namespace ealib
 
 	class CLASS_DECLSPEC Chromosome2D : public IChromosome
 	{
-		using Index2D = Pair<int, int>;// first: chromosome index, second: gene index
+		using Index2D = OreOreLib::Pair<int, int>;// first: chromosome index, second: gene index
 
 	public:
 
@@ -41,8 +41,8 @@ namespace ealib
 
 
 		// Pure Virtual Functions Override.
-		virtual int Size() const					{ return m_DesignParameters.Length(); }
-		virtual int NumChromosomeTypes() const		{ return m_Chromosomes.Length(); }
+		virtual int32 Size() const					{ return m_DesignParameters.Length<int32>(); }
+		virtual int32 NumChromosomeTypes() const	{ return m_Chromosomes.Length<int32>(); }
 		//virtual int16 TypeInfo() const			{ return TYPE_UNKNOWN; }// Disabled
 
 		virtual IChromosome* GetChromosome( int i=0 ) const;

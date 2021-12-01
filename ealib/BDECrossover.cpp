@@ -42,7 +42,7 @@ namespace ealib
 			const auto& pParentBitArray = pParent->GeneAs<BitArray>(i);
 			auto& pTrialBitArray = pTrial->GeneAs<BitArray>(i);
 
-			int numParams	= pTrialBitArray.BitLength();
+			int numParams	= int( pTrialBitArray.BitLength() );
 			int jrand		= int( OreOreLib::genrand_real2() * numParams );
 
 			// Select Crossover point from dimension
@@ -80,7 +80,7 @@ namespace ealib
 			const auto& pBParent = pParent->GeneAs<BitArray>(i);
 			auto& pBTrial = pTrial->GeneAs<BitArray>(i);
 
-			int numParams	= pBTrial.BitLength();
+			int numParams	= int( pBTrial.BitLength() );
 			int jrand		= int( OreOreLib::genrand_real2() * numParams );
 
 			// Select Crossover point from dimension

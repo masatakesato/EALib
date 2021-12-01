@@ -56,7 +56,7 @@ namespace ealib
 
 
 
-		static size_t Size( int numObjectives )
+		static int32 Size( int numObjectives )
 		{
 			return	sizeof( NumObjectives ) + 
 					sizeof( ParetoRank ) +
@@ -199,14 +199,14 @@ namespace ealib
 
 
 
-		const EvalResultView& operator[]( std::size_t n ) const&
+		const EvalResultView& operator[]( OreOreLib::MemSizeType n ) const&
 		{
 			return (EvalResultView&)m_Bytes[n * m_ResultSize];
 		}
 
 
 		// Subscription operator for read-write.( called if Memory is non-const )
-		EvalResultView& operator[]( std::size_t n ) &
+		EvalResultView& operator[]( OreOreLib::MemSizeType n ) &
 		{
 			return (EvalResultView&)m_Bytes[n * m_ResultSize];
 		}
@@ -221,8 +221,8 @@ namespace ealib
 
 	private:
 
-		int		m_numObjectives;
-		size_t	m_ResultSize;
+		int						m_numObjectives;
+		int32					m_ResultSize;
 		OreOreLib::Array<uint8> m_Bytes;// byte array
 
 

@@ -129,7 +129,7 @@ namespace ealib
 		, m_Individuals( obj.m_Individuals )
 	{
 
-		for( int i=0; i<m_Individuals.Length(); ++i )
+		for( int32 i=0; i<m_Individuals.Length<int32>(); ++i )
 		{
 			m_Individuals[i] = obj.m_Individuals[i]->Clone();
 			m_Individuals[i]->BindEvalResultView( &m_PopResult[i] );
@@ -159,7 +159,7 @@ namespace ealib
 			m_PopResult.Init( obj.NumIndividuals(), obj.NumObjectives() );
 			m_Individuals.Init( obj.m_Individuals.Length() );
 
-			for( int i=0; i<m_Individuals.Length(); ++i )
+			for( int32 i=0; i<m_Individuals.Length<int32>(); ++i )
 			{
 				m_Individuals[i] = obj.m_Individuals[i]->Clone();
 				m_Individuals[i]->BindEvalResultView( &m_PopResult[i] );
@@ -200,7 +200,7 @@ namespace ealib
 		// 1世代分(入力用と出力用の2つ)のChromosome(設計変数)群の配列を確保する.
 		m_Individuals.Init( pop_size );
 
-		for( int i=0; i<m_Individuals.Length(); ++i )
+		for( int32 i=0; i<m_Individuals.Length<int32>(); ++i )
 		{
 			m_Individuals[i] = factory.Create( designParams );
 			m_Individuals[i]->SetID( i );
@@ -233,7 +233,7 @@ namespace ealib
 	void Population::Release()
 	{
 		// Release Chromosomes
-		for( int i=0; i<m_Individuals.Length(); ++i )
+		for( int32 i=0; i<m_Individuals.Length<int32>(); ++i )
 			SafeDelete( m_Individuals[i] );
 		m_Individuals.Release();
 
@@ -245,8 +245,8 @@ namespace ealib
 
 	void Population::CopyChromosomes( const Population* pSrc, int startidx )
 	{
-		int length = Min( pSrc->m_Individuals.Length(), m_Individuals.Length()-startidx );
-		for( int i=0; i<length; ++i )
+		int32 length = static_cast<int32>( Min( pSrc->m_Individuals.Length(), m_Individuals.Length()-startidx ) );
+		for( int32 i=0; i<length; ++i )
 			m_Individuals[ i + startidx ]->CopyGeneFrom( pSrc->m_Individuals[ i ] );
 
 	}
@@ -262,8 +262,8 @@ namespace ealib
 
 	void Population::Initialize( Initializer* pInit, Evaluator* pEval )
 	{
-		for( int i=0; i<m_Individuals.Length(); ++i )
-			m_Individuals[i]->Initialize( pInit );
+		for( auto pindividual : m_Individuals )
+			pindividual->Initialize( pInit );
 
 		Evaluate( pEval );
 	}
@@ -272,8 +272,8 @@ namespace ealib
 
 	void Population::Clear( Evaluator* pEval )
 	{
-		for( int i=0; i<m_Individuals.Length(); ++i )
-			m_Individuals[i]->ClearGene();
+		for( auto pindividual : m_Individuals )
+			pindividual->ClearGene();
 
 		Evaluate( pEval );
 	}
@@ -282,8 +282,8 @@ namespace ealib
 
 	void Population::Evaluate( Evaluator* pEval )
 	{
-		for( int i=0; i<m_Individuals.Length(); ++i )
-			pEval->Evaluate( m_Individuals[i] );
+		for( auto pindividual : m_Individuals )
+			pEval->Evaluate( pindividual );
 
 		Sort( SORT_MODE::SORT_FITNESS_DESCEND );// 適応度が高い順にソートする
 	}
@@ -297,9 +297,9 @@ namespace ealib
 
 	void Population::Shuffle()
 	{
-		for( int i=0; i<m_Individuals.Length(); ++i )
+		for( int32 i=0; i<m_Individuals.Length<int32>(); ++i )
 		{
-			int j = int( OreOreLib::genrand_real2() * m_Individuals.Length() );
+			int32 j = int32( OreOreLib::genrand_real2() * m_Individuals.Length() );
 			IChromosome* temp	= m_Individuals[i];
 			m_Individuals[i]	= m_Individuals[j];
 			m_Individuals[j]	= temp;

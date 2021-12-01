@@ -403,7 +403,7 @@ namespace ealib
 
 	void MixedCoDE::Step( Evaluator* pEval )
 	{
-		int numChromTypes = m_Population[parentGen].Individual(0)->NumChromosomeTypes();
+		auto numChromTypes = m_Population[parentGen].Individual(0)->NumChromosomeTypes();
 
 		static OreOreLib::StaticArray<const IChromosome*, 11> X;// = { nullptr, nullptr, nullptr, nullptr, nullptr };
 		static OreOreLib::StaticArray<IChromosome*, 1> T;// = { nullptr };
@@ -418,7 +418,7 @@ namespace ealib
 		m_DE_Current_to_Rand_1.BindPopulationData( m_Population[parentGen].Indivuduals() );
 
 
-		for( int i=0; i<m_Attrib.PopulationSize; ++i )
+		for( int32 i=0; i<m_Attrib.PopulationSize; ++i )
 		{
 			Chromosome2D* x_i	= (Chromosome2D *)m_Population[parentGen].Individual( i );
 

@@ -33,7 +33,7 @@ namespace ealib
 
 			uint16 type = designParams[0].TypeID();
 
-			for( int i=1; i<designParams.Length(); ++i )
+			for( int32 i=1; i<designParams.Length<int32>(); ++i )
 				if( type != designParams[i].TypeID() )
 					return new Chromosome2D( designParams );
 

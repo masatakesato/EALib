@@ -114,7 +114,7 @@ namespace ealib
 
 					tcout	<< _T("    ") << pDParam.Key()// key
 					<< _T(" [") << pDParam.UpperBoundary<int>() <<	_T("]: ");
-					for( int j=bitarray->BitLength()-1; j>=0; --j )
+					for( int32 j=bitarray->BitLength<int32>()-1; j>=0; --j )
 					{
 						tcout << bitarray->GetBit(j);
 						if( j % BitSize::uInt8 == 0 ) tcout << _T(" ");

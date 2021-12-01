@@ -36,8 +36,8 @@ namespace ealib
 			const auto& pParentBitArray1 = parents[0]->GeneAs<BitArray>(i);
 			auto& pTrialBitArray = pTrial->GeneAs<BitArray>(i);
 
-			int numParams	= pTrialBitArray.BitLength();
-			int jrand		= int( OreOreLib::genrand_real2() * numParams );
+			int32 numParams	= pTrialBitArray.BitLength<int32>();
+			int32 jrand		= int32( OreOreLib::genrand_real2() * numParams );
 
 			// Select Crossover point from dimention
 			for( int j=0; j<numParams; ++j )
@@ -54,7 +54,7 @@ namespace ealib
 
 					t_j	= uint32(pParentBitArray1.GetBit( j )) | uint32(pAttrib->F * (float)accum);// altered '+' by 'OR' 
 
-					pTrialBitArray.SetBit( j, (int)t_j );
+					pTrialBitArray.SetBit( j, (bool)t_j );
 				}
 				else
 				{
@@ -80,11 +80,11 @@ namespace ealib
 			const auto& pBParent = pX0->GeneAs<BitArray>(i);
 			auto& pBTrial = pTrial->GeneAs<BitArray>(i);
 
-			int numParams	= pBTrial.BitLength();
-			int jrand		= int( OreOreLib::genrand_real2() * numParams );
+			int32 numParams	= pBTrial.BitLength<int32>();
+			int32 jrand		= int32( OreOreLib::genrand_real2() * numParams );
 
 			// Select Crossover point from dimention
-			for( int j=0; j<numParams; ++j )
+			for( int32 j=0; j<numParams; ++j )
 			{
 				uint32 t_j = pBTrial.GetBit( j );
 
@@ -93,7 +93,7 @@ namespace ealib
 				{
 					// Apply Mutation. X[0] + F * ( X[1] - X[2] ) + F * ( X[3] - X[4] )...
 					uint32 accum = 0;
-					for( int k=1; k<X.Length(); k+=2 )
+					for( int32 k=1; k<X.Length<int32>(); k+=2 )
 					{
 						accum |= (	uint32( X[k]->GetChromosomeByType(TypeID)->GeneAs<BitArray>(i).GetBit( j )) ^
 									uint32( X[k+1]->GetChromosomeByType(TypeID)->GeneAs<BitArray>(i).GetBit( j ))
@@ -102,7 +102,7 @@ namespace ealib
 
 					t_j	= uint32(pBParent.GetBit( j )) | uint32(pAttrib->F * (float)accum);// altered '+' by 'OR' 
 
-					pBTrial.SetBit( j, (int)t_j );
+					pBTrial.SetBit( j, (bool)t_j );
 				}
 				else
 				{

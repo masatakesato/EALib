@@ -28,7 +28,7 @@ namespace ealib
 
 		void Release();
 
-		int NumObjectives() const;
+		int32 NumObjectives() const;
 		//void AddObjectiveFunction( IObjectiveFunction* pfunc, SOLVE_MODE mode );
 		bool BindObjectiveFunction( IObjectiveFunction* pfunc, SOLVE_MODE mode );
 		bool UnbindObjectiveFunction( IObjectiveFunction* pfunc );
@@ -40,7 +40,7 @@ namespace ealib
 
 		void Evaluate( IChromosome* chromosome, const void* attribs=0 )
 		{
-			for( int i=0; i<m_EvalFuncs.Length(); ++i )
+			for( int32 i=0; i<m_EvalFuncs.Length<int32>(); ++i )
 			{
 				if( m_Modes[i] == SOLVE_MODE::UNKNOWN )
 					continue;

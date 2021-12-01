@@ -57,14 +57,14 @@ namespace ealib
 
 		// 適応度の最小値を取得する.
 		m_MinValue = m_refChromosomes[0]->Fitness();
-		for( int i=0; i<m_refChromosomes.Length(); ++i )
+		for( int32 i=0; i<m_refChromosomes.Length<int32>(); ++i )
 		{
 			float fitness = m_refChromosomes[i]->Fitness();
 			if( fitness < m_MinValue )	m_MinValue	= fitness;
 		}
 
 		// 親個体の累積選択率を計算する. 負値を避けるため、適応度の最小値を使って底上げする
-		for( int i=0; i<m_refChromosomes.Length(); ++i )
+		for( int32 i=0; i<m_refChromosomes.Length<int32>(); ++i )
 		{
 			float prob = m_refChromosomes[i]->Fitness() - m_MinValue + (float)EPSILON_E5;
 
@@ -83,7 +83,7 @@ namespace ealib
 		
 		float randVal	= float( OreOreLib::genrand_real1() ) * m_PrefixSum[ m_refChromosomes.Length() - 1 ];//pChromosomes[arraySize-1]->Fitness();
 
-		for( int i=0; i<m_refChromosomes.Length(); ++i )
+		for( int32 i=0; i<m_refChromosomes.Length<int32>(); ++i )
 		{
 			if( randVal <= m_PrefixSum[i] )
 				return i;

@@ -49,7 +49,7 @@ namespace ealib
 
 
 
-	void EAStatistics::Init( int maxiter, int interval, int numlogs )
+	void EAStatistics::Init( uint32 maxiter, uint32 interval, uint32 numlogs )
 	{
 		m_MaxIter		= maxiter;
 		m_CurrentIter	= 0;
@@ -94,7 +94,7 @@ namespace ealib
 
 		// Set Convergence
 		++m_currSeq;
-		int currIdx = m_currSeq % m_Sequence.Length();
+		int32 currIdx = m_currSeq % m_Sequence.Length<int32>();
 		m_Sequence[ currIdx ].first		= pop.Individual( 0 )->Fitness();
 		m_Sequence[ currIdx ].second	= pop.Individual( pop.NumIndividuals()-1 )->Fitness();
 	}
@@ -108,7 +108,7 @@ namespace ealib
 
 
 
-	void EAStatistics::InitConvergenceChecker( int interval )
+	void EAStatistics::InitConvergenceChecker( uint32 interval )
 	{
 		ReleaseConvergenceChecker();
 
@@ -125,7 +125,7 @@ namespace ealib
 
 
 
-	void EAStatistics::InitLogBuffer( int numlogs )
+	void EAStatistics::InitLogBuffer( uint32 numlogs )
 	{
 		ReleaseLogBuffer();
 

@@ -72,8 +72,8 @@ namespace ealib
 
 
 		// Pure Virtual Functions.
-		virtual int Size() const = 0;
-		virtual int NumChromosomeTypes() const=0;
+		virtual int32 Size() const=0;
+		virtual int32 NumChromosomeTypes() const=0;
 		virtual int16 TypeInfo() const=0;
 		
 		virtual IChromosome* GetChromosome( int i=0 ) const=0;

@@ -24,7 +24,7 @@ namespace ealib
 		Chromosome1D<BitArray>* pChromosome = new Chromosome1D<BitArray>( designParams );
 
 		// BitArray specific operation. Need to allocate dynamic array
-		for( int i=0; i<pChromosome->Size(); ++i )
+		for( int32 i=0; i<pChromosome->Size(); ++i )
 			pChromosome->GeneAs(i)->Init( designParams[i].UpperBoundary<int>() );
 
 		return pChromosome;
@@ -56,7 +56,7 @@ namespace ealib
 
 			uint16 type = designParams[0].TypeID();
 
-			for( int i=1; i<designParams.Length(); ++i )
+			for( int32 i=1; i<designParams.Length<int32>(); ++i )
 				if( type != designParams[i].TypeID() )
 					return nullptr;
 

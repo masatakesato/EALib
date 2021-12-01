@@ -48,7 +48,7 @@ namespace ealib
 		void Sort( SORT_MODE mode=SORT_MODE::SORT_FITNESS_DESCEND );// ソート
 		void Shuffle();	// 要素のランダム順序入れ替え
 		
-		int NumIndividuals() const									{ return m_Individuals.Length(); }
+		int32 NumIndividuals() const								{ return m_Individuals.Length<int32>(); }
 		IChromosome* Individual( int i ) const						{ return m_Individuals[i]; }
 		const OreOreLib::Array<IChromosome*>& Indivuduals() const	{ return m_Individuals; }
 		OreOreLib::Array<IChromosome*>& Indivuduals()				{ return m_Individuals; }

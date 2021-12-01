@@ -21,7 +21,7 @@ namespace ealib
 
 	class CLASS_DECLSPEC NSGA2 : public IEvolutionaryAlgorithm
 	{
-		using Parents = Pair<int, int>;
+		using Parents = OreOreLib::Pair<int, int>;
 
 	public:
 
@@ -73,7 +73,7 @@ namespace ealib
 
 	class CLASS_DECLSPEC MixedNSGA2: public IEvolutionaryAlgorithm
 	{
-		using Parents = Pair<int, int>;
+		using Parents = OreOreLib::Pair<int, int>;
 
 	public:
 

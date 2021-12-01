@@ -614,14 +614,14 @@ namespace ealib
 		int countSuccess	= 0;
 
 		int	numArchives		= 0;
-		int numChromTypes	= m_Population[parentGen].Individual(0)->NumChromosomeTypes();
+		int32 numChromTypes	= m_Population[parentGen].Individual(0)->NumChromosomeTypes();
 
 		UpdateControlParams();
 		m_Mutator.BindPopulationData( m_Population[parentGen].Indivuduals() );
 		m_Mutator.SetNumArchives( m_numActiveArchives );
 
 
-		for( int i=0; i<m_Attrib.PopulationSize; ++i )
+		for( int32 i=0; i<m_Attrib.PopulationSize; ++i )
 		{
 			Chromosome2D* x_i	= (Chromosome2D *)m_Population[ parentGen ].Individual( i );
 			Chromosome2D* t_i	= (Chromosome2D *)m_Population[ dummy ].Individual( 0 );// Trial vector1// 中間個体

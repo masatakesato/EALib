@@ -45,7 +45,7 @@ int main( int argc, char **argv )
 	g_Chromosome.Init( designParams );
 	g_Chromosome.Initialize( &initializer );
 
-	for( int i=0; i<designParams.Length(); ++i )
+	for( int32 i=0; i<designParams.Length<int32>(); ++i )
 	{
 		g_Chromosome.GetDesignParameter(i).SetLowerBoundary( 0.0f + float(i) );
 		g_Chromosome.GetDesignParameter(i).SetUpperBoundary( 0.1f + float(i) );

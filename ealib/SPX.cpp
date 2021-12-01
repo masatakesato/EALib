@@ -18,13 +18,13 @@ namespace ealib
 
 
 	SPX::SPX( const DesignParamArray& designParams )
-		: ICrossoverOperator( TYPE_ID<float>, { 0.0f, designParams.Length()+1, 1 } )
+		: ICrossoverOperator( TYPE_ID<float>, { 0.0f, designParams.Length<int32>()+1, 1 } )
 		, m_G( c_Factory.Create( designParams ) )
 		, m_rs( m_xs.Length() )
 		, m_xs( designParams.Length() + 1 )
 		, m_Cs( designParams.Length() + 1 )
 	{
-		for( int i=0; i<m_xs.Length(); ++i )
+		for( int32 i=0; i<m_xs.Length<int32>(); ++i )
 			m_xs[i] = m_G->Clone();
 	}
 
@@ -44,7 +44,7 @@ namespace ealib
 		m_G	= c_Factory.Create( designParams );
 
 		m_xs.Init( designParams.Length() + 1 );
-		for( int i=0; i<m_xs.Length(); ++i )
+		for( int32 i=0; i<m_xs.Length<int32>(); ++i )
 			m_xs[i] = m_G->Clone();
 	}
 
@@ -56,12 +56,12 @@ namespace ealib
 
 		m_rs.Release();
 
-		for( int i=0; i<m_xs.Length(); ++i )
+		for( int32 i=0; i<m_xs.Length<int32>(); ++i )
 			SafeDelete( m_xs[i] );
 		m_xs.Release();
 
 
-		for( int i=0; i<m_Cs.Length(); ++i )
+		for( int32 i=0; i<m_Cs.Length<int32>(); ++i )
 			SafeDelete( m_Cs[i] );
 		m_Cs.Release();
 	}
@@ -70,7 +70,7 @@ namespace ealib
 
 	void SPX::Execute( int numparents, const IChromosome* parents[], int numchildren, IChromosome* children[], const void* attribs )
 	{
-		assert( numparents >= m_xs.Length() );
+		ASSERT( numparents >= m_xs.Length<int32>() );
 
 		m_G->ClearGene();
 
@@ -79,21 +79,21 @@ namespace ealib
 		{
 			float& gi = m_G->GeneAs<float>(i);
 
-			for( int j=0; j<m_xs.Length(); ++j )
+			for( int32 j=0; j<m_xs.Length<int32>(); ++j )
 				gi += parents[j]->GeneAs<float>(i);
 
 			gi /= numparents;
 		}
 
 		// Generte random numbers
-		for( int i=0; i<m_rs.Length(); ++i )
+		for( int32 i=0; i<m_rs.Length<int32>(); ++i )
 		{
 			m_rs[i] = (float)pow( OreOreLib::genrand_real1(), 1.0/(1.0+i) );
 		}
 
 
 		// Calculate xi and Ci
-		for( int k=0; k<m_xs.Length(); ++k )
+		for( int32 k=0; k<m_xs.Length<int32>(); ++k )
 		{
 			auto* xi = m_xs[k];
 			const auto* pi = parents[k];
@@ -136,25 +136,25 @@ namespace ealib
 		m_G->ClearGene();
 
 		// Calculate center of mass
-		for( int i=0; i<m_G->Size(); ++i )
+		for( int32 i=0; i<m_G->Size(); ++i )
 		{
 			float& gi = m_G->GeneAs<float>(i);
 
-			for( int j=0; j<m_xs.Length(); ++j )
+			for( int32 j=0; j<m_xs.Length<int32>(); ++j )
 				gi += X[j]->GetChromosomeByType(TypeID)->GeneAs<float>(i);
 
 			gi /= X.Length();
 		}
 
 		// Generte random numbers
-		for( int i=0; i<m_rs.Length(); ++i )
+		for( int32 i=0; i<m_rs.Length<int32>(); ++i )
 		{
 			m_rs[i] = (float)pow( OreOreLib::genrand_real1(), 1.0/(1.0+i) );
 		}
 
 
 		// Calculate xi and Ci
-		for( int k=0; k<m_xs.Length(); ++k )
+		for( int32 k=0; k<m_xs.Length<int32>(); ++k )
 		{
 			auto* xi = m_xs[k];
 			auto* pi = X[k]->GetChromosomeByType( TypeID );

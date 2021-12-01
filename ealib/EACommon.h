@@ -1,6 +1,8 @@
 ﻿#ifndef	EA_COMMON_H
 #define	EA_COMMON_H
 
+#include	<oreore/common/Utility.h>
+
 
 
 namespace ealib
@@ -9,9 +11,9 @@ namespace ealib
 	// EA共通アトリビュート
 	struct EACommonAttribute
 	{
-		int	PopulationSize;	// 個体数.
-		int	NumGenerations;	// 世代数(最大)
-		int	EliteSize;		// エリート個体の数
+		int32	PopulationSize;	// 個体数.
+		int32	NumGenerations;	// 世代数(最大)
+		int32	EliteSize;		// エリート個体の数
 
 		void Clear()
 		{
@@ -51,9 +53,9 @@ namespace ealib
 	// MultiIslandEAの設定
 	struct MIEAAttribute
 	{
-		int				IslandSize;
+		int32			IslandSize;
 		MIGRATION_MODE	MigrationMode;
-		int				MigrationInterval;	// 個体移住が発生する何世代間隔
+		int32			MigrationInterval;	// 個体移住が発生する何世代間隔
 		float			MigrationRate;	// 別島への移住率. [0.0, 1.0]
 
 		void Clear()
