@@ -1,0 +1,143 @@
+[ 参考 : GAで図形並べて画像生成するプログラム ]
+https://github.com/azadyasar/AI/blob/master/genetic_algorithm4image_generation/image_artist.py
+
+
+
+[ 参考 : ベイズ最適化 ]、、、、、、、、、、、、、、、、未着手
+・https://qiita.com/mokemokechicken/items/52fcb7d5057e9a5d85c4
+
+
+
+[ ガウス過程実装 ]、、、、、、、、、、、、、、、、、、未着手
+virtual void InitPopulation( int numObjectives );
+virtual void InitPopulation( const IChromosome& refChromosome, int numObjectives );
+ 
+
+
+
+
+・DesignParameterのActivate/Deactivate、、、、、、、、、、、、、作業中
+　→ゴミ設計変数が混在している場合の最適化挙動、調査、、、済
+　　→最適化自体は可能。少し遅くなる
+　→最適化前に設計変数ごとにオン/オフを指定したい、、、、、、、作業中
+　　→Geneを生成/編集するのはどこ？
+
+
+
+・DataIOクラスがDesignParamArrayをロードできるようにする、、、、、、済
+　→CSVファイルからDesignParameter展開する機能だけ関数化、、、済
+　→CSV操作処理の整理、、、、、済
+
+・Crossverクラスに登録するオペレータの親数/子数を統一、、、、、、済
+　→CrossoverOperatorは可変長/固定の両方がある
+　→複数型から個体扱う場合は、オペレータの親子数揃えておく必要がある
+　→気をつけてね
+
+
+・交叉オペレータの実装、、、、、、、、、、、、、、、、、作業中
+　→SPX
+　→UNDX
+　
+・選択オペレータの実装、、、、、、、、、、、、、、、、、作業中
+　→JGG
+　→MGG
+https://qiita.com/ryoutoku/items/3c51d43510b905261f14
+
+
+・制約付き問題から制約なし問題への変換、、、、、、、、、、、作業中
+　→ペナルティ関数法
+　→バリア関数法
+
+　→εGA作ってみる、、、、、、、、、、、、、、、、、、、、、作業中
+　　→Cauchy Mutation
+
+　file:///D:/Downloads/IPSJ-JNL4706028.pdf
+
+
+
+・DesignParameterで設計変数定義、IChromosomeを内部変数化？、、、済
+
+
+・Chromosome生成までの手続き簡略化できないか、、、、、、、済
+　→DesignParameterクラス、、、、、、、済
+　　→AlleleDesc, IAllele, Allele<T>を統合化
+　→ヘッダーとソースに分離しておく、、、、中止
+　　→テンプレート使った関数が結構多い
+
+・AlleleDesc, IAllele, Allele型だった変数の名前を整理する、、、、、済
+　→Allele→DesignParameterへ
+
+
+・目的関数の抽象化
+→パラメータパックにしてアドレスポインタだけで渡す？
+→シリアライザー挟む設計が必要
+→ChromosomeView
+
+
+・FileIOまわりの型処理、、、、、、、、、、、、、、、、、、、、、、、済
+　→InitChromosomeFromCSVやっぱテンプレート化したい
+　→Chromosome1DFactoryクラス実装
+
+
+
+・TerminationCriteria導入、、、、、、、、、、、、、、、、、、、、、、済
+　→TerminateOnIteration、、、、、、、済
+　→TerminateOnConvergence、、、、済
+　→TerminateOnPopConvergence、、、中止
+　　→出展元アルゴリズムが意味不明
+
+・Binomial/ExponentialCrossoverのアルゴリズム再確認、、、、、、、、、、、、、済
+　→間違ってた。修正済み
+
+
+・BinaryExponentialCrossoverをExponentialCrossoverに統合化、、、済
+　→SFINAE使って統合化、、、、済
+　→Binary***破棄、、、、、中止
+　　→原因不明だが、単独版の方が性能がいいので残しとく
+
+・BinaryBinomialCrossoverをBinomialCrossoverに統合化、、、済
+　→BinaryExponentialCrossoverと同じ
+
+
+・Chromosome1Dのテンプレート化検討、、、、、、、保留
+　→ChomosomePrinterでも作っとく、、、、済
+　　→IChromosom継承各クラスでのDisplay個別実装をやめる
+　→テンプレート試験実装、、、、、、、、、、、中止
+　　→FileIO::CreateChromosomeFromCSVで問題発生
+　　　→制約条件の変数化で条件分岐発生。
+　　→文字列から変換可能な型を推定する方法が何か必要
+
+・IChromosomeスリム化、、、、、、済
+・Crossoverリファクタリング
+　→Execute内部のswitch(型で条件分岐)をやめる
+　　OnePointCrossover、、、、、、済
+　　TwoPointCrossover、、、、、、済
+　　UniformCrossover、、、、、、、済
+　　NPointCrossover、、、、、、、、済
+　　→SFINAE使って分岐処理ごとに記述分離する。以下DynamicMatrixクラスの例
+　→CrossoverをIChromosomeから完全分離、、、、済
+
+
+・InitializeOperatorリファクタリング、、、、、、、、済
+　→状況把握と仕様検討、、、、、、、、、、、、、、、済
+　　→今後のカスタマイズ性考えてInitializerバインドする機能は残しておきたい
+　　→現状の使い方
+　　　→ZeroInit, OneInit. Randomizeの3種類をフラグ切り替えしてる
+　　→今後
+　　　→ZeroInit, OneInit, RandomizeはグローバルInitializer作っておく
+　　　　→class g_ZeroInitializer : public Initializer
+　　　　→class g_OneInitializer : public Initializer
+　　　　→class g_RondomInitializer : public Initializer
+
+　　　→ZeroReset：IChromosome::Clear()じゃダメ？
+　　　→OneReset
+
+　→InitielizeOne, InitializeZero, Randomize
+　→SFINAE使ってBitArrayと数値の機能を統合化する
+
+
+・EALib改造、、、目的関数の引数を可変長引数にできないか？、、、、ムリ
+　→IChromosomeのポインタ渡して展開するのをやめたい
+　→IChromosomeでパラメータセット保持してる構造にも影響？
+　　→IChromosomeから可変長パラメータに展開できれば特に問題ない
+
