@@ -101,6 +101,14 @@ namespace ealib
 		}
 
 
+		DesignParameter( const DesignParameter& obj )
+		{
+
+
+		}
+
+
+
 
 		void SetLowerBoundaryType( uint8 type )
 		{
