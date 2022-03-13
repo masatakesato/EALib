@@ -35,8 +35,8 @@ int main( int argc, char **argv )
 		{ _T(""), 0.0f, -1.0f, 1.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
 		{ _T(""), 0.0f, -1.0f, 1.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
 		{ _T("abssrf"), 0.0f, -5.0f, 5.0f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
-		{ TYPE_ID<BitArray>, _T("Bitset1"), 0, 0, 18, 0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
-		{ TYPE_ID<BitArray>, _T("Bitset2"), 0, 0, 5, 0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },
+		//{ TYPE_ID<BitArray>, _T("Bitset1"), 0, 0, 18, 0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },// Disabled. Assert test
+		//{ TYPE_ID<BitArray>, _T("Bitset2"), 0, 0, 5, 0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated },// Disabled. Assert test
 	};
 
 

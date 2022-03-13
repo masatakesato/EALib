@@ -132,6 +132,7 @@ namespace ealib
 			// Create Chromosome1D
 			OreOreLib::ArrayView<DesignParameter> partialParams( &m_DesignParameters[ paramStartIdx ], numParams );
 			m_Chromosomes[i] = c_Chrom1DFactory.Create( partialParams );
+// TODO: なんでコピーコンストラクタ呼び出されてる? -> ArrayViewからArrayに暗黙的に変換 -> コピーコンストラクタ起動
 
 			// Register individual designparameter/gene index for Key/Index search
 			for( int j=0; j<m_Chromosomes[i]->Size(); ++j )
