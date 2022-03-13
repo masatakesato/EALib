@@ -101,11 +101,11 @@ namespace ealib
 		}
 
 
-		DesignParameter( const DesignParameter& obj )
-		{
+		//DesignParameter( const DesignParameter& obj )
+		//{
 
 
-		}
+		//}
 
 
 

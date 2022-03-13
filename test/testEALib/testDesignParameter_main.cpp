@@ -22,12 +22,7 @@ int main( int argc, char **argv )
 
 	DesignParameter p{ _T( "attrib1" ), 0.0f, 0.1f, 0.5f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated };
 	AddDesignParam( designParams, p );
-TODO: メモリリーク発生. 要バグ修正.2022.03.13	
 	//designParams.Release();
-	
-	return 0;
-
-
 	AddDesignParam( designParams, { _T( "attrib2" ), 3, -5, 5, 0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated } );
 	AddDesignParam( designParams, { _T( "attrib3" ), 10.0f, 3.14f, 6.28f, 0.0f, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated } );
 	AddDesignParam( designParams, { _T( "attrib4" ), 30, -50, 50, 0, BoundaryType::Inclusive, BoundaryType::Inclusive, SamplingType::Enumerated } );
