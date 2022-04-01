@@ -196,7 +196,7 @@ namespace ealib
 
 		int16									m_TypeInfo;
 		OreOreLib::Array<T>						m_GeneArray;
-		OreOreLib::HashMap< tstring, int, 64 >	m_KeyMap;
+		OreOreLib::HashMap< tstring, int/*, 64*/ >	m_KeyMap;
 //		std::unique_ptr<std::unordered_map<tstring, int>>	m_pKeyMap;//std::unordered_map<tstring, int>	m_KeyMap;
 		// m_KeyMapは名前重複があった場合の動作は保証しない. DesignParameterでKey(名前)を設定しない場合は、キー検索未登録扱いにする
 	};

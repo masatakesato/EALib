@@ -46,7 +46,7 @@ namespace ealib
 	//using fArray = OreOreLib::Array<float>;
 
 
-	const OreOreLib::HashMap< tstring, int16, 16 > g_TypeInfoDict =// const std::unordered_map<tstring, int16>
+	const OreOreLib::HashMap< tstring, int16/*, 16*/ > g_TypeInfoDict =// const std::unordered_map<tstring, int16>
 	{
 		{ _T("bool"),			TYPE_ID<bool> },
 		{ _T("byte"),			TYPE_ID<uint8> },

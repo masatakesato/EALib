@@ -146,7 +146,6 @@ namespace ealib
 	};
 
 
-	                 
 //	using const IChromosome* = const IChromosome*;
 
 

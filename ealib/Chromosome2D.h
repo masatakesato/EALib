@@ -66,8 +66,8 @@ namespace ealib
 		OreOreLib::Array<IChromosome*>	m_Chromosomes;
 
 		// m_KeyMapは名前重複があった場合の動作は保証しない. DesignParameterでKey(名前)を設定しない場合は、キー検索未登録扱いにする
-		OreOreLib::HashMap< tstring, Index2D, 128 >	m_KeyMap;
-		OreOreLib::HashMap< int, Index2D, 128 >		m_IndexMap;
+		OreOreLib::HashMap< tstring, Index2D/*, 128*/ >	m_KeyMap;
+		OreOreLib::HashMap< int, Index2D/*, 128*/ >		m_IndexMap;
 
 		//std::unique_ptr< std::unordered_map< tstring, Index2D > >	m_pKeyMap;//std::unordered_map<tstring, Index2D>	m_KeyMap;// Index2D=( index of m_Chromosomes, data position inside IChromosome )
 		//std::unique_ptr< std::unordered_map< int, Index2D > >		m_pIndexMap;//std::unordered_map<int, Index2D>		m_IndexMap;
